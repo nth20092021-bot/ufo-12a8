@@ -12,7 +12,7 @@ const defaultState=()=>({
   ...emptyState(),
   students:makeStudents(Array.from({length:28},(_,index)=>({
     name:`Học sinh ${String(index+1).padStart(2,'0')}`,
-    gender:index<26?'female':'male'
+    gender:[18,24].includes(index)?'male':'female'
   })))
 });
 // Only an untouched workspace created by account removal is disposable. Any
