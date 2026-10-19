@@ -1,0 +1,116 @@
+@font-face {
+  font-family: 'KROMA Download Pixel';
+  src: url('./KromaPixel-Regular.ttf') format('truetype');
+  font-display: swap;
+  font-weight: 400;
+}
+.kroma-download-dialog {
+  --download-ink: #18382d;
+  position: fixed;
+  inset: 0;
+  width: min(1040px, calc(100% - 32px));
+  max-width: none;
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 3px solid var(--download-ink);
+  border-radius: 0;
+  background: #fffcf0;
+  color: var(--download-ink);
+  box-shadow: 8px 8px 0 #18382d;
+  font: 400 20px/1.5 'KROMA Download Pixel', ui-monospace, monospace;
+  text-align: left;
+}
+.kroma-download-dialog::backdrop { background: #122d27b8; }
+.kroma-download-dialog h2,.kroma-download-dialog p { margin: 0; font-weight: 400; }
+.kroma-download-heading {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 16px 10px 24px;
+  border-bottom: 3px solid var(--download-ink);
+  background: #f7cd79;
+}
+.kroma-download-heading h2 { font-size: 24px; line-height: 1.25; }
+.kroma-download-close {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 2px solid var(--download-ink);
+  border-radius: 0;
+  background: #fffcf0;
+  color: inherit;
+  box-shadow: 3px 3px 0 var(--download-ink);
+  transition: none;
+}
+.kroma-download-close svg { width: 24px; height: 24px; }
+.kroma-download-close:hover { background: #f3ead0; }
+.kroma-download-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); }
+.kroma-download-app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  background: #dce9c6;
+  border-right: 3px solid var(--download-ink);
+}
+.kroma-download-carousel { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.kroma-download-slides { position: relative; width: 100%; height: 230px; overflow: hidden; }
+.kroma-download-slide { position: absolute; top: 0; left: 0; width: 100%; height: 150%; object-fit: contain; object-position: top center; opacity: 0; transition: opacity 350ms ease-in-out; pointer-events: none; user-select: none; }
+.kroma-download-slide.is-active { opacity: 1; }
+.kroma-carousel-caption { min-height: 24px; font-size: 16px; line-height: 1.5; }
+.kroma-carousel-controls { display: flex; align-items: center; justify-content: center; gap: 10px; }
+.kroma-carousel-controls button { display: grid; place-items: center; width: 44px; height: 44px; padding: 8px; border: 2px solid var(--download-ink); border-radius: 0; box-shadow: 3px 3px 0 var(--download-ink); background: #fffcf0; color: inherit; transition: none; }
+.kroma-carousel-controls button:hover { background: #f7cd79; }
+.kroma-carousel-controls svg { width: 24px; height: 24px; }
+.kroma-carousel-pause .play-icon, .kroma-carousel-pause[aria-pressed="true"] .pause-icon { display: none; }
+.kroma-carousel-pause[aria-pressed="true"] .play-icon { display: block; }
+.kroma-download-store { display: block; max-width: 100%; margin: 8px 0; border-radius: 11px; }
+.kroma-download-store img { display: block; width: 248px; max-width: 100%; height: auto; }
+.kroma-download-scan { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 28px; text-align: center; }
+.kroma-download-scan h3 { margin: 0; font: inherit; font-size: 26px; }
+.kroma-download-qr { display: block; flex: none; width: min(calc(100% - 8px), 384px); height: auto; aspect-ratio: 1; margin: 0 8px 8px 0; border: 2px solid var(--download-ink); box-shadow: 8px 8px 0 var(--download-ink); background: #fff; shape-rendering: crispEdges; }
+.kroma-download-scan p { max-width: 34ch; font-size: 16px; }
+.kroma-download-dialog :focus-visible { outline: 3px solid #8a4513; outline-offset: 5px; }
+@media (max-width: 700px) {
+  .kroma-download-dialog { width: calc(100% - 24px); max-height: calc(100dvh - 24px); box-shadow: 4px 4px 0 var(--download-ink); }
+  .kroma-download-heading { padding: 8px 12px; gap: 8px; }
+  .kroma-download-heading h2 { font-size: 18px; }
+  .kroma-download-body { grid-template-columns: minmax(0, 1fr); }
+  .kroma-download-app { align-items: center; gap: 10px; padding: 18px; border-right: 0; border-bottom: 3px solid var(--download-ink); text-align: center; }
+  .kroma-download-slides { height: 150px; }
+  .kroma-download-store { margin: 6px 0; }
+  .kroma-download-store img { width: 192px; }
+  .kroma-download-scan { padding: 18px 14px; gap: 10px; }
+  .kroma-download-scan h3 { font-size: 20px; }
+  .kroma-download-qr { width: min(calc(100% - 8px), 300px); }
+  .kroma-download-scan p { font-size: 14px; }
+}
+@media (min-width: 701px) and (max-height: 600px) {
+  .kroma-download-heading { padding: 6px 12px 6px 20px; }
+  .kroma-download-heading h2 { font-size: 20px; }
+  .kroma-download-app { padding: 18px 24px; gap: 10px; }
+  .kroma-download-app { display: grid; grid-template-columns: minmax(144px, 1fr) minmax(0, 1.1fr); align-content: center; }
+  .kroma-download-carousel { grid-column: 1; grid-row: 1; }
+  .kroma-download-store { grid-column: 2; justify-self: center; text-align: center; }
+  .kroma-download-slides { height: min(130px, calc(100dvh - 220px)); }
+  .kroma-carousel-caption { font-size: 14px; min-height: 21px; }
+  .kroma-download-store { margin: 6px 0; }
+  .kroma-download-store img { width: 192px; }
+  .kroma-download-scan { padding: 12px; gap: 6px; }
+  .kroma-download-scan h3 { font-size: 18px; }
+  .kroma-download-qr { width: min(calc(100% - 8px), 240px, calc(100dvh - 178px)); }
+  .kroma-download-scan p { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .kroma-download-slide { transition: none; } }

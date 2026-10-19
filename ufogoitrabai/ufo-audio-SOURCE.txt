@@ -1,0 +1,192 @@
+UFO game sound assets — source and license record
+Acquired 2026-10-15 (Asia/Ho_Chi_Minh).
+
+The opening section documents the three UFO-phase recordings. Result fanfare and firework sources have their own acquisition and license records below.
+
+Each requested Pixabay page credits the same Freesound author; title, duration and tags match the linked original Freesound page. Original pages list CC0. Exact encoded-byte equality to the unavailable Pixabay download is not claimed.
+
+Pixabay pages and Content License were read. Ordinary browser download reached automatic Cloudflare verification after a transient page JavaScript chunk failure. No CAPTCHA was solved, no login was bypassed, and no verification token was extracted/replayed. Public original previews were downloaded from audio source URLs observed in the rendered Freesound players.
+
+Files are small, complete public MP3 previews, copied without transcoding, pitch changes or offline cropping. The game uses bounded excerpts at normal pitch and fades them with its animation. The downloadable WAV originals require Freesound login and were not accessed.
+
+License for the three UFO-phase recordings: CC0 1.0 Universal
+https://creativecommons.org/publicdomain/zero/1.0/
+Pixabay reference listings separately display the Pixabay Content License:
+https://pixabay.com/service/license-summary/
+https://pixabay.com/service/terms/
+
+ufo-landing.mp3
+Title: UFO Landing.WAV
+Creator: waterboy920 (Freesound)
+Original page: https://freesound.org/people/waterboy920/sounds/63218/
+Requested Pixabay listing: https://pixabay.com/sound-effects/film-special-effects-ufo-landing-93632/
+Acquired media URL: https://cdn.freesound.org/previews/63/63218_451339-lq.mp3
+Acquisition: Exact public MP3 preview served in credited original Freesound player; not the login-gated WAV or a Pixabay download.
+MP3 stereo, 24000 Hz, 13.188917 s, 108576 bytes
+SHA-256 (acquired source and canonical output): 055cc20ab5fc58142381e0d7a0e9e2dc344428a13212f010e3d4cb4bc64b8070
+Suggested runtime onset offset: 0.06 s; normal bounded window: 2.04 s
+Measured bounded-window RMS: -6.70 dBFS; full-file RMS: -10.81 dBFS
+Processing: None. Canonical MP3 is a byte-for-byte copy of acquired public preview. Bounded playback, offsets, gain and fades are applied by the game at runtime.
+
+ufo-departure.mp3
+Title: UFO.wav
+Creator: NHumphrey (Freesound)
+Original page: https://freesound.org/people/NHumphrey/sounds/204417/
+Requested Pixabay listing: https://pixabay.com/sound-effects/film-special-effects-ufo-87476/
+Acquired media URL: https://cdn.freesound.org/previews/204/204417_3430035-lq.mp3
+Acquisition: Exact public MP3 preview served in credited original Freesound player; not the login-gated WAV or a Pixabay download.
+MP3 stereo, 24000 Hz, 3.530667 s, 23688 bytes
+SHA-256 (acquired source and canonical output): be0645be45ce4b54219b2082446025ba66c178eadbf349e5129bb5d9a949ebd7
+Suggested runtime onset offset: 0.10 s; normal bounded window: 1.128 s
+Measured bounded-window RMS: -13.47 dBFS; full-file RMS: -16.22 dBFS
+Processing: None. Canonical MP3 is a byte-for-byte copy of acquired public preview. Bounded playback, offsets, gain and fades are applied by the game at runtime.
+
+ufo-beam.mp3
+Title: Sci-fi alien UFO warble
+Creator: AlaskaRobotics (Freesound)
+Original page: https://freesound.org/people/AlaskaRobotics/sounds/221517/
+Requested Pixabay listing: https://pixabay.com/sound-effects/sci-fi-alien-ufo-warble-86812/
+Acquired media URL: https://cdn.freesound.org/previews/221/221517_1282865-lq.mp3
+Acquisition: Exact public MP3 preview served in credited original Freesound player; not the login-gated WAV or a Pixabay download.
+MP3 stereo, 24000 Hz, 3.500000 s, 24432 bytes
+SHA-256 (acquired source and canonical output): 4bb3e9031b9003f034d9432706c4cc48a774e43f1e9c089d03b966a9e9b8ec24
+Suggested runtime onset offset: 0.00 s. Per-target beam duration varies with target count at normal 1× speed and a 24-second flight: 5.8752 s for 1 target, 1.9584 s for 3 targets, 0.58752 s for 10 targets.
+RMS measurement window only: first 0.92 s of the source, -3.72 dBFS; full-file RMS: -3.72 dBFS. This measurement window does not define runtime beam duration.
+Processing: No offline processing. Canonical MP3 is a byte-for-byte copy of acquired public preview. The game caches a decoded beam loop with an 80 ms tail/head crossfade for longer captures, then applies bounded playback, gain and fades at runtime without changing pitch or source MP3 bytes.
+
+Reproducible acquisition/verification: work/ufo-pixabay-qa/acquire_sources.py
+Detailed technical audit: work/ufo-pixabay-qa/audio-assets-audit.json
+No endorsement by the original creators or Pixabay is implied.
+
+Result fanfare — added2026-10-15
+result-fanfare.mp3
+Title: Success Fanfare Trumpets.mp3
+Creator: FunWithSound (Freesound)
+Original page: https://freesound.org/people/FunWithSound/sounds/456966/
+Requested Pixabay listing: https://pixabay.com/sound-effects/film-special-effects-success-fanfare-trumpets-6185/
+Acquired media URL: https://cdn.freesound.org/previews/456/456966_6456158-lq.mp3
+License: CC0 1.0 Universal
+License URL: https://creativecommons.org/publicdomain/zero/1.0/
+Acquisition: Exact public MP3 preview served by the credited original Freesound player, downloaded from its rendered source URL; not the login-gated original MP3 or a Pixabay download.
+MP3 stereo, 24000 Hz, 4.437458 s, 36648 bytes
+SHA-256 (acquired source and canonical output): 73b02ed2fb888f9097712dadeca3af712efb7eac537ffca7ecf497eb0762de85
+Measured onset: 0.00 s (first10ms mono window above−45dBFS)
+Measured mono RMS: -20.66 dBFS; mono peak: 0.599530
+Measured stereo RMS: -22.76 dBFS; stereo peak: 0.479213; active first3s stereo RMS: -21.06 dBFS
+Processing: None. Canonical MP3 is a byte-for-byte copy of the acquired public preview. Full duration, original pitch, no offline crop or re-encoding.
+Identity verification: Requested Pixabay6185 and Freesound456966 share title, author FunWithSound, approximate4-second duration and16 tags. The primary Freesound page lists CC0. Root independently verified both primary pages; encoded-byte identity with the unavailable Pixabay download is not claimed.
+Access: Ordinary Pixabay browser navigation encountered automatic Cloudflare verification and then timed out. No CAPTCHA solved, no login bypassed, no verification tokens extracted or replayed. Only the public original player preview was retrieved.
+Technical audit: work/remove-typing-sound-qa/source/result-fanfare-audit.json
+Reproducible acquisition: work/remove-typing-sound-qa/source/acquire_result_fanfare.py
+
+Result firework — added2026-10-15
+result-firework.mp3
+Title: Single Firework
+Creator credited by Pixabay: morganpurkis (Freesound)
+Requested and acquired source: https://pixabay.com/sound-effects/film-special-effects-single-firework-79814/
+Published: 2022-08-05
+License: Pixabay Content License
+License summary: https://pixabay.com/service/license-summary/
+Terms: https://pixabay.com/service/terms/
+Acquisition: Exact requested MP3 downloaded through the normal Pixabay Free download button in Chrome. Browser returned /Users/mbp/Downloads/freesound_community-single-firework-79814.mp3. This is the Pixabay download, not a Freesound preview.
+MP3 mono, 48000 Hz, 256 kbps, 1.368000 s, 43776 bytes
+SHA-256 (download, archived source and canonical output): 98b659c299d2971fd81026240c721b9211ce335e2d6577379bbd880f63b08802
+Measured full-file RMS: -30.21 dBFS; first100ms RMS: -19.28 dBFS; peak: 0.949391 at 0.035625 s
+Explosion synchronization: First1ms RMS window above−45dBFS starts at26ms (quiet pre-ringing); the actual steep explosion transient starts at35ms. Start playback at34ms to retain1ms of lead-in and align the boom with the visible burst. Peak occurs at35.625ms. There is no long launch prelude in this1.368-second source.
+Recommended runtime attack fade: at most1ms, to preserve the explosion transient.
+Processing: None. Full MP3 is copied byte-for-byte from the Pixabay download. Runtime offset, gain, any edge fades and one-shot scheduling do not alter the bundled asset.
+Use: Historical result-firework sound, now disabled by removing the burst audio callback. The source asset is retained with its original provenance; visible fireworks are silent. The separate result fanfare still plays once when the result modal opens.
+No CAPTCHA was solved or bypassed. No login, cookie extraction or private endpoint was used.
+Technical audit: work/remove-typing-sound-qa/source/result-firework-audit.json
+Verification script: work/remove-typing-sound-qa/source/verify_result_firework.py
+Reacquisition: open the source listing and use its normal Free download control; compare the downloaded file with the recorded SHA-256.
+
+Beam light sounds — added 2026-10-15
+
+ufo-light-start.mp3
+Title: UFO Sound Effect
+Creator / uploader credited by Pixabay: 11325622
+Requested and acquired listing: https://pixabay.com/sound-effects/film-special-effects-ufo-sound-effect-240256/
+Published: 2024-09-13
+License: Pixabay Content License
+License summary: https://pixabay.com/service/license-summary/
+Terms: https://pixabay.com/service/terms/
+Acquisition: Exact requested MP3 downloaded through the normal Pixabay Free download button in Chrome. No Freesound fallback was used.
+MP3 stereo, 44100 Hz, 256 kbps, 9.142857 s, 292571 bytes
+SHA-256 (download, archived source and canonical output): 19e2d8dedefd80ff78d5afe8226e2dcdf0fcec9eee389111f9bbac59021ef14f
+Measured whole-file stereo RMS: -21.84 dBFS; peak: 0.533960
+First 10 ms RMS window above −45 dBFS: 0.04 s
+Processing: None. Canonical MP3 is a byte-for-byte copy of the acquired Pixabay download; no offline crop, compression or pitch change.
+Runtime guidance: One-shot activation excerpt; do not loop this decaying startup sound.
+Use: Integrated beam-light sound in the UFO classroom game, alongside visual animation, gameplay and other sounds; not offered as standalone stock audio.
+Pixabay page title says UFO Sound Effect by11325622; browser download filename starts11325622. No profile link is currently displayed.
+Suggested opening offset: 0.04 s; measured 1.92 s excerpt RMS: -16.05 dBFS.
+
+ufo-light-loop.mp3
+Title: spacesound
+Creator / uploader credited by Pixabay: SamuelFJohanns
+Requested and acquired listing: https://pixabay.com/sound-effects/film-special-effects-spacesound-7547/
+Published: 2021-08-23
+License: Pixabay Content License
+License summary: https://pixabay.com/service/license-summary/
+Terms: https://pixabay.com/service/terms/
+Acquisition: Exact requested MP3 downloaded through the normal Pixabay Free download button in Chrome. No Freesound fallback was used.
+MP3 stereo, 44100 Hz, 256 kbps, 27.454694 s, 878550 bytes
+SHA-256 (download, archived source and canonical output): 40274807ce76731244b5793b4e9db056885827d584827d79e7af7e6e7fb3b366
+Measured whole-file stereo RMS: -30.67 dBFS; peak: 0.159371
+First 10 ms RMS window above −45 dBFS: 0.31 s
+Processing: None. Canonical MP3 is a byte-for-byte copy of the acquired Pixabay download; no offline crop, compression or pitch change.
+Runtime guidance: Avoid looping the complete27.454694s recording: its fade/silent tail would make the light sound disappear. Cache the1.5–18.5s body with a160ms tail/head crossfade at runtime to maintain continuous light. Source MP3 remains unchanged.
+Use: Integrated beam-light sound in the UFO classroom game, alongside visual animation, gameplay and other sounds; not offered as standalone stock audio.
+Author profile: https://pixabay.com/users/samuelfjohanns-1207793/
+Suggested loop body: 1.5–18.5 s, with 160 ms runtime crossfade; body RMS: -28.80 dBFS.
+
+No CAPTCHA was solved or bypassed. Original MP3 bytes remain unchanged.
+Technical audit: work/beam-light-confetti-qa/source/beam-light-audio-audit.json
+Reacquisition: open each source listing and use its normal Free download control; verify the recorded SHA-256.
+Verification script: work/beam-light-confetti-qa/source/verify_light_assets.py
+
+Full-flight siren — added 2026-10-15
+ufo-air-raid-siren.mp3
+Title: Air Raid Siren Sound Effect
+Creator / uploader credited by Pixabay: 11325622
+Requested and acquired listing: https://pixabay.com/vi/sound-effects/phim-hi%E1%BB%87u-%E1%BB%A9ng-%C4%91%E1%BA%B7c-bi%E1%BB%87t-air-raid-siren-sound-effect-241383/
+Published: 2024-09-17
+License: Pixabay Content License
+License summary: https://pixabay.com/service/license-summary/
+Acquisition: Original MP3 downloaded through the normal Pixabay Free download control in Chrome. The browser showed 11325622-air-raid-siren-sound-effect-241383.mp3 (470 KB, Done).
+MP3 stereo, 44100 Hz, 256 kbps, 15.046531 s, 481489 bytes.
+SHA-256 (download and canonical output): 6e62072979852a2e383ed3e22c18e7838bcb06d1abdec13fe8fbd009b7670d54
+Processing: None. Bundled file remains a byte-for-byte copy of the original download. Current playback first plays the complete recording from offset zero at native rate/pitch before UFO entry, then loops the complete original decoded buffer throughout entry, scanning, capture, suspense and departure. Arrival at scene progress >= 0.10 applies a 20% gain reduction without ending the loop. Only after UFO departure does the current native iteration finish in full without another repeat. An audio-clock stop at the exact buffer boundary preserves the phrase through fast/reduced-motion result transitions and suspense silence. Explicit mute, close, a new run or page exit may still cancel playback; hiding the page saves and resumes the current loop offset or remaining post-departure tail. Native alarm time is independent of game speed and pauses while hidden; reduced motion changes character/ship movement and retains the complete first recording. The earlier three short rising excerpts are superseded by full-recording playback throughout the flight.
+Use: Integrated pre-arrival warning in the UFO classroom game, not a standalone audio offering.
+No CAPTCHA was solved. No login, cookie extraction, or private endpoint was used. An unsolicited Google sign-in offer was dismissed.
+
+Peaceful scene music and pet sounds — added 2026-10-15
+Original procedural audio authored for this game in sound.js. No external recording or downloaded music is used. The calm score is a 24-second phrase at 80 BPM with soft triangle/sine plucks, rests, and sparse two-note harmonies. On visible page load, the game creates an audio context without forcing a resume and starts music if browser autoplay policy permits. A clear enable-sound button remains when blocked; a genuine click or key resumes the context. A visible character bubble is requested as soon as idle audio is ready. Speech autoplay denial has a separate enable-voices prompt. Music ducks during character/welcome speech and stops outside the visible idle scene. The result overlay permits the idle score and character dialogue only after all result recordings, the preserved siren tail, and any pending or active result speech finish; a new result reading pauses ambience again.
+Dog double barks and cat meows are short synthesized effects, using filtered noise and changing pitched/formant tones. They accompany occasional decorative pet visits, never alter gameplay, and yield to spoken dialogue/welcomes. These generated effects are not recordings of real animals.
+
+Character dialogue voices — expanded 2026-10-15
+The 80 authored idle phrases are translated into all nine interface languages. Browser speech uses the matching interface language and the character gender profile. Known matching male/female platform voices are selected when both exist. A single compatible voice uses pitch/rate contrast (male0.85/0.93; female1.12/0.98); no separate male engine is claimed when unavailable. The current local Vietnamese inventory has Linh only. Existing result and welcome voice defaults remain unchanged. Phrase IDs are remembered only after the browser emits utterance start, separately per language, to prevent repeat playback; no names or classroom records are stored in this history.
+
+Occasional cardinal bird recording — added 2026-10-15
+ambient-cardinal.mp3
+Title: cardinal
+Creator credited by Pixabay: nerdwithnikon (Freesound)
+Pixabay uploader: freesound_community
+Requested listing: https://pixabay.com/vi/sound-effects/phim-hi%E1%BB%87u-%E1%BB%A9ng-%C4%91%E1%BA%B7c-bi%E1%BB%87t-cardinal-37075/
+Acquired listing: https://pixabay.com/sound-effects/film-special-effects-cardinal-37075/
+Published: 2022-06-07
+License: Pixabay Content License
+License summary: https://pixabay.com/service/license-summary/
+Terms: https://pixabay.com/service/terms/
+Acquisition: Exact requested MP3 downloaded through the normal public Pixabay Download control in Chrome. The browser returned /Users/mbp/Downloads/freesound_community-cardinal-37075.mp3. This is the actual Pixabay download, not a substituted bird recording or a Freesound preview.
+MP3 stereo, 24000 Hz, 160 kbps, 4.248000 s decoded duration, 84960 bytes.
+SHA-256 (download, archived source and canonical output): 184171326f1374b36c634d87b787f887eb44a7720a6d465e8a0937884a7fbf06
+Measured whole-file stereo RMS: -22.6165 dBFS; decoded peak: 0.747906; first half-second RMS: -20.6464 dBFS. First 10 ms RMS window above -45 dBFS begins at 0.05 s.
+Processing: None. Full MP3 is copied byte-for-byte from the Pixabay download. Runtime gain and brief edge fades do not alter the bundled asset.
+Playback guidance: Full native-rate one-shot from offset zero with quiet runtime gain; allow a long quiet gap between visits, never continuous looping. Yield to spoken dialogue and foreground game/result sounds.
+Use: Occasional nature ambience integrated with the illustrated classroom game, animation, music and gameplay; not offered as standalone stock audio.
+No CAPTCHA was solved, login performed, cookies extracted or private endpoint used.
+Technical audit: work/first-load-audio-qa/source/cardinal-audio-audit.json
+Verification script: work/first-load-audio-qa/source/verify_cardinal.py
+Reacquisition: open the acquired listing and use its normal Download control; compare the file with the recorded SHA-256.

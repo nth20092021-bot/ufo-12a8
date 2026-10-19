@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f6f6ec">
+  
+  
+  <link rel="preload" href="./ufogoitrabai/ufo-air-raid-siren.mp3" as="fetch" type="audio/mpeg" crossorigin fetchpriority="low">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛸%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./ufogoitrabai/styles.css">
+  <link rel="stylesheet" href="./ufogoitrabai/sharing.css">
+  <link rel="stylesheet" href="./ufogoitrabai/avatar-editor.css">
+  <script type="module" src="./ufogoitrabai/app.js" nonce="2ryC4aVx8QFeFxf6+yOxwVz0YNqJx2xW"></script>
+  <link rel="stylesheet" href="./ufogoitrabai/analytics.css">
+  <link rel="stylesheet" href="./ufogoitrabai/class-code.css">
+  <link rel="stylesheet" href="./ufogoitrabai/profile-card.css">
+  <link rel="stylesheet" href="./ufogoitrabai/attendance.css">
+  <link rel="stylesheet" href="./ufogoitrabai/attendance-history.css">
+  <link rel="stylesheet" href="./ufogoitrabai/teacher-tools.css">
+  <link rel="stylesheet" href="./ufogoitrabai/sponsor-nudge.css">
+  <link rel="stylesheet" href="./ufogoitrabai/kroma-download.css">
+  <link rel="stylesheet" href="./ufogoitrabai/caught-stamp.css">
+  <link rel="stylesheet" href="./ufogoitrabai/result-celebration.css">
+<link rel="stylesheet" href="./ufogoitrabai/result-actions.css">
+  <link rel="stylesheet" href="./ufogoitrabai/student-details.css">
+  <link rel="stylesheet" href="./ufogoitrabai/action-menus.css">
+  <link rel="stylesheet" href="./ufogoitrabai/i18n.css">
+  <link rel="stylesheet" href="./ufogoitrabai/classroom-switcher.css">
+  <link rel="stylesheet" href="./ufogoitrabai/classroom-wizard.css">
+  <link rel="stylesheet" href="./ufogoitrabai/classroom-settings.css">
+  <link rel="stylesheet" href="./ufogoitrabai/account.css">
+  <link rel="stylesheet" href="./ufogoitrabai/empty-roster.css">
+  <link rel="stylesheet" href="./ufogoitrabai/header-attention.css">
+  <link rel="stylesheet" href="./ufogoitrabai/result-drop.css">
+  <link rel="stylesheet" href="./ufogoitrabai/result-cabin.css">
+  <!-- The static app imports are required at startup; discover them without waiting for each parent module. -->
+  <link rel="modulepreload" href="./ufogoitrabai/account.js">
+  <link rel="modulepreload" href="./ufogoitrabai/action-menus.js">
+  <link rel="modulepreload" href="./ufogoitrabai/ambient-birds.js">
+  <link rel="modulepreload" href="./ufogoitrabai/analytics-policy.js">
+  <link rel="modulepreload" href="./ufogoitrabai/analytics.js">
+  <link rel="modulepreload" href="./ufogoitrabai/api-client.js">
+  <link rel="modulepreload" href="./ufogoitrabai/appearance.js">
+  <link rel="modulepreload" href="./ufogoitrabai/attendance-audio.js">
+  <link rel="modulepreload" href="./ufogoitrabai/attendance-export.js">
+  <link rel="modulepreload" href="./ufogoitrabai/attendance-history.js">
+  <link rel="modulepreload" href="./ufogoitrabai/attendance-sync.js">
+  <link rel="modulepreload" href="./ufogoitrabai/attendance.js">
+  <link rel="modulepreload" href="./ufogoitrabai/avatar-editor.js">
+  <link rel="modulepreload" href="./ufogoitrabai/avatar.js">
+  <link rel="modulepreload" href="./ufogoitrabai/character-art.js">
+  <link rel="modulepreload" href="./ufogoitrabai/classroom-environment.js">
+  <link rel="modulepreload" href="./ufogoitrabai/classroom-settings.js">
+  <link rel="modulepreload" href="./ufogoitrabai/classroom-switcher.js">
+  <link rel="modulepreload" href="./ufogoitrabai/classroom-wizard.js">
+  <link rel="modulepreload" href="./ufogoitrabai/classroom.js">
+  <link rel="modulepreload" href="./ufogoitrabai/core.js">
+  <link rel="modulepreload" href="./ufogoitrabai/environments.js">
+  <link rel="modulepreload" href="./ufogoitrabai/flight-dialogue.js">
+  <link rel="modulepreload" href="./ufogoitrabai/game-state-sync.js">
+  <link rel="modulepreload" href="./ufogoitrabai/i18n.js">
+  <link rel="modulepreload" href="./ufogoitrabai/idle-dialogue-lines.js">
+  <link rel="modulepreload" href="./ufogoitrabai/idle-dialogue.js">
+  <link rel="modulepreload" href="./ufogoitrabai/join-welcome.js">
+  <link rel="modulepreload" href="./ufogoitrabai/kroma-download-carousel.js">
+  <link rel="modulepreload" href="./ufogoitrabai/kroma-download.js">
+  <link rel="modulepreload" href="./ufogoitrabai/live-class.js">
+  <link rel="modulepreload" href="./ufogoitrabai/locales-account-teacher.js">
+  <link rel="modulepreload" href="./ufogoitrabai/locales-account.js">
+  <link rel="modulepreload" href="./ufogoitrabai/locales-app.js">
+  <link rel="modulepreload" href="./ufogoitrabai/locales-attendance.js">
+  <link rel="modulepreload" href="./ufogoitrabai/locales-classroom.js">
+  <link rel="modulepreload" href="./ufogoitrabai/locales-download.js">
+  <link rel="modulepreload" href="./ufogoitrabai/locales-live.js">
+  <link rel="modulepreload" href="./ufogoitrabai/locales-result.js">
+  <link rel="modulepreload" href="./ufogoitrabai/locales-scene.js">
+  <link rel="modulepreload" href="./ufogoitrabai/locales-sharing.js">
+  <link rel="modulepreload" href="./ufogoitrabai/modal-behavior.js">
+  <link rel="modulepreload" href="./ufogoitrabai/motion.js">
+  <link rel="modulepreload" href="./ufogoitrabai/pet-passers.js">
+  <link rel="modulepreload" href="./ufogoitrabai/profile-card.js">
+  <link rel="modulepreload" href="./ufogoitrabai/qr.js">
+  <link rel="modulepreload" href="./ufogoitrabai/result-actions.js">
+  <link rel="modulepreload" href="./ufogoitrabai/result-celebration.js">
+  <link rel="modulepreload" href="./ufogoitrabai/result-headlines.js">
+  <link rel="modulepreload" href="./ufogoitrabai/result-phones.js">
+  <link rel="modulepreload" href="./ufogoitrabai/result-share.js">
+  <link rel="modulepreload" href="./ufogoitrabai/result-speech.js">
+  <link rel="modulepreload" href="./ufogoitrabai/scene-dialogue-lines.js">
+  <link rel="modulepreload" href="./ufogoitrabai/scene.js">
+  <link rel="modulepreload" href="./ufogoitrabai/sharing.js">
+  <link rel="modulepreload" href="./ufogoitrabai/sky.js">
+  <link rel="modulepreload" href="./ufogoitrabai/sound.js">
+  <link rel="modulepreload" href="./ufogoitrabai/sponsor-typing.js">
+  <link rel="modulepreload" href="./ufogoitrabai/street-vendors.js">
+  <link rel="modulepreload" href="./ufogoitrabai/student-details.js">
+  <link rel="modulepreload" href="./ufogoitrabai/suspense.js">
+  <link rel="modulepreload" href="./ufogoitrabai/teacher-account.js">
+  <link rel="modulepreload" href="./ufogoitrabai/teacher-live.js">
+<link rel="stylesheet" href="./ufogoitrabai/page-ads.css"><script type="module" src="./ufogoitrabai/page-ads.js" nonce="2ryC4aVx8QFeFxf6+yOxwVz0YNqJx2xW"></script>
+
+  <title>UFO bắt trả bài – Gọi học sinh ngẫu nhiên · Jcalit</title>
+  <meta name="description" content="Game UFO gọi học sinh ngẫu nhiên để trả bài. Nhập danh sách lớp, tạo nhân vật, mời học sinh bằng mã QR và điểm danh từng bạn.">
+  <link rel="canonical" href="https://jcalit.com/ufogoitrabai/">
+  <link rel="alternate" hreflang="vi" href="https://jcalit.com/ufogoitrabai/">
+  <link rel="alternate" hreflang="en" href="https://jcalit.com/ufogoitrabai/?lang=en">
+  <link rel="alternate" hreflang="zh" href="https://jcalit.com/ufogoitrabai/?lang=zh">
+  <link rel="alternate" hreflang="ja" href="https://jcalit.com/ufogoitrabai/?lang=ja">
+  <link rel="alternate" hreflang="ko" href="https://jcalit.com/ufogoitrabai/?lang=ko">
+  <link rel="alternate" hreflang="es" href="https://jcalit.com/ufogoitrabai/?lang=es">
+  <link rel="alternate" hreflang="fr" href="https://jcalit.com/ufogoitrabai/?lang=fr">
+  <link rel="alternate" hreflang="de" href="https://jcalit.com/ufogoitrabai/?lang=de">
+  <link rel="alternate" hreflang="pt" href="https://jcalit.com/ufogoitrabai/?lang=pt">
+  <link rel="alternate" hreflang="x-default" href="https://jcalit.com/ufogoitrabai/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Jcalit">
+  <meta property="og:title" content="UFO bắt trả bài – Gọi học sinh ngẫu nhiên · Jcalit">
+  <meta property="og:description" content="Game UFO gọi học sinh ngẫu nhiên để trả bài. Nhập danh sách lớp, tạo nhân vật, mời học sinh bằng mã QR và điểm danh từng bạn.">
+  <meta property="og:url" content="https://jcalit.com/ufogoitrabai/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="UFO bắt trả bài – Gọi học sinh ngẫu nhiên · Jcalit">
+  <meta name="twitter:description" content="Game UFO gọi học sinh ngẫu nhiên để trả bài. Nhập danh sách lớp, tạo nhân vật, mời học sinh bằng mã QR và điểm danh từng bạn.">
+</head>
+<body class="ufo-page-ads google-anno-skip">
+<svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+<symbol id="i-ufo" viewBox="0 0 24 24"><path d="M7 10a5 5 0 0 1 10 0M3 11c0-2 18-2 18 0s-4 5-9 5-9-3-9-5Z"/><path d="m6 19-1 2m7-2v3m6-3 1 2M7 12h.01M12 13h.01M17 12h.01"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><path d="m15 5 4 4M4 20l5-1L21 7a2.8 2.8 0 0 0-4-4L5 15l-1 5Z"/></symbol>
+<symbol id="i-expand" viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></symbol>
+<symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 10a9 9 0 1 1 1 7M3 4v6h6"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3m1-16a3 3 0 0 1 0 6m2 3a5 5 0 0 1 3 5v2"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 15v6h16v-6"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-invite" viewBox="0 0 24 24"><circle cx="9" cy="7" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3m4-14v6m-3-3h6"/></symbol>
+<symbol id="i-join" viewBox="0 0 24 24"><path d="M10 4h10v16H10M3 12h12m-4-4 4 4-4 4"/></symbol>
+<symbol id="i-classroom" viewBox="0 0 24 24"><path d="M3 4h18v12H3zM8 21l4-5 4 5M7 8h10M7 12h6"/></symbol>
+<symbol id="i-attendance" viewBox="0 0 24 24"><path d="M9 4H5v17h14V4h-4M9 3h6v4H9zM8 13l3 3 5-6"/></symbol>
+<symbol id="i-history" viewBox="0 0 24 24"><path d="M3 11a9 9 0 1 1 2.6 7M3 4v7h7M12 7v5l3 2"/></symbol>
+<symbol id="i-settings" viewBox="0 0 24 24"><path d="M3 7h7m6 0h5M3 17h3m6 0h9"/><circle cx="13" cy="7" r="3"/><circle cx="9" cy="17" r="3"/></symbol>
+<symbol id="i-account" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></symbol>
+<symbol id="i-qr" viewBox="0 0 24 24"><path d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM15 15h3v3h3v3h-6zM21 12v3M12 3v3M12 12h3M3 12h3M12 18v3"/></symbol>
+<symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.6 2.6 0 0 1 5 1c0 2-2.5 2-2.5 4M12 17h.01"/></symbol>
+<symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+</defs></svg>
+<div class="page-shell"><main><section class="game-panel" id="gamePanel" google-side-rail-overlap="false" aria-label="Sân chơi UFO">
+  <div class="scene-top">
+    <span class="scene-location"><svg class="icon" aria-hidden="true"><use href="#i-ufo"/></svg><span class="scene-title">UFO BẮT TRẢ BÀI</span><span id="languageHost"></span></span>
+    <div class="header-actions">
+      <div class="classroom-header-group"><div id="classHeaderHost"><button type="button" id="classMenuBtn" class="toolbar-btn class-menu-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="classMenu"><svg class="icon" aria-hidden="true"><use href="#i-classroom"/></svg><span id="activeClassroomName"></span><svg class="icon action-menu-chevron" aria-hidden="true"><use href="#i-chevron"/></svg></button></div></div>
+      <button type="button" id="quickAddBtn" class="quick-add-btn" aria-label="Tham gia hoặc tạo lớp" title="Tham gia hoặc tạo lớp" aria-haspopup="menu" aria-expanded="false" aria-controls="quickAddMenu"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></button>
+      <button type="button" id="teacherAccountBtn" class="header-icon-btn" aria-haspopup="dialog" aria-label="Tài khoản" title="Tài khoản"><svg class="icon" aria-hidden="true"><use href="#i-account"/></svg></button>
+    </div>
+  </div>
+    <div id="classMenu" class="action-menu class-menu" role="menu" aria-labelledby="classMenuBtn" hidden>
+      <div id="classroomChoices"></div>
+      <button type="button" id="addClassroomMenuBtn" class="action-menu-item" role="menuitem" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg><span>Tạo lớp</span></button>
+    </div>
+  <div id="quickAddMenu" class="action-menu quick-add-menu" role="menu" aria-labelledby="quickAddBtn" hidden>
+    <a id="joinClassMenuLink" class="action-menu-item join-class-link" role="menuitem" tabindex="-1" href="/ufogoitrabai/join" target="_blank" rel="noopener noreferrer" aria-label="Tham gia lớp (mở tab mới)"><svg class="icon" aria-hidden="true"><use href="#i-join"/></svg><span>Tham gia lớp</span></a>
+    <button type="button" id="createClassroomMenuBtn" class="action-menu-item" role="menuitem" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg><span>Tạo lớp</span></button>
+  </div>
+  <div class="scene-wrap" id="sceneWrap"><canvas id="scene" tabindex="0" aria-describedby="studentDetailsHint" role="img" aria-label="Khu phố hoạt hình với học sinh có tên và UFO bay đến chọn ngẫu nhiên"></canvas><div class="scene-caption" id="sceneCaption" hidden><strong id="participantCount" class="scene-participant-count" aria-live="polite"></strong><div id="sceneCaptionActions" class="scene-caption-actions"><button type="button" id="sceneAttendanceBtn" class="scene-caption-action" aria-label="Điểm danh" title="Điểm danh" aria-haspopup="dialog"><svg class="icon" aria-hidden="true"><use href="#i-attendance"/></svg></button><button type="button" id="sceneEditBtn" class="scene-caption-action" aria-label="Sửa danh sách" title="Sửa danh sách" aria-haspopup="dialog"><svg class="icon" aria-hidden="true"><use href="#i-edit"/></svg></button><button type="button" id="sceneQrBtn" class="scene-caption-action" aria-label="Mã lớp" title="Mã lớp" aria-haspopup="dialog"><svg class="icon" aria-hidden="true"><use href="#i-qr"/></svg></button></div></div><section id="emptyRosterNotice" class="scene-caption empty-roster-notice" aria-labelledby="emptyRosterTitle" hidden><div class="empty-roster-copy" role="status"><strong id="emptyRosterTitle"></strong></div><div class="empty-roster-actions"><button type="button" id="emptyRosterEditBtn" class="secondary-btn" aria-haspopup="dialog"><svg class="icon" aria-hidden="true"><use href="#i-edit"/></svg><span>Sửa danh sách</span></button><button type="button" id="emptyRosterInviteBtn" class="secondary-btn" aria-haspopup="dialog"><svg class="icon" aria-hidden="true"><use href="#i-invite"/></svg><span>Mời tham gia</span></button></div></section><button type="button" id="enableAudioBtn" class="audio-start-button" title="Nghe nhạc nền và lời thoại" hidden><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5ZM15 8a6 6 0 0 1 0 8M18 5a10 10 0 0 1 0 14"/></svg><span id="enableAudioLabel">Bật âm thanh</span></button><button type="button" id="feedbackBtn" class="feedback-button" aria-haspopup="dialog" aria-controls="feedbackDialog"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l-3 2V11.5A8.5 8.5 0 0 1 9.5 3h3a8.5 8.5 0 0 1 8.5 8.5ZM7 10h8M7 14h5"/></svg><span>Góp ý</span></button><span id="studentDetailsHint" class="sr-only">Bấm tên học sinh để xem thông tin<span class="sr-only">. Khi chọn sân chơi bằng bàn phím, nhấn Enter để mở danh sách học sinh.</span></span></div>
+  <div class="controls"><div class="toolbar-buttons">
+    <div class="draw-start-group"><button class="primary-btn summon-btn" id="drawBtn"><svg class="icon" aria-hidden="true"><use href="#i-ufo"/></svg><span id="drawLabel">Bắt đầu</span><span class="key-hint">SPACE</span></button><label class="draw-count-control" for="drawCount"><span>Số bạn được gọi</span><input id="drawCount" type="number" min="1" max="10" step="1" value="1" aria-label="Số bạn được gọi"></label></div>
+    <button id="resetBtn" class="toolbar-btn" title="Vòng mới"><svg class="icon" aria-hidden="true"><use href="#i-reset"/></svg><span>Vòng mới</span></button>
+    <button id="editBtn" class="toolbar-btn"><svg class="icon" aria-hidden="true"><use href="#i-settings"/></svg><span>Cài đặt</span></button>
+    <button id="shareSettingsBtn" class="toolbar-btn" title="Sao chép link chia sẻ cấu hình"><svg class="icon" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.1 0l3-3a5 5 0 0 0-7.1-7.1l-1.7 1.7M14 11a5 5 0 0 0-7.1 0l-3 3A5 5 0 0 0 11 21.1l1.7-1.7"/></svg><span>Chia sẻ</span></button>
+  </div></div>
+      <div class="result-layer" id="resultLayer" hidden>
+        <canvas class="result-fireworks" id="resultFireworks" aria-hidden="true" hidden></canvas>
+        <canvas class="result-confetti-front" id="resultConfettiFront" aria-hidden="true" hidden></canvas>
+        <div class="result-card" role="dialog" aria-modal="true" aria-labelledby="resultTitle" tabindex="-1"><span class="result-drop-cord" aria-hidden="true"></span><span class="result-drop-cord result-drop-cord-right" aria-hidden="true"></span><svg class="result-border" aria-hidden="true" focusable="false"><rect class="result-border-base" pathLength="100"/><rect class="result-border-tail" pathLength="100"/><rect class="result-border-spark" pathLength="100"/></svg><div class="result-card-body"><div class="result-cabin-canopy" aria-hidden="true"><div class="result-cabin-window"><span class="result-cabin-planet"></span><span class="result-cabin-window-rib"></span></div><div class="result-cabin-instruments"><i></i><i></i><i></i><span></span><i></i><i></i></div></div><div class="result-orbit">🛸<span>✦</span><span>✧</span></div><div class="result-kicker"><div class="eyebrow">Khoang hành khách</div><span class="caught-stamp">ĐÃ BẮT</span></div><div class="result-heading"><h2 id="resultTitle">Tín hiệu từ vũ trụ: đến lượt bạn rồi!</h2><div class="result-tools"><button type="button" id="resultReadBtn" class="secondary-btn result-read-icon" aria-pressed="false" aria-label="Đọc tên" title="Đọc tên"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path class="result-read-speaker" d="M11 5 6 9H3v6h3l5 4V5ZM15 8a6 6 0 0 1 0 8M18 5a10 10 0 0 1 0 14"/><rect class="result-read-stop" x="6" y="6" width="12" height="12" rx="2" fill="currentColor" stroke="none"/></svg><span class="result-read-label sr-only">Đọc tên</span></button><button type="button" id="resultShareBtn" class="secondary-btn result-share-icon" aria-haspopup="dialog" aria-label="Chia sẻ kết quả" title="Chia sẻ kết quả"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3m-4 4 4-4 4 4M6 10H4v11h16V10h-2"/></svg></button></div></div><div class="result-cabin-passenger-label"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg><span>Hành khách đã lên tàu</span><span class="result-cabin-status" aria-hidden="true"></span></div><div id="resultNames" class="result-names"></div><div class="ufo-result-close-actions"><button type="button" id="resultClose" class="secondary-btn result-close">Đóng</button></div></div></div>
+        <dialog id="resultShareDialog" class="result-share-dialog" aria-labelledby="resultShareTitle"><div class="dialog-heading"><h2 id="resultShareTitle">Chia sẻ kết quả</h2><button type="button" id="resultShareClose" class="icon-btn" aria-label="Đóng"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div><img id="resultSharePreview" class="result-share-preview" alt="Xem trước ảnh kết quả" hidden><p id="resultShareStatus" class="result-share-status" role="status"></p><div class="dialog-actions"><button type="button" id="resultShareDownload" class="primary-btn" disabled>Tải ảnh</button><button type="button" id="resultShareCopy" class="secondary-btn">Sao chép nội dung</button></div></dialog>
+      </div>
+</section></main></div>
+<footer class="ufo-page-footer"><section class="ufo-page-information" aria-labelledby="ufoPageInfoTitle"><h2 id="ufoPageInfoTitle">UFO gọi trả bài</h2><p>Tạo hoặc chọn lớp, thêm danh sách học sinh và chọn số bạn được gọi. Bạn có thể mời học sinh tham gia bằng mã lớp, điểm danh và xem lại kết quả của từng lượt.</p></section><aside class="ufo-page-ad" data-ufo-page-ad="teacher" aria-labelledby="ufoPageAdLabel"><p id="ufoPageAdLabel" class="ufo-page-ad-label">Quảng cáo · Advertisement</p><ins class="adsbygoogle" data-ad-format="horizontal" data-full-width-responsive="true"></ins></aside><p class="ufo-page-links"><a href="./ufogoitrabai/privacy.html" data-ad-privacy data-google-vignette="false">Quyền riêng tư quảng cáo</a> · <a href="https://kromaphone.com/gameufotrabai/migration/export" rel="nofollow" data-google-vignette="false">Khôi phục dữ liệu KROMA · Restore KROMA data</a></p></footer>
+
+<dialog id="editorDialog" class="editor-dialog" aria-labelledby="settingsTitle">
+  <div class="dialog-heading"><div><div class="eyebrow">CHUYẾN BAY CỦA LỚP MÌNH</div><h2 id="settingsTitle">Cài đặt</h2></div><button type="button" class="icon-btn" data-close="editorDialog" aria-label="Đóng cài đặt"><svg class="icon"><use href="#i-close"/></svg></button></div>
+  <div class="suspense-settings">
+    <label for="suspenseLevel">Độ hồi hộp</label>
+    <select id="suspenseLevel" aria-describedby="suspenseLevelHint">
+      <option value="light">Nhẹ · 1 vòng</option>
+      <option value="normal" selected>Hồi hộp · 2 vòng</option>
+      <option value="intense">Cực căng · 3 vòng</option>
+    </select>
+    <p id="suspenseLevelHint">Số vòng rà trước bạn đầu tiên. Mỗi bạn tiếp theo có một vòng rà chậm riêng. Ghi nhớ trên thiết bị này.</p>
+  </div>
+  <div class="result-speech-setting"><label for="autoReadResult"><input type="checkbox" id="autoReadResult" aria-describedby="resultSpeechHint"><span>Tự động đọc tên kết quả</span></label><p id="resultSpeechHint">Dùng giọng đọc của thiết bị khi bảng kết quả xuất hiện.</p></div>
+  <div class="settings-tabs" role="tablist" aria-label="Cài đặt App">
+    <button type="button" id="classSettingsTab" class="settings-tab active" role="tab" aria-selected="true" aria-controls="classSettingsPanel">Lớp học</button>
+    <button type="button" id="environmentSettingsTab" class="settings-tab" role="tab" aria-selected="false" aria-controls="environmentSettingsPanel" tabindex="-1">Bối cảnh</button>
+  </div>
+  <div id="classSettingsPanel" role="tabpanel" aria-labelledby="classSettingsTab">
+    <div class="classroom-manager">
+      <button type="button" id="editClassroomBtn" class="secondary-btn classroom-settings-edit" aria-label="Chỉnh sửa lớp" title="Chỉnh sửa lớp"><svg class="icon" aria-hidden="true"><use href="#i-edit"/></svg><span>Chỉnh sửa lớp</span></button>
+      <label for="classroomSelect">Lớp đang dùng</label>
+      <div class="classroom-picker"><select id="classroomSelect" aria-describedby="classroomHint"></select><button type="button" id="newClassroomBtn" class="secondary-btn">+ Lớp mới</button><button type="button" id="renameClassroomBtn" class="text-btn">Đổi tên</button></div>
+      <div class="settings-row classroom-draw-settings">
+        <label class="repeat-control"><input type="checkbox" id="noRepeat" checked><span class="toggle" aria-hidden="true"></span><span>Không gọi trùng<small>Trong cùng một vòng</small></span></label>
+      </div>
+      <form id="classroomNameForm" class="classroom-name-form" hidden><label id="classroomNameLabel" for="classroomName">Tên lớp mới</label><div><input id="classroomName" type="text" maxlength="40" placeholder="Ví dụ: Lớp 7A" autocomplete="off" required><button id="saveClassroomName" type="submit" class="primary-btn">Tạo lớp</button><button id="cancelClassroomName" type="button" class="text-btn">Hủy</button></div><p id="classroomNameError" class="form-error" role="alert" hidden></p></form>
+      <p id="classroomHint">Mỗi lớp lưu riêng danh sách, điểm danh và lịch sử. Bản nháp được giữ khi chuyển lớp trong phiên này.</p>
+    </div>
+    <form id="editorForm" class="manual-roster-section" aria-labelledby="manualRosterTitle">
+
+      <div class="class-section-heading"><span class="class-section-number" aria-hidden="true">01</span><div><h3 id="manualRosterTitle">Nhập danh sách lớp bằng tay</h3><p>Dán danh sách có sẵn hoặc nhập tên từng bạn.</p></div></div>
+      <div id="cloudDraftNotice" class="cloud-draft-notice" hidden><p>Danh sách trên lớp đã thay đổi. Bản nháp của bạn vẫn được giữ. Tải danh sách mới trước khi lưu lại để tránh ghi đè.</p><button type="button" class="secondary-btn" id="reloadCloudDraft">Tải danh sách mới</button></div>
+      <p class="dialog-description">Mỗi dòng một bạn. Thêm <strong>, nữ</strong> hoặc <strong>, nam</strong> sau tên. Không nhập giới tính sẽ mặc định là nam.</p>
+      <div class="editor-layout"><div class="editor-input"><label for="rosterText">Dán danh sách vào đây</label><textarea id="rosterText" rows="12" spellcheck="false" placeholder="Nguyễn Minh Anh, nữ&#10;Trần Đức Huy&#10;Lê Hoàng Nam, nam"></textarea><div class="import-actions"><button type="button" id="importBtn" class="text-btn">↑ Nhập tệp TXT / CSV</button><button type="button" id="exportBtn" class="text-btn">↓ Xuất danh sách</button><input id="importFile" type="file" accept=".txt,.csv,text/plain,text/csv" hidden></div></div><div class="editor-preview"><div class="preview-heading"><strong>Xem trước</strong><span id="previewCount">0 bạn</span></div><div id="previewRows"></div></div></div>
+      <p id="editorError" class="form-error" role="alert" hidden></p><div class="editor-info" id="editorRosterInfo">Tối đa 120 bạn. Bạn có thể chỉnh giới tính ở phần xem trước. Thay đổi danh sách sẽ bắt đầu vòng mới cho lớp này. Các bạn đang vắng vẫn được giữ điểm danh nếu tên không đổi.</div>
+      <div class="dialog-actions"><button type="button" class="secondary-btn" data-close="editorDialog">Để sau</button><button type="submit" class="primary-btn">Lưu & vào chơi <svg class="icon"><use href="#i-arrow"/></svg></button></div>
+    </form>
+    <section id="shareSettingsHost" aria-label="Chia sẻ lớp học"></section>
+  </div>
+  <div id="environmentSettingsPanel" role="tabpanel" aria-labelledby="environmentSettingsTab" hidden>
+    <p class="dialog-description">Chọn bối cảnh và tên biển hiệu, rồi bấm Áp dụng để lưu cho lớp. Đóng cửa sổ sẽ bỏ các thay đổi chưa áp dụng.</p>
+    <fieldset class="environment-choices"><legend>Chọn bối cảnh</legend>
+      <label class="environment-choice"><input type="radio" name="environmentTheme" value="street" checked><span class="environment-card"><span class="environment-art environment-art-street" aria-hidden="true"><span class="environment-cloud"></span><span class="environment-building"></span><span class="environment-tree"></span></span><span class="environment-choice-label"><strong>Phố Hà Nội</strong><small>Lăng Bác · phở, bánh mì, bún chả</small></span></span></label>
+      <label class="environment-choice"><input type="radio" name="environmentTheme" value="school"><span class="environment-card"><span class="environment-art environment-art-school" aria-hidden="true"><span class="environment-cloud"></span><span class="environment-building"></span><span class="environment-tree"></span></span><span class="environment-choice-label"><strong>Trường Lương Văn Can</strong><small>Mái trường xanh lá · Hà Nội</small></span></span></label>
+      <label class="environment-choice"><input type="radio" name="environmentTheme" value="park"><span class="environment-card"><span class="environment-art environment-art-park" aria-hidden="true"><span class="environment-cloud"></span><span class="environment-building"></span><span class="environment-tree"></span></span><span class="environment-choice-label"><strong>Hồ Gươm</strong><small>Tháp Rùa · cầu Thê Húc</small></span></span></label>
+      <label class="environment-choice"><input type="radio" name="environmentTheme" value="seaside"><span class="environment-card"><span class="environment-art environment-art-seaside" aria-hidden="true"><span class="environment-cloud"></span><span class="environment-building"></span><span class="environment-tree"></span></span><span class="environment-choice-label"><strong>Vịnh Hạ Long</strong><small>Núi đá vôi · thuyền buồm · làng chài</small></span></span></label>
+    </fieldset>
+    <div class="environment-sign-editor">
+      <div class="environment-sign-fields">
+        <label for="environmentTitle">Dòng trên <span>Chữ lớn, đậm</span></label><input id="environmentTitle" type="text" maxlength="32" spellcheck="false" aria-describedby="environmentSignHint" autocomplete="off">
+        <label for="environmentSubtitle">Dòng dưới <span>Chữ nhỏ hơn</span></label><input id="environmentSubtitle" type="text" maxlength="48" spellcheck="false" aria-describedby="environmentSignHint" autocomplete="off">
+        <p id="environmentSignHint">Tối đa 32 / 48 ký tự. Để trống sẽ dùng tên mặc định. Ở sân trường, dòng dưới mặc định là tên lớp đang dùng.</p>
+      </div>
+      <div class="environment-sign-preview"><span class="environment-preview-label">Xem trước biển hiệu</span><div class="environment-preview-board" id="environmentPreviewBoard"><strong id="environmentTitlePreview"></strong><span id="environmentSubtitlePreview"></span></div><button type="button" id="resetEnvironmentSign" class="text-btn">Khôi phục tên mặc định</button></div>
+    </div>
+    <div class="dialog-actions"><button type="button" class="primary-btn" data-close="editorDialog">Để sau <svg class="icon"><use href="#i-arrow"/></svg></button></div>
+  </div>
+</dialog>
+<dialog id="helpDialog" class="small-dialog"><div class="dialog-heading"><h2>Chuyến bay bắt đầu thế nào?</h2><button class="icon-btn" data-close="helpDialog" aria-label="Đóng hướng dẫn"><svg class="icon"><use href="#i-close"/></svg></button></div><p class="help-intro">UFO Khảo bài, còn gọi là UFO bắt trả bài, giúp giáo viên gọi học sinh ngẫu nhiên để trả bài.</p><ol class="how-list"><li><span>01</span><div><strong>Điểm danh cả lớp</strong><p>Trong Cài đặt → Lớp học, tạo hoặc chọn lớp rồi nhập mỗi tên một dòng. Ghi thêm “, nữ” khi cần; mặc định là nam. Bấm Điểm danh: giáo viên chọn Có mặt hoặc Vắng cho từng bạn, không giới hạn thời gian. Mục Danh sách cho phép sửa điểm danh và bấm tên để xem thông tin và mở thẻ QR. Trên sân chơi hoặc bảng kết quả, cũng có thể bấm trực tiếp vào tên học sinh.</p></div></li><li><span>02</span><div><strong>Chọn số người lên bảng</strong><p>Từ 1 đến 10 bạn mỗi lượt. Bật “Không gọi trùng” để lần lượt gọi cả lớp.</p></div></li><li><span>03</span><div><strong>Gọi UFO thôi!</strong><p>Nhấn nút hoặc phím Space. UFO sẽ chọn ngẫu nhiên, bay đến và đưa các bạn lên.</p></div></li></ol><p class="help-foot">“Vòng mới” xóa lịch sử gọi của lớp đang dùng và giữ điểm danh. Lớp đã bật chia sẻ lưu hồ sơ trên đám mây. Mỗi lượt điểm danh lưu theo ngày trên Cloudflare và có thể xuất Excel. Mở link quản lý riêng của lớp trên thiết bị khác để xem. Lịch sử gọi UFO và dấu Vắng hiện tại lưu trên trình duyệt này.</p><button class="primary-btn wide" data-close="helpDialog">Đã rõ, sẵn sàng cất cánh!</button></dialog>
+<dialog id="resetDialog" class="small-dialog"><div class="dialog-heading"><h2>Bắt đầu vòng mới?</h2></div><p>Xóa lịch sử gọi của lớp đang dùng. Các bạn có mặt trở lại danh sách chờ; các bạn đánh dấu vắng vẫn được bỏ qua.</p><div class="dialog-actions"><button class="secondary-btn" data-close="resetDialog">Để sau</button><button class="primary-btn" id="confirmReset">Bắt đầu vòng mới</button></div></dialog>
+<dialog id="rosterDialog" class="roster-dialog"><div class="dialog-heading"><h2>Danh sách & lịch sử</h2><button class="icon-btn" data-close="rosterDialog" aria-label="Đóng danh sách"><svg class="icon"><use href="#i-close"/></svg></button></div>    <aside class="roster-panel">
+      <div class="roster-heading"><div class="roster-icon"><svg class="icon"><use href="#i-users"/></svg></div><div><h2 id="classroomHeading">Lớp của chúng mình</h2><p id="classMeta">16 thành viên · Danh sách mẫu</p></div></div>
+      
+      <div class="roster-tabs" role="tablist" aria-label="Danh sách và lịch sử"><button id="rosterTab" class="tab active" role="tab" aria-selected="true" aria-controls="rosterContent">Danh sách <span id="rosterBadge">16</span></button><button id="historyTab" class="tab" role="tab" aria-selected="false" aria-controls="rosterContent">Đã gọi <span id="historyBadge">0</span></button></div>
+      <p id="attendanceHint" class="attendance-hint">Bấm tên để xem thông tin chi tiết và mở thẻ QR. Bấm <strong>Điểm danh</strong> để gọi lần lượt; chọn Có mặt hoặc Vắng cho từng bạn, không giới hạn thời gian.</p>
+      <div class="attendance-roster-actions"><button type="button" id="rosterAttendanceBtn" class="secondary-btn">Bắt đầu điểm danh</button><button type="button" id="rosterAttendanceHistoryBtn" class="secondary-btn">Lịch sử & xuất Excel</button></div><p class="attendance-sync-status" data-attendance-sync role="status" hidden></p>
+      <div id="rosterContent" class="roster-content" role="tabpanel" aria-labelledby="rosterTab"></div>
+      <div class="roster-footer"><span class="lock-icon">♧</span> Lịch sử điểm danh lưu theo ngày trên Cloudflare. Mở link quản lý lớp để xem trên thiết bị khác.</div>
+    </aside></dialog>
+<div id="toast" class="toast" role="status" hidden></div>
+<div id="announcer" class="sr-only" aria-live="polite"></div>
+</body></html>

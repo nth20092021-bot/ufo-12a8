@@ -1,0 +1,2558 @@
+// Classroom controls, settings and static page copy. Names and entered data are never translated.
+export default {
+  'Chào mừng {name} đến với lớp!': {en:'Welcome to the class, {name}!',zh:'欢迎 {name} 加入班级！',ja:'{name}さん、クラスへようこそ！',ko:'{name}님, 우리 반에 오신 것을 환영합니다!',es:'¡Te damos la bienvenida a clase, {name}!',fr:'Bienvenue dans la classe, {name} !',de:'Willkommen in der Klasse, {name}!',pt:'Boas-vindas à turma, {name}!'},
+  "Góp ý": {"en": "Feedback", "zh": "意见反馈", "ja": "フィードバック", "ko": "의견 보내기", "es": "Comentarios", "fr": "Avis", "de": "Feedback", "pt": "Feedback"},
+  "Nội dung góp ý": {"en": "Your feedback", "zh": "反馈内容", "ja": "フィードバックの内容", "ko": "의견 내용", "es": "Tu comentario", "fr": "Votre avis", "de": "Dein Feedback", "pt": "Seu comentário"},
+  "Bạn muốn góp ý điều gì?": {"en": "What would you like to share?", "zh": "您有什么建议？", "ja": "ご意見をお聞かせください", "ko": "어떤 의견을 전하고 싶으세요?", "es": "¿Qué te gustaría compartir?", "fr": "Que souhaitez-vous nous dire ?", "de": "Was möchtest du uns mitteilen?", "pt": "O que você gostaria de compartilhar?"},
+  "Gửi góp ý": {"en": "Send feedback", "zh": "发送反馈", "ja": "送信", "ko": "의견 보내기", "es": "Enviar comentario", "fr": "Envoyer", "de": "Feedback senden", "pt": "Enviar comentário"},
+  "Đang gửi góp ý…": {"en": "Sending feedback…", "zh": "正在发送…", "ja": "送信中…", "ko": "전송 중…", "es": "Enviando comentario…", "fr": "Envoi en cours…", "de": "Wird gesendet…", "pt": "Enviando comentário…"},
+  "Bạn chưa nhập góp ý.": {"en": "Please enter your feedback.", "zh": "请填写反馈内容。", "ja": "ご意見を入力してください。", "ko": "의견을 입력해 주세요.", "es": "Escribe tu comentario.", "fr": "Veuillez saisir votre avis.", "de": "Bitte gib dein Feedback ein.", "pt": "Digite seu comentário."},
+  "Góp ý tối đa 2.000 ký tự.": {"en": "Feedback can contain up to 2,000 characters.", "zh": "反馈最多可包含 2,000 个字符。", "ja": "2,000文字以内で入力してください。", "ko": "의견은 최대 2,000자까지 입력할 수 있습니다.", "es": "El comentario puede tener hasta 2000 caracteres.", "fr": "Votre avis peut contenir jusqu’à 2 000 caractères.", "de": "Dein Feedback darf höchstens 2.000 Zeichen enthalten.", "pt": "O comentário pode ter até 2.000 caracteres."},
+  "Đã gửi. Cảm ơn bạn đã góp ý!": {"en": "Sent. Thank you for your feedback!", "zh": "已发送，感谢您的反馈！", "ja": "送信しました。ありがとうございます！", "ko": "전송했습니다. 의견을 보내 주셔서 감사합니다!", "es": "Enviado. ¡Gracias por tu comentario!", "fr": "Envoyé. Merci pour votre avis !", "de": "Gesendet. Danke für dein Feedback!", "pt": "Enviado. Obrigado pelo seu comentário!"},
+  "Bạn gửi hơi nhanh. Hãy thử lại sau một lúc.": {"en": "Too many messages. Please try again later.", "zh": "发送过于频繁，请稍后再试。", "ja": "送信回数が多すぎます。しばらくしてからお試しください。", "ko": "전송 횟수가 너무 많습니다. 잠시 후 다시 시도해 주세요.", "es": "Has enviado muchos mensajes. Inténtalo más tarde.", "fr": "Trop de messages. Veuillez réessayer plus tard.", "de": "Zu viele Nachrichten. Bitte versuche es später erneut.", "pt": "Muitas mensagens. Tente novamente mais tarde."},
+  "Chưa gửi được góp ý. Nội dung vẫn được giữ, bạn hãy thử lại.": {"en": "Could not send your feedback. Your message is saved here; please try again.", "zh": "未能发送反馈。内容仍保留在此，请重试。", "ja": "送信できませんでした。内容は保持されています。もう一度お試しください。", "ko": "의견을 보내지 못했습니다. 내용은 유지되니 다시 시도해 주세요.", "es": "No se pudo enviar el comentario. El texto sigue aquí; inténtalo de nuevo.", "fr": "Impossible d’envoyer votre avis. Votre texte est conservé ici ; veuillez réessayer.", "de": "Feedback konnte nicht gesendet werden. Dein Text bleibt hier erhalten. Bitte versuche es erneut.", "pt": "Não foi possível enviar seu comentário. O texto continua aqui; tente novamente."},
+
+  'Độ hồi hộp': {en:'Suspense level',zh:'紧张程度',ja:'ドキドキ度',ko:'긴장감 단계',es:'Nivel de suspense',fr:'Niveau de suspense',de:'Spannungsstufe',pt:'Nível de suspense'},
+  "Nhẹ · 1 vòng": {"en":"Light · 1 round","zh":"轻松 · 1轮","ja":"ひかえめ · 1往復","ko":"가볍게 · 1회 왕복","es":"Suave · 1 ronda","fr":"Léger · 1 tour","de":"Leicht · 1 Runde","pt":"Leve · 1 rodada"},
+  "Hồi hộp · 2 vòng": {"en":"Normal · 2 rounds","zh":"紧张 · 2轮","ja":"ドキドキ · 2往復","ko":"두근두근 · 2회 왕복","es":"Normal · 2 rondas","fr":"Normal · 2 tours","de":"Normal · 2 Runden","pt":"Normal · 2 rodadas"},
+  "Cực căng · 3 vòng": {"en":"Intense · 3 rounds","zh":"超紧张 · 3轮","ja":"最高潮 · 3往復","ko":"매우 긴장 · 3회 왕복","es":"Intenso · 3 rondas","fr":"Intense · 3 tours","de":"Intensiv · 3 Runden","pt":"Intenso · 3 rodadas"},
+  "Số vòng rà trước bạn đầu tiên. Mỗi bạn tiếp theo có một vòng rà chậm riêng. Ghi nhớ trên thiết bị này.": {"en":"Scan rounds before the first student. Each following student gets one slow round. Remembered on this device.","zh":"第一位学生被选中前的扫描轮数。之后每位学生都有一轮慢速扫描。设置保存在此设备上。","ja":"最初の生徒を選ぶ前の往復回数です。以降の生徒にも1回ずつゆっくり往復してから光を合わせます。この端末に保存されます。","ko":"첫 학생을 선택하기 전 왕복 횟수입니다. 다음 학생마다 한 번씩 천천히 왕복합니다. 이 기기에 저장됩니다.","es":"Rondas de escaneo antes del primer estudiante. Cada siguiente estudiante tiene una ronda lenta. Se guarda en este dispositivo.","fr":"Tours de balayage avant le premier élève. Chaque élève suivant a un tour lent. Le choix est mémorisé sur cet appareil.","de":"Suchrunden vor dem ersten Schüler. Vor jedem weiteren Schüler folgt eine langsame Runde. Wird auf diesem Gerät gespeichert.","pt":"Rodadas de varredura antes do primeiro aluno. Cada aluno seguinte tem uma rodada lenta. A escolha fica salva neste dispositivo."},
+  'Chưa lưu được lựa chọn. Mức này vẫn dùng trong phiên hiện tại.': {en:'Could not save this choice. It still applies while this page stays open.',zh:'无法保存此选择。此页面保持打开时仍会使用该设置。',ja:'選択を保存できませんでした。このページを開いている間は適用されます。',ko:'선택을 저장하지 못했습니다. 이 페이지가 열려 있는 동안에는 적용됩니다.',es:'No se pudo guardar la elección. Seguirá activa mientras esta página esté abierta.',fr:'Impossible d’enregistrer ce choix. Il reste actif tant que cette page est ouverte.',de:'Die Auswahl konnte nicht gespeichert werden. Sie gilt weiterhin, solange diese Seite geöffnet bleibt.',pt:'Não foi possível salvar a escolha. Ela continua valendo enquanto esta página estiver aberta.'},
+  'Tải KROMA miển phí trên App Store (mở tab mới)': {en:'Download KROMA for free on the App Store (opens in a new tab)',zh:'在 App Store 免费下载 KROMA（在新标签页中打开）',ja:'App StoreでKROMAを無料ダウンロード（新しいタブで開きます）',ko:'App Store에서 KROMA 무료 다운로드(새 탭에서 열림)',es:'Descarga KROMA gratis en el App Store (se abre en una pestaña nueva)',fr:'Télécharger KROMA gratuitement sur l’App Store (ouvre un nouvel onglet)',de:'KROMA kostenlos im App Store herunterladen (öffnet einen neuen Tab)',pt:'Baixe o KROMA grátis na App Store (abre em uma nova aba)'},
+  'Gọi điện, nhắn tin, chơi game bằng điện thoại cục gạch trên iPhone.': {en:'Call, text and play games on a brick phone on your iPhone.',zh:'用 iPhone 里的砖头手机打电话、发消息、玩游戏。',ja:'iPhoneのストレート携帯で、通話、メッセージ、ゲームを楽しもう。',ko:'iPhone 속 벽돌폰으로 통화하고, 문자 보내고, 게임도 즐겨요.',es:'Llama, manda mensajes y juega en un teléfono tipo ladrillo en tu iPhone.',fr:'Appelle, envoie des messages et joue avec un téléphone « brique » dans ton iPhone.',de:'Telefonier, schreib und spiel auf einem Knochen-Handy in deinem iPhone.',pt:'Ligue, mande mensagens e jogue em um celular tijolão no seu iPhone.'},
+  'Tải KROMA miển phí': {en:'Download KROMA for free',zh:'免费下载 KROMA',ja:'KROMAを無料ダウンロード',ko:'KROMA 무료 다운로드',es:'Descarga KROMA gratis',fr:'Télécharger KROMA gratuitement',de:'KROMA kostenlos herunterladen',pt:'Baixe o KROMA grátis'},
+  'Được tài trợ bởi KROMA phone app': {en:'Sponsored by KROMA phone app',zh:'由 KROMA phone app 赞助',ja:'KROMA phone app 提供',ko:'KROMA phone app 후원',es:'Patrocinado por KROMA phone app',fr:'Sponsorisé par KROMA phone app',de:'Gesponsert von KROMA phone app',pt:'Patrocinado por KROMA phone app'},
+  'KROMA phone app trên App Store (mở tab mới)': {en:'KROMA phone app on the App Store (opens in a new tab)',zh:'在 App Store 查看 KROMA phone app（在新标签页中打开）',ja:'App StoreでKROMA phone appを見る（新しいタブで開きます）',ko:'App Store에서 KROMA phone app 보기(새 탭에서 열림)',es:'KROMA phone app en el App Store (se abre en una pestaña nueva)',fr:'KROMA phone app sur l’App Store (ouvre un nouvel onglet)',de:'KROMA phone app im App Store (öffnet einen neuen Tab)',pt:'KROMA phone app na App Store (abre em uma nova aba)'},
+  "Không lưu được dữ liệu. Giữ trang mở và thử đổi ngôn ngữ sau.": {en:"Could not save your data. Keep this page open and try changing language later.",zh:"无法保存数据。请保持页面打开，稍后再更改语言。",ja:"データを保存できません。ページを開いたまま、後で言語を変更してください。",ko:"데이터를 저장할 수 없습니다. 페이지를 열어 둔 채 나중에 언어를 변경하세요.",es:"No se pudieron guardar los datos. Mantén esta página abierta e intenta cambiar el idioma más tarde.",fr:"Impossible de sauvegarder les données. Gardez cette page ouverte et changez de langue plus tard.",de:"Daten konnten nicht gespeichert werden. Lass diese Seite offen und ändere die Sprache später.",pt:"Não foi possível salvar os dados. Mantenha esta página aberta e tente mudar o idioma depois."},
+  "Không lưu được bản nháp. Hãy lưu danh sách trước khi đổi ngôn ngữ.": {en:"Could not preserve the draft. Save your roster before changing language.",zh:"无法保留草稿。请保存名单后再更改语言。",ja:"下書きを保持できません。名簿を保存してから言語を変更してください。",ko:"초안을 유지할 수 없습니다. 명단을 저장한 후 언어를 변경하세요.",es:"No se pudo guardar el borrador. Guarda la lista antes de cambiar el idioma.",fr:"Impossible de conserver le brouillon. Enregistrez la liste avant de changer de langue.",de:"Entwurf konnte nicht gesichert werden. Speichere die Liste vor dem Sprachwechsel.",pt:"Não foi possível manter o rascunho. Salve a lista antes de mudar o idioma."},
+  "Phố nhỏ": {
+    "en": "Little street",
+    "zh": "小街",
+    "ja": "小さな街",
+    "ko": "작은 거리",
+    "es": "Barrio",
+    "fr": "Quartier",
+    "de": "Kleine Straße",
+    "pt": "Bairro"
+  },
+  "NHÀ SÁCH": {
+    "en": "BOOKSHOP",
+    "zh": "书店",
+    "ja": "書店",
+    "ko": "서점",
+    "es": "LIBRERÍA",
+    "fr": "LIBRAIRIE",
+    "de": "BUCHLADEN",
+    "pt": "LIVRARIA"
+  },
+  "TUỔI THƠ": {
+    "en": "CHILDHOOD",
+    "zh": "童年",
+    "ja": "こどもの本",
+    "ko": "어린 시절",
+    "es": "INFANCIA",
+    "fr": "ENFANCE",
+    "de": "KINDHEIT",
+    "pt": "INFÂNCIA"
+  },
+  "Sân trường": {
+    "en": "Schoolyard",
+    "zh": "校园",
+    "ja": "校庭",
+    "ko": "학교 운동장",
+    "es": "Patio escolar",
+    "fr": "Cour d’école",
+    "de": "Schulhof",
+    "pt": "Pátio escolar"
+  },
+  "TRƯỜNG HỌC": {
+    "en": "SCHOOL",
+    "zh": "学校",
+    "ja": "学校",
+    "ko": "학교",
+    "es": "ESCUELA",
+    "fr": "ÉCOLE",
+    "de": "SCHULE",
+    "pt": "ESCOLA"
+  },
+  "LỚP MÌNH": {
+    "en": "OUR CLASS",
+    "zh": "我们的班",
+    "ja": "私たちのクラス",
+    "ko": "우리 반",
+    "es": "NUESTRA CLASE",
+    "fr": "NOTRE CLASSE",
+    "de": "UNSERE KLASSE",
+    "pt": "NOSSA TURMA"
+  },
+  "Công viên": {
+    "en": "Park",
+    "zh": "公园",
+    "ja": "公園",
+    "ko": "공원",
+    "es": "Parque",
+    "fr": "Parc",
+    "de": "Park",
+    "pt": "Parque"
+  },
+  "CÔNG VIÊN": {
+    "en": "PARK",
+    "zh": "公园",
+    "ja": "公園",
+    "ko": "공원",
+    "es": "PARQUE",
+    "fr": "PARC",
+    "de": "PARK",
+    "pt": "PARQUE"
+  },
+  "XANH MÁT": {
+    "en": "FRESH & GREEN",
+    "zh": "绿意盎然",
+    "ja": "みどりの広場",
+    "ko": "푸른 쉼터",
+    "es": "VERDE Y FRESCO",
+    "fr": "AU VERT",
+    "de": "GRÜN & FRISCH",
+    "pt": "VERDE E FRESCO"
+  },
+  "Phố biển": {
+    "en": "Seaside",
+    "zh": "海滨",
+    "ja": "海辺",
+    "ko": "해변",
+    "es": "Costa",
+    "fr": "Bord de mer",
+    "de": "Küste",
+    "pt": "Litoral"
+  },
+  "PHỐ BIỂN": {
+    "en": "SEASIDE",
+    "zh": "海滨",
+    "ja": "海辺",
+    "ko": "해변",
+    "es": "COSTA",
+    "fr": "BORD DE MER",
+    "de": "KÜSTE",
+    "pt": "LITORAL"
+  },
+  "MÙA HÈ": {
+    "en": "SUMMER",
+    "zh": "夏日",
+    "ja": "夏",
+    "ko": "여름",
+    "es": "VERANO",
+    "fr": "ÉTÉ",
+    "de": "SOMMER",
+    "pt": "VERÃO"
+  },
+  "Trình duyệt không cho lưu. Cài đặt vẫn dùng được trong phiên này.": {
+    "en": "Storage is unavailable. Settings still work for this session.",
+    "zh": "浏览器无法保存。设置在本次会话中仍可使用。",
+    "ja": "保存できません。このセッションでは設定を利用できます。",
+    "ko": "저장할 수 없습니다. 현재 세션에서는 설정을 사용할 수 있습니다.",
+    "es": "No se puede guardar. Los ajustes funcionan durante esta sesión.",
+    "fr": "Stockage indisponible. Les réglages restent valables pour cette session.",
+    "de": "Speichern nicht möglich. Die Einstellungen gelten für diese Sitzung.",
+    "pt": "Não é possível salvar. Os ajustes funcionam nesta sessão."
+  },
+  "{v0} hoạt hình với học sinh có tên và UFO bay đến chọn ngẫu nhiên": {
+    "en": "Animated {v0} with named students and a UFO choosing at random",
+    "zh": "{v0}动画，显示学生姓名和随机选人的飞碟",
+    "ja": "名前付きの生徒とランダムに選ぶUFOがいる{v0}のアニメーション",
+    "ko": "학생 이름과 무작위로 선택하는 UFO가 있는 {v0} 애니메이션",
+    "es": "Escena animada de {v0} con estudiantes y selección aleatoria por un ovni",
+    "fr": "Scène animée de {v0} avec élèves nommés et sélection aléatoire par un ovni",
+    "de": "Animierte Szene {v0} mit Schülernamen und zufälliger UFO-Auswahl",
+    "pt": "Cena animada de {v0} com alunos identificados e escolha aleatória por um OVNI"
+  },
+  "Đã khôi phục tên biển hiệu mặc định.": {
+    "en": "Default sign restored.",
+    "zh": "已恢复默认招牌。",
+    "ja": "看板を初期設定に戻しました。",
+    "ko": "기본 간판을 복원했습니다.",
+    "es": "Letrero predeterminado restaurado.",
+    "fr": "Enseigne par défaut rétablie.",
+    "de": "Standardschild wiederhergestellt.",
+    "pt": "Placa padrão restaurada."
+  },
+  "Trình duyệt không cho lưu. Danh sách vẫn dùng được trong phiên này.": {
+    "en": "Storage is unavailable. The roster still works for this session.",
+    "zh": "浏览器无法保存。名单在本次会话中仍可使用。",
+    "ja": "保存できません。このセッションでは名簿を利用できます。",
+    "ko": "저장할 수 없습니다. 현재 세션에서는 명단을 사용할 수 있습니다.",
+    "es": "No se puede guardar. La lista funciona durante esta sesión.",
+    "fr": "Stockage indisponible. La liste reste utilisable pour cette session.",
+    "de": "Speichern nicht möglich. Die Klassenliste gilt für diese Sitzung.",
+    "pt": "Não é possível salvar. A lista funciona nesta sessão."
+  },
+  "Chưa mở được thẻ nhân vật.": {
+    "en": "Could not open the character card.",
+    "zh": "无法打开角色卡。",
+    "ja": "キャラクターカードを開けませんでした。",
+    "ko": "캐릭터 카드를 열 수 없습니다.",
+    "es": "No se pudo abrir la tarjeta.",
+    "fr": "Impossible d’ouvrir la carte du personnage.",
+    "de": "Figurenkarte konnte nicht geöffnet werden.",
+    "pt": "Não foi possível abrir o cartão."
+  },
+  "Xem thông tin của {name}": {
+    "en": "View details for {name}",
+    "zh": "查看{name}的信息",
+    "ja": "{name}の情報を見る",
+    "ko": "{name} 정보 보기",
+    "es": "Ver información de {name}",
+    "fr": "Voir les informations de {name}",
+    "de": "Informationen zu {name}",
+    "pt": "Ver informações de {name}"
+  },
+  "Đã gọi": {
+    "en": "Called",
+    "zh": "已点名",
+    "ja": "指名済み",
+    "ko": "호명됨",
+    "es": "Elegido",
+    "fr": "Appelé",
+    "de": "Aufgerufen",
+    "pt": "Chamado"
+  },
+  "Bạn vắng sẽ không được UFO gọi": {
+    "en": "Absent students will not be called by the UFO",
+    "zh": "缺席学生不会被飞碟选中",
+    "ja": "欠席者はUFOに選ばれません",
+    "ko": "결석한 학생은 UFO가 선택하지 않습니다",
+    "es": "El ovni no elegirá a estudiantes ausentes",
+    "fr": "L’ovni ne choisira pas les élèves absents",
+    "de": "Abwesende werden nicht vom UFO ausgewählt",
+    "pt": "O OVNI não escolhe alunos ausentes"
+  },
+  "{name} vắng": {
+    "en": "{name} absent",
+    "zh": "{name}缺席",
+    "ja": "{name}は欠席",
+    "ko": "{name} 결석",
+    "es": "{name} ausente",
+    "fr": "{name} absent",
+    "de": "{name} abwesend",
+    "pt": "{name} ausente"
+  },
+  "{name} đã được đánh dấu vắng.": {
+    "en": "{name} was marked absent.",
+    "zh": "已将{name}标为缺席。",
+    "ja": "{name}を欠席にしました。",
+    "ko": "{name} 학생을 결석으로 표시했습니다.",
+    "es": "Se marcó a {name} como ausente.",
+    "fr": "{name} a été marqué absent.",
+    "de": "{name} wurde als abwesend markiert.",
+    "pt": "{name} foi marcado como ausente."
+  },
+  "{name} đã trở lại danh sách có mặt.": {
+    "en": "{name} is back on the present list.",
+    "zh": "{name}已恢复为出席。",
+    "ja": "{name}を出席に戻しました。",
+    "ko": "{name} 학생을 출석 명단에 다시 넣었습니다.",
+    "es": "{name} vuelve a la lista de presentes.",
+    "fr": "{name} est de nouveau dans la liste des présents.",
+    "de": "{name} ist wieder anwesend.",
+    "pt": "{name} voltou à lista de presentes."
+  },
+  "Vắng": {
+    "en": "Absent",
+    "zh": "缺席",
+    "ja": "欠席",
+    "ko": "결석",
+    "es": "Ausente",
+    "fr": "Absent",
+    "de": "Abwesend",
+    "pt": "Ausente"
+  },
+  "Lớp này chưa có danh sách. Thêm học sinh trong Cài đặt nhé.": {
+    "en": "This class has no roster. Add students in Settings.",
+    "zh": "此班还没有名单。请在设置中添加学生。",
+    "ja": "名簿がありません。設定から生徒を追加してください。",
+    "ko": "명단이 없습니다. 설정에서 학생을 추가하세요.",
+    "es": "Esta clase no tiene lista. Añade estudiantes en Ajustes.",
+    "fr": "Cette classe n’a pas de liste. Ajoutez des élèves dans Réglages.",
+    "de": "Diese Klasse hat keine Liste. Füge Schüler in den Einstellungen hinzu.",
+    "pt": "Esta turma não tem lista. Adicione alunos em Configurações."
+  },
+  "Lượt {v0}": {
+    "en": "Round {v0}",
+    "zh": "第{v0}次",
+    "ja": "{v0}回目",
+    "ko": "{v0}회차",
+    "es": "Turno {v0}",
+    "fr": "Tour {v0}",
+    "de": "Aufruf {v0}",
+    "pt": "Chamada {v0}"
+  },
+  "Tham gia {count}": {
+    "en": "Joined {count}",
+    "zh": "已加入 {count}",
+    "ja": "参加 {count}",
+    "ko": "참여 {count}",
+    "es": "Participan {count}",
+    "fr": "Inscrits {count}",
+    "de": "Dabei {count}",
+    "pt": "Participam {count}"
+  },
+  "Số học sinh trong danh sách lớp, gồm nhập tay và tự tham gia": {
+    "en": "Students on the class roster, including manual entries and self-joins",
+    "zh": "班级名单中的所有学生，包括手动添加和自行加入",
+    "ja": "手入力と自己登録を含むクラス名簿の生徒数",
+    "ko": "직접 입력과 자율 참여를 모두 포함한 학급 명단의 학생 수",
+    "es": "Estudiantes de la lista, añadidos manualmente o por sí mismos",
+    "fr": "Élèves de la liste, ajoutés manuellement ou inscrits eux-mêmes",
+    "de": "Alle Schüler der Klassenliste, manuell eingetragen oder selbst beigetreten",
+    "pt": "Alunos da lista, adicionados manualmente ou por conta própria"
+  },
+  "{present} có mặt · {absent} vắng": {
+    "en": "{present} present · {absent} absent",
+    "zh": "{present}人出席 · {absent}人缺席",
+    "ja": "出席{present}人 · 欠席{absent}人",
+    "ko": "출석 {present} · 결석 {absent}",
+    "es": "{present} presentes · {absent} ausentes",
+    "fr": "{present} présents · {absent} absents",
+    "de": "{present} anwesend · {absent} abwesend",
+    "pt": "{present} presentes · {absent} ausentes"
+  },
+  "Danh sách mẫu": {
+    "en": "Sample roster",
+    "zh": "示例名单",
+    "ja": "サンプル名簿",
+    "ko": "예시 명단",
+    "es": "Lista de ejemplo",
+    "fr": "Liste d’exemple",
+    "de": "Beispielliste",
+    "pt": "Lista de exemplo"
+  },
+  "Chưa có danh sách · Thêm học sinh trong Cài đặt": {
+    "en": "No roster · Add students in Settings",
+    "zh": "暂无名单 · 请在设置中添加学生",
+    "ja": "名簿なし · 設定で生徒を追加",
+    "ko": "명단 없음 · 설정에서 학생 추가",
+    "es": "Sin lista · Añade estudiantes en Ajustes",
+    "fr": "Aucune liste · Ajoutez des élèves dans Réglages",
+    "de": "Keine Liste · Schüler in Einstellungen hinzufügen",
+    "pt": "Sem lista · Adicione alunos em Configurações"
+  },
+  "Cả lớp đang vắng · Kiểm tra điểm danh": {
+    "en": "Everyone is absent · Check attendance",
+    "zh": "全班缺席 · 请检查考勤",
+    "ja": "全員欠席 · 出欠を確認",
+    "ko": "전원 결석 · 출석 확인",
+    "es": "Todos ausentes · Revisa la asistencia",
+    "fr": "Tous absents · Vérifiez la présence",
+    "de": "Alle abwesend · Anwesenheit prüfen",
+    "pt": "Todos ausentes · Confira a presença"
+  },
+  "{left}/{present} bạn sẵn sàng · Mỗi lượt tối đa {count} bạn": {
+    "en": "{left}/{present} ready · Up to {count} per turn",
+    "zh": "{left}/{present}人就绪 · 每次最多{count}人",
+    "ja": "{left}/{present}人待機 · 1回最大{count}人",
+    "ko": "{left}/{present}명 대기 · 한 번에 최대 {count}명",
+    "es": "{left}/{present} listos · Hasta {count} por turno",
+    "fr": "{left}/{present} prêts · Jusqu’à {count} par tour",
+    "de": "{left}/{present} bereit · Bis zu {count} pro Aufruf",
+    "pt": "{left}/{present} prontos · Até {count} por chamada"
+  },
+  "{count} vắng": {
+    "en": "{count} absent",
+    "zh": "{count}人缺席",
+    "ja": "欠席{count}人",
+    "ko": "결석 {count}명",
+    "es": "{count} ausentes",
+    "fr": "{count} absents",
+    "de": "{count} abwesend",
+    "pt": "{count} ausentes"
+  },
+  "Bạn chưa gọi đang vắng · Kiểm tra điểm danh": {
+    "en": "Uncalled students are absent · Check attendance",
+    "zh": "未点到的学生缺席 · 请检查考勤",
+    "ja": "未指名の生徒は欠席 · 出欠を確認",
+    "ko": "미호명 학생이 결석 중 · 출석 확인",
+    "es": "Los pendientes están ausentes · Revisa la asistencia",
+    "fr": "Les élèves restants sont absents · Vérifiez la présence",
+    "de": "Übrige Schüler abwesend · Anwesenheit prüfen",
+    "pt": "Alunos restantes ausentes · Confira a presença"
+  },
+  "Cả lớp đã được gọi. Bắt đầu vòng mới nhé!": {
+    "en": "Everyone has been called. Start a new round!",
+    "zh": "全班都已点到。开始新一轮吧！",
+    "ja": "全員を指名しました。新しいラウンドを始めましょう！",
+    "ko": "모두 호명했습니다. 새 라운드를 시작하세요!",
+    "es": "Ya salieron todos. ¡Empieza una nueva ronda!",
+    "fr": "Tout le monde est passé. Lancez une nouvelle manche !",
+    "de": "Alle wurden aufgerufen. Starte eine neue Runde!",
+    "pt": "Todos já foram chamados. Comece uma nova rodada!"
+  },
+  "Đang điểm danh…": {
+    "en": "Taking attendance…",
+    "zh": "正在点名…",
+    "ja": "出欠確認中…",
+    "ko": "출석 확인 중…",
+    "es": "Pasando lista…",
+    "fr": "Appel en cours…",
+    "de": "Anwesenheitsprüfung…",
+    "pt": "Fazendo chamada…"
+  },
+  "UFO đang gọi tên…": {
+    "en": "UFO calling…",
+    "zh": "飞碟正在选人…",
+    "ja": "UFOが指名中…",
+    "ko": "UFO가 호명 중…",
+    "es": "El ovni está eligiendo…",
+    "fr": "L’ovni choisit…",
+    "de": "UFO ruft auf…",
+    "pt": "OVNI escolhendo…"
+  },
+  "Chưa có danh sách": {
+    "en": "No roster",
+    "zh": "暂无名单",
+    "ja": "名簿なし",
+    "ko": "명단 없음",
+    "es": "Sin lista",
+    "fr": "Aucune liste",
+    "de": "Keine Liste",
+    "pt": "Sem lista"
+  },
+  "Chưa có bạn có mặt": {
+    "en": "No students present",
+    "zh": "暂无出席学生",
+    "ja": "出席者なし",
+    "ko": "출석한 학생 없음",
+    "es": "Nadie presente",
+    "fr": "Aucun élève présent",
+    "de": "Niemand anwesend",
+    "pt": "Nenhum aluno presente"
+  },
+  "Kiểm tra điểm danh": {
+    "en": "Check attendance",
+    "zh": "检查考勤",
+    "ja": "出欠を確認",
+    "ko": "출석 확인",
+    "es": "Revisar asistencia",
+    "fr": "Vérifier la présence",
+    "de": "Anwesenheit prüfen",
+    "pt": "Conferir presença"
+  },
+  "Đã gọi hết lượt": {
+    "en": "Everyone called",
+    "zh": "已全部点到",
+    "ja": "全員指名済み",
+    "ko": "모두 호명됨",
+    "es": "Todos elegidos",
+    "fr": "Tous appelés",
+    "de": "Alle aufgerufen",
+    "pt": "Todos chamados"
+  },
+  "Bắt đầu": {
+    "en": "Start",
+    "zh": "开始",
+    "ja": "開始",
+    "ko": "시작",
+    "es": "Iniciar",
+    "fr": "Démarrer",
+    "de": "Start",
+    "pt": "Iniciar"
+  },
+  "Chọn Có mặt hoặc Vắng cho từng bạn": {
+    "en": "Choose Present or Absent for each student",
+    "zh": "为每位学生选择出席或缺席",
+    "ja": "生徒ごとに出席または欠席を選択",
+    "ko": "학생마다 출석 또는 결석을 선택하세요",
+    "es": "Elige Presente o Ausente para cada estudiante",
+    "fr": "Choisissez Présent ou Absent pour chaque élève",
+    "de": "Wähle für jeden Schüler Anwesend oder Abwesend",
+    "pt": "Escolha Presente ou Ausente para cada aluno"
+  },
+  "Có tín hiệu từ ngoài vũ trụ!": {
+    "en": "A signal from outer space!",
+    "zh": "收到外太空信号！",
+    "ja": "宇宙からの信号！",
+    "ko": "우주에서 신호가 왔어요!",
+    "es": "¡Una señal del espacio!",
+    "fr": "Un signal venu de l’espace !",
+    "de": "Ein Signal aus dem All!",
+    "pt": "Um sinal do espaço!"
+  },
+  "Nhấn Space hoặc Bắt đầu để gọi UFO": {
+    "en": "Press Space or Start to call the UFO",
+    "zh": "按空格键或开始召唤飞碟",
+    "ja": "スペースキーまたは開始でUFOを呼ぶ",
+    "ko": "Space 또는 시작을 눌러 UFO 호출",
+    "es": "Pulsa Espacio o Iniciar para llamar al ovni",
+    "fr": "Espace ou Démarrer pour appeler l’ovni",
+    "de": "Leertaste oder Start ruft das UFO",
+    "pt": "Pressione Espaço ou Iniciar para chamar o OVNI"
+  },
+  "Đang lưu lớp. Chờ một chút trước khi gọi UFO.": {
+    "en": "Saving the class. Wait a moment before calling the UFO.",
+    "zh": "正在保存班级。请稍后召唤飞碟。",
+    "ja": "クラスを保存中です。少し待ってからUFOを呼んでください。",
+    "ko": "학급 저장 중입니다. 잠시 후 UFO를 호출하세요.",
+    "es": "Guardando la clase. Espera antes de llamar al ovni.",
+    "fr": "Enregistrement de la classe. Patientez avant d’appeler l’ovni.",
+    "de": "Klasse wird gespeichert. Warte kurz, bevor du das UFO rufst.",
+    "pt": "Salvando a turma. Aguarde antes de chamar o OVNI."
+  },
+  "Thêm danh sách lớp trong Cài đặt trước nhé.": {
+    "en": "Add a class roster in Settings first.",
+    "zh": "请先在设置中添加班级名单。",
+    "ja": "まず設定で名簿を追加してください。",
+    "ko": "먼저 설정에서 학급 명단을 추가하세요.",
+    "es": "Primero añade una lista en Ajustes.",
+    "fr": "Ajoutez d’abord une liste dans Réglages.",
+    "de": "Füge zuerst eine Klassenliste in den Einstellungen hinzu.",
+    "pt": "Primeiro adicione a lista em Configurações."
+  },
+  "Chưa có bạn có mặt. Kiểm tra mục Vắng trong Danh sách nhé.": {
+    "en": "No students present. Check Absent in the roster.",
+    "zh": "暂无出席学生。请检查名单中的缺席标记。",
+    "ja": "出席者がいません。名簿の欠席欄を確認してください。",
+    "ko": "출석한 학생이 없습니다. 명단의 결석 표시를 확인하세요.",
+    "es": "Nadie presente. Revisa Ausente en la lista.",
+    "fr": "Aucun présent. Vérifiez les absences dans la liste.",
+    "de": "Niemand anwesend. Prüfe die Abwesenheitsmarkierungen.",
+    "pt": "Nenhum aluno presente. Confira Ausente na lista."
+  },
+  "Các bạn chưa gọi đang vắng. Kiểm tra điểm danh trong Danh sách nhé.": {
+    "en": "Uncalled students are absent. Check attendance in the roster.",
+    "zh": "未点到的学生缺席。请在名单中检查考勤。",
+    "ja": "未指名の生徒は欠席です。名簿で出欠を確認してください。",
+    "ko": "미호명 학생이 결석 중입니다. 명단에서 출석을 확인하세요.",
+    "es": "Los pendientes están ausentes. Revisa la asistencia en la lista.",
+    "fr": "Les élèves restants sont absents. Vérifiez la liste.",
+    "de": "Übrige Schüler sind abwesend. Prüfe die Klassenliste.",
+    "pt": "Os alunos restantes estão ausentes. Confira a presença na lista."
+  },
+  "Cả lớp đã được gọi. Hãy bắt đầu vòng mới.": {
+    "en": "Everyone has been called. Start a new round.",
+    "zh": "全班都已点到。请开始新一轮。",
+    "ja": "全員を指名しました。新しいラウンドを始めてください。",
+    "ko": "모두 호명했습니다. 새 라운드를 시작하세요.",
+    "es": "Ya salieron todos. Empieza una nueva ronda.",
+    "fr": "Tout le monde est passé. Lancez une nouvelle manche.",
+    "de": "Alle wurden aufgerufen. Starte eine neue Runde.",
+    "pt": "Todos já foram chamados. Comece uma nova rodada."
+  },
+  "Đã gửi tín hiệu. UFO đang đến!": {
+    "en": "Signal sent. The UFO is coming!",
+    "zh": "信号已发送。飞碟来了！",
+    "ja": "信号を送りました。UFOが来ます！",
+    "ko": "신호 전송 완료. UFO가 옵니다!",
+    "es": "Señal enviada. ¡Llega el ovni!",
+    "fr": "Signal envoyé. L’ovni arrive !",
+    "de": "Signal gesendet. Das UFO kommt!",
+    "pt": "Sinal enviado. O OVNI está chegando!"
+  },
+  "UFO đang chọn {count} bạn.": {
+    "en": "The UFO is choosing {count} students.",
+    "zh": "飞碟正在选择{count}名学生。",
+    "ja": "UFOが{count}人を選んでいます。",
+    "ko": "UFO가 {count}명을 선택하고 있습니다.",
+    "es": "El ovni está eligiendo a {count} estudiantes.",
+    "fr": "L’ovni choisit {count} élèves.",
+    "de": "Das UFO wählt {count} Schüler aus.",
+    "pt": "O OVNI está escolhendo {count} alunos."
+  },
+  "Hoạt cảnh bị gián đoạn; kết quả đã chọn vẫn được giữ.": {
+    "en": "Animation interrupted; the selected result has been kept.",
+    "zh": "动画中断；已保留选人结果。",
+    "ja": "アニメーションが中断しました。選択結果は保持されています。",
+    "ko": "애니메이션이 중단되었지만 선택 결과는 유지됩니다.",
+    "es": "Animación interrumpida; se conserva el resultado.",
+    "fr": "Animation interrompue ; le résultat est conservé.",
+    "de": "Animation unterbrochen; die Auswahl bleibt erhalten.",
+    "pt": "Animação interrompida; o resultado foi mantido."
+  },
+  "Phù… chuyến này thoát rồi! Ai sẽ là người tiếp theo?": {
+    "en": "Phew… safe this time! Who will be next?",
+    "zh": "呼…这次逃过了！下一个是谁？",
+    "ja": "ふう…今回はセーフ！次はだれ？",
+    "ko": "휴… 이번엔 살았다! 다음은 누구일까요?",
+    "es": "Uf… ¡esta vez te salvaste! ¿Quién sigue?",
+    "fr": "Ouf… sauvés cette fois ! À qui le tour ?",
+    "de": "Puh… diesmal entkommen! Wer ist als Nächstes dran?",
+    "pt": "Ufa… escapamos desta vez! Quem será o próximo?"
+  },
+  "Các bạn chưa được gọi đang vắng. Kiểm tra điểm danh nhé.": {
+    "en": "The remaining students are absent. Check attendance.",
+    "zh": "未点到的学生缺席。请检查考勤。",
+    "ja": "残りの生徒は欠席です。出欠を確認してください。",
+    "ko": "남은 학생은 결석 중입니다. 출석을 확인하세요.",
+    "es": "Los estudiantes restantes están ausentes. Revisa la asistencia.",
+    "fr": "Les élèves restants sont absents. Vérifiez la présence.",
+    "de": "Die übrigen Schüler sind abwesend. Prüfe die Anwesenheit.",
+    "pt": "Os alunos restantes estão ausentes. Confira a presença."
+  },
+  "Cả lớp đã hoàn thành chuyến bay!": {
+    "en": "The whole class has completed the flight!",
+    "zh": "全班都完成飞行了！",
+    "ja": "クラス全員のフライトが終わりました！",
+    "ko": "반 전체가 비행을 완료했습니다!",
+    "es": "¡Toda la clase completó el vuelo!",
+    "fr": "Toute la classe a terminé le vol !",
+    "de": "Die ganze Klasse hat den Flug geschafft!",
+    "pt": "A turma toda completou o voo!"
+  },
+  "Gọi lượt tiếp →": {
+    "en": "Next turn →",
+    "zh": "下一次 →",
+    "ja": "次を呼ぶ →",
+    "ko": "다음 호명 →",
+    "es": "Siguiente →",
+    "fr": "Tour suivant →",
+    "de": "Nächster Aufruf →",
+    "pt": "Próxima chamada →"
+  },
+  "Bắt đầu vòng mới": {
+    "en": "Start a new round",
+    "zh": "开始新一轮",
+    "ja": "新しいラウンド",
+    "ko": "새 라운드 시작",
+    "es": "Nueva ronda",
+    "fr": "Nouvelle manche",
+    "de": "Neue Runde starten",
+    "pt": "Nova rodada"
+  },
+  "Mời các bạn lên bảng trả bài": {
+    "en": "Please come to the board",
+    "zh": "请到讲台来回答问题",
+    "ja": "前に出て答えてください",
+    "ko": "칠판 앞으로 나와 주세요",
+    "es": "Pasen al pizarrón",
+    "fr": "Venez au tableau",
+    "de": "Bitte an die Tafel kommen",
+    "pt": "Venham ao quadro"
+  },
+  "Mời lên bảng: {names}": {
+    "en": "Come to the board: {names}",
+    "zh": "请到讲台来：{names}",
+    "ja": "前に出てください：{names}",
+    "ko": "앞으로 나와 주세요: {names}",
+    "es": "Al pizarrón: {names}",
+    "fr": "Au tableau : {names}",
+    "de": "An die Tafel: {names}",
+    "pt": "Ao quadro: {names}"
+  },
+  "Các bạn có mặt đã sẵn sàng. Chờ UFO thôi!": {
+    "en": "Everyone present is ready. Waiting for the UFO!",
+    "zh": "出席同学都准备好了。等待飞碟！",
+    "ja": "出席者の準備ができました。UFOを待ちましょう！",
+    "ko": "출석한 학생 모두 준비됐어요. UFO를 기다려요!",
+    "es": "Todos los presentes están listos. ¡Esperamos al ovni!",
+    "fr": "Les présents sont prêts. On attend l’ovni !",
+    "de": "Alle Anwesenden sind bereit. Warten auf das UFO!",
+    "pt": "Todos os presentes estão prontos. Aguardando o OVNI!"
+  },
+  "Kiểm tra điểm danh để bắt đầu chuyến bay nhé.": {
+    "en": "Check attendance to start the flight.",
+    "zh": "请检查考勤后开始飞行。",
+    "ja": "出欠を確認してフライトを始めましょう。",
+    "ko": "출석을 확인하고 비행을 시작하세요.",
+    "es": "Revisa la asistencia para iniciar el vuelo.",
+    "fr": "Vérifiez la présence pour démarrer le vol.",
+    "de": "Prüfe die Anwesenheit, um den Flug zu starten.",
+    "pt": "Confira a presença para iniciar o voo."
+  },
+  "Đã bắt đầu vòng mới. Điểm danh được giữ nguyên.": {
+    "en": "New round started. Attendance is unchanged.",
+    "zh": "新一轮已开始。考勤保持不变。",
+    "ja": "新しいラウンドです。出欠はそのままです。",
+    "ko": "새 라운드를 시작했습니다. 출석은 유지됩니다.",
+    "es": "Nueva ronda iniciada. La asistencia se conserva.",
+    "fr": "Nouvelle manche lancée. La présence est conservée.",
+    "de": "Neue Runde gestartet. Die Anwesenheit bleibt erhalten.",
+    "pt": "Nova rodada iniciada. A presença foi mantida."
+  },
+  "Cả lớp đã sẵn sàng cho vòng mới.": {
+    "en": "The class is ready for a new round.",
+    "zh": "全班已准备好开始新一轮。",
+    "ja": "新しいラウンドの準備ができました。",
+    "ko": "새 라운드를 시작할 준비가 됐습니다.",
+    "es": "La clase está lista para otra ronda.",
+    "fr": "La classe est prête pour une nouvelle manche.",
+    "de": "Die Klasse ist bereit für eine neue Runde.",
+    "pt": "A turma está pronta para uma nova rodada."
+  },
+  "Vòng mới đã sẵn sàng!": {
+    "en": "New round ready!",
+    "zh": "新一轮已就绪！",
+    "ja": "新しいラウンドの準備完了！",
+    "ko": "새 라운드 준비 완료!",
+    "es": "¡Nueva ronda lista!",
+    "fr": "Nouvelle manche prête !",
+    "de": "Neue Runde bereit!",
+    "pt": "Nova rodada pronta!"
+  },
+  "Trình duyệt này chưa hỗ trợ toàn màn hình.": {
+    "en": "This browser does not support fullscreen.",
+    "zh": "此浏览器不支持全屏。",
+    "ja": "このブラウザは全画面表示に対応していません。",
+    "ko": "이 브라우저는 전체 화면을 지원하지 않습니다.",
+    "es": "Este navegador no admite pantalla completa.",
+    "fr": "Ce navigateur ne prend pas en charge le plein écran.",
+    "de": "Dieser Browser unterstützt kein Vollbild.",
+    "pt": "Este navegador não oferece tela cheia."
+  },
+  "Không thể bật toàn màn hình trên trình duyệt này.": {
+    "en": "Could not enter fullscreen in this browser.",
+    "zh": "此浏览器无法进入全屏。",
+    "ja": "全画面表示に切り替えられませんでした。",
+    "ko": "전체 화면으로 전환할 수 없습니다.",
+    "es": "No se pudo activar la pantalla completa.",
+    "fr": "Impossible de passer en plein écran.",
+    "de": "Vollbild konnte nicht aktiviert werden.",
+    "pt": "Não foi possível ativar a tela cheia."
+  },
+  "Thoát toàn màn hình": {
+    "en": "Exit fullscreen",
+    "zh": "退出全屏",
+    "ja": "全画面を終了",
+    "ko": "전체 화면 종료",
+    "es": "Salir de pantalla completa",
+    "fr": "Quitter le plein écran",
+    "de": "Vollbild beenden",
+    "pt": "Sair da tela cheia"
+  },
+  "Toàn màn hình": {
+    "en": "Fullscreen",
+    "zh": "全屏",
+    "ja": "全画面",
+    "ko": "전체 화면",
+    "es": "Pantalla completa",
+    "fr": "Plein écran",
+    "de": "Vollbild",
+    "pt": "Tela cheia"
+  },
+  "Phần này chỉ gồm tên nhập bằng tay. Các bạn tự tham gia được quản lý ở phần bên dưới và vẫn được giữ khi lưu danh sách này. Toàn lớp tối đa 120 bạn; tên khớp sẽ giữ nguyên nhân vật và lịch sử.": {
+    "en": "Only manually added students appear here. Self-joined students are managed below and are kept when you save. Maximum 120 students in total; matching names retain their character and history.",
+    "zh": "这里只显示手动添加的学生。自行加入的学生在下方管理，保存时仍会保留。全班最多120人；姓名匹配者保留角色和历史记录。",
+    "ja": "ここには手入力の生徒だけが表示されます。自己登録の生徒は下で管理され、保存しても残ります。合計120人まで。同じ名前の生徒はキャラクターと履歴を保持します。",
+    "ko": "여기에는 직접 입력한 학생만 표시됩니다. 자율 참여 학생은 아래에서 관리하며 저장 시 유지됩니다. 전체 최대 120명이며 이름이 일치하면 캐릭터와 기록을 유지합니다.",
+    "es": "Aquí solo figuran estudiantes añadidos a mano. Quienes se unen solos se gestionan abajo y se conservan al guardar. Máximo 120 en total; los nombres coincidentes conservan personaje e historial.",
+    "fr": "Seuls les élèves ajoutés manuellement figurent ici. Les inscriptions autonomes se gèrent ci-dessous et restent conservées. Maximum 120 élèves ; les noms correspondants gardent personnage et historique.",
+    "de": "Hier stehen nur manuell eingetragene Schüler. Selbst beigetretene werden unten verwaltet und beim Speichern beibehalten. Insgesamt maximal 120; passende Namen behalten Figur und Verlauf.",
+    "pt": "Aqui aparecem apenas alunos adicionados manualmente. Quem entrou por conta própria é gerenciado abaixo e mantido ao salvar. Máximo de 120; nomes correspondentes mantêm personagem e histórico."
+  },
+  "Tối đa 120 bạn. Bạn có thể chỉnh giới tính ở phần xem trước. Thay đổi danh sách sẽ bắt đầu vòng mới cho lớp này. Các bạn đang vắng vẫn được giữ điểm danh nếu tên không đổi.": {
+    "en": "Up to 120 students. Edit gender in the preview. Changing the roster starts a new round for this class. Absence marks are kept when names are unchanged.",
+    "zh": "最多120名学生。可在预览中修改性别。更改名单会为此班开始新一轮。姓名不变时保留缺席标记。",
+    "ja": "最大120人。プレビューで性別を変更できます。名簿を変更すると新しいラウンドが始まります。名前が変わらなければ欠席記録は残ります。",
+    "ko": "최대 120명. 미리보기에서 성별을 수정할 수 있습니다. 명단을 변경하면 새 라운드가 시작됩니다. 이름이 같으면 결석 표시를 유지합니다.",
+    "es": "Hasta 120 estudiantes. Cambia el género en la vista previa. Modificar la lista inicia una nueva ronda. Se conservan las ausencias si los nombres no cambian.",
+    "fr": "Jusqu’à 120 élèves. Modifiez le genre dans l’aperçu. Changer la liste lance une nouvelle manche. Les absences restent si les noms ne changent pas.",
+    "de": "Bis zu 120 Schüler. Geschlecht in der Vorschau ändern. Änderungen starten eine neue Runde. Bei unveränderten Namen bleiben Abwesenheiten erhalten.",
+    "pt": "Até 120 alunos. Edite o gênero na prévia. Alterar a lista inicia uma nova rodada. As ausências são mantidas quando os nomes não mudam."
+  },
+  "Đã tải danh sách đang có của lớp.": {
+    "en": "Current class roster loaded.",
+    "zh": "已加载当前班级名单。",
+    "ja": "最新の名簿を読み込みました。",
+    "ko": "현재 학급 명단을 불러왔습니다.",
+    "es": "Lista actual cargada.",
+    "fr": "Liste actuelle chargée.",
+    "de": "Aktuelle Klassenliste geladen.",
+    "pt": "Lista atual carregada."
+  },
+  "Đã đủ 30 lớp trên trình duyệt này. Mở link quản lý trong trình duyệt khác.": {
+    "en": "This browser already has 30 classes. Open the management link in another browser.",
+    "zh": "此浏览器已有30个班级。请在其他浏览器中打开管理链接。",
+    "ja": "このブラウザには30クラスあります。別のブラウザで管理リンクを開いてください。",
+    "ko": "이 브라우저에 이미 30개 학급이 있습니다. 다른 브라우저에서 관리 링크를 여세요.",
+    "es": "Este navegador ya tiene 30 clases. Abre el enlace de gestión en otro.",
+    "fr": "Ce navigateur contient déjà 30 classes. Ouvrez le lien de gestion dans un autre.",
+    "de": "Dieser Browser hat bereits 30 Klassen. Öffne den Verwaltungslink in einem anderen Browser.",
+    "pt": "Este navegador já tem 30 turmas. Abra o link de gerenciamento em outro."
+  },
+  "Đã mở lớp bằng link quản lý riêng.": {
+    "en": "Class opened with the private management link.",
+    "zh": "已通过私密管理链接打开班级。",
+    "ja": "専用管理リンクでクラスを開きました。",
+    "ko": "비공개 관리 링크로 학급을 열었습니다.",
+    "es": "Clase abierta con el enlace privado de gestión.",
+    "fr": "Classe ouverte via le lien de gestion privé.",
+    "de": "Klasse über privaten Verwaltungslink geöffnet.",
+    "pt": "Turma aberta pelo link privado de gerenciamento."
+  },
+  "Không mở được link quản lý: ": {
+    "en": "Could not open the management link: ",
+    "zh": "无法打开管理链接：",
+    "ja": "管理リンクを開けませんでした：",
+    "ko": "관리 링크를 열 수 없습니다: ",
+    "es": "No se pudo abrir el enlace de gestión: ",
+    "fr": "Impossible d’ouvrir le lien de gestion : ",
+    "de": "Verwaltungslink konnte nicht geöffnet werden: ",
+    "pt": "Não foi possível abrir o link de gerenciamento: "
+  },
+  "Chưa tạo được mã lớp. Danh sách vẫn được giữ; bấm Tạo mã lớp để thử lại. ": {
+    "en": "Could not create a class code. The roster is safe; select Create class code to retry. ",
+    "zh": "无法创建班级码。名单已保留；点击创建班级码重试。",
+    "ja": "クラスコードを作成できませんでした。名簿は保持されています。コード作成から再試行してください。",
+    "ko": "학급 코드를 만들 수 없습니다. 명단은 유지됩니다. 코드 만들기를 눌러 다시 시도하세요. ",
+    "es": "No se pudo crear el código. La lista está guardada; pulsa Crear código para reintentar. ",
+    "fr": "Impossible de créer le code. La liste est conservée ; réessayez avec Créer un code. ",
+    "de": "Klassencode konnte nicht erstellt werden. Die Liste bleibt erhalten; versuche es mit Code erstellen erneut. ",
+    "pt": "Não foi possível criar o código. A lista foi mantida; tente novamente em Criar código. "
+  },
+  "Chưa mở được mã lớp. Hãy thử lại.": {
+    "en": "Could not open the class code. Try again.",
+    "zh": "无法打开班级码。请重试。",
+    "ja": "クラスコードを開けませんでした。再試行してください。",
+    "ko": "학급 코드를 열 수 없습니다. 다시 시도하세요.",
+    "es": "No se pudo abrir el código. Inténtalo de nuevo.",
+    "fr": "Impossible d’ouvrir le code. Réessayez.",
+    "de": "Klassencode konnte nicht geöffnet werden. Versuche es erneut.",
+    "pt": "Não foi possível abrir o código. Tente novamente."
+  },
+  "{v0} đã sẵn sàng. Chờ UFO thôi!": {
+    "en": "{v0} is ready. Waiting for the UFO!",
+    "zh": "{v0}已准备好。等待飞碟！",
+    "ja": "{v0}の準備完了。UFOを待ちましょう！",
+    "ko": "{v0} 준비 완료. UFO를 기다려요!",
+    "es": "{v0} está lista. ¡Esperamos al ovni!",
+    "fr": "{v0} est prête. On attend l’ovni !",
+    "de": "{v0} ist bereit. Warten auf das UFO!",
+    "pt": "{v0} está pronta. Aguardando o OVNI!"
+  },
+  "Thêm danh sách cho {v0} để bắt đầu nhé.": {
+    "en": "Add a roster for {v0} to get started.",
+    "zh": "添加{v0}的名单以开始。",
+    "ja": "{v0}の名簿を追加して始めましょう。",
+    "ko": "{v0} 명단을 추가하고 시작하세요.",
+    "es": "Añade la lista de {v0} para empezar.",
+    "fr": "Ajoutez une liste pour {v0} afin de commencer.",
+    "de": "Füge eine Liste für {v0} hinzu, um zu starten.",
+    "pt": "Adicione a lista de {v0} para começar."
+  },
+  "Đang dùng {name}.": {
+    "en": "Using {name}.",
+    "zh": "当前使用{name}。",
+    "ja": "{name}を使用中。",
+    "ko": "{name} 사용 중.",
+    "es": "Usando {name}.",
+    "fr": "Classe active : {name}.",
+    "de": "Aktiv: {name}.",
+    "pt": "Usando {name}."
+  },
+  "Tên lớp mới": {
+    "en": "New class name",
+    "zh": "新班级名称",
+    "ja": "新しいクラス名",
+    "ko": "새 학급 이름",
+    "es": "Nombre de la nueva clase",
+    "fr": "Nom de la nouvelle classe",
+    "de": "Neuer Klassenname",
+    "pt": "Nome da nova turma"
+  },
+  "Đổi tên lớp": {
+    "en": "Rename class",
+    "zh": "重命名班级",
+    "ja": "クラス名を変更",
+    "ko": "학급 이름 변경",
+    "es": "Renombrar clase",
+    "fr": "Renommer la classe",
+    "de": "Klasse umbenennen",
+    "pt": "Renomear turma"
+  },
+  "Tạo lớp": {
+    "en": "Create class",
+    "zh": "创建班级",
+    "ja": "クラスを作成",
+    "ko": "학급 만들기",
+    "es": "Crear clase",
+    "fr": "Créer une classe",
+    "de": "Klasse erstellen",
+    "pt": "Criar turma"
+  },
+  "Lưu tên": {
+    "en": "Save name",
+    "zh": "保存名称",
+    "ja": "名前を保存",
+    "ko": "이름 저장",
+    "es": "Guardar nombre",
+    "fr": "Enregistrer le nom",
+    "de": "Namen speichern",
+    "pt": "Salvar nome"
+  },
+  "Đã đủ 30 lớp trên trình duyệt này.": {
+    "en": "This browser already has 30 classes.",
+    "zh": "此浏览器已有30个班级。",
+    "ja": "このブラウザには既に30クラスあります。",
+    "ko": "이 브라우저에 이미 30개 학급이 있습니다.",
+    "es": "Este navegador ya tiene 30 clases.",
+    "fr": "Ce navigateur contient déjà 30 classes.",
+    "de": "Dieser Browser hat bereits 30 Klassen.",
+    "pt": "Este navegador já tem 30 turmas."
+  },
+  "Đang tạo mã hoặc lưu lớp. Chờ một chút rồi thử lại.": {
+    "en": "Creating a code or saving the class. Wait and try again.",
+    "zh": "正在创建代码或保存班级。请稍后重试。",
+    "ja": "コード作成または保存中です。少し待って再試行してください。",
+    "ko": "코드 생성 또는 학급 저장 중입니다. 잠시 후 다시 시도하세요.",
+    "es": "Creando un código o guardando la clase. Espera y reintenta.",
+    "fr": "Création du code ou enregistrement en cours. Patientez puis réessayez.",
+    "de": "Code wird erstellt oder Klasse gespeichert. Warte kurz und versuche es erneut.",
+    "pt": "Criando código ou salvando a turma. Aguarde e tente novamente."
+  },
+  "{count} bạn": {
+    "en": "{count} students",
+    "zh": "{count}名学生",
+    "ja": "{count}人",
+    "ko": "{count}명",
+    "es": "{count} estudiantes",
+    "fr": "{count} élèves",
+    "de": "{count} Schüler",
+    "pt": "{count} alunos"
+  },
+  "Chưa có tên nhập tay. Các bạn tự tham gia xuất hiện ở phần bên dưới.": {
+    "en": "No manual entries yet. Self-joined students appear below.",
+    "zh": "暂无手动添加的学生。自行加入的学生显示在下方。",
+    "ja": "手入力の生徒はいません。自己登録の生徒は下に表示されます。",
+    "ko": "직접 입력한 학생이 없습니다. 자율 참여 학생은 아래에 표시됩니다.",
+    "es": "Sin entradas manuales. Quienes se unan solos aparecerán abajo.",
+    "fr": "Aucun ajout manuel. Les inscriptions autonomes apparaissent ci-dessous.",
+    "de": "Noch keine manuellen Einträge. Selbst beigetretene Schüler stehen unten.",
+    "pt": "Nenhum aluno adicionado manualmente. Quem entrar por conta própria aparecerá abaixo."
+  },
+  "Các bạn sẽ xuất hiện ở đây.": {
+    "en": "Students will appear here.",
+    "zh": "学生将显示在这里。",
+    "ja": "生徒はここに表示されます。",
+    "ko": "학생이 여기에 표시됩니다.",
+    "es": "Los estudiantes aparecerán aquí.",
+    "fr": "Les élèves apparaîtront ici.",
+    "de": "Schüler erscheinen hier.",
+    "pt": "Os alunos aparecerão aqui."
+  },
+  "Giới tính của {name}": {
+    "en": "Gender of {name}",
+    "zh": "{name}的性别",
+    "ja": "{name}の性別",
+    "ko": "{name}의 성별",
+    "es": "Género de {name}",
+    "fr": "Genre de {name}",
+    "de": "Geschlecht von {name}",
+    "pt": "Gênero de {name}"
+  },
+  "Đang tạo mã hoặc lưu lớp. Bản nháp vẫn được giữ; chờ một chút rồi lưu lại.": {
+    "en": "Creating a code or saving. Your draft is kept; wait a moment and save again.",
+    "zh": "正在创建代码或保存。草稿已保留；请稍后再次保存。",
+    "ja": "コード作成または保存中です。下書きは保持されています。少し待って保存してください。",
+    "ko": "코드 생성 또는 저장 중입니다. 초안은 유지됩니다. 잠시 후 다시 저장하세요.",
+    "es": "Creando un código o guardando. Tu borrador se conserva; espera y vuelve a guardar.",
+    "fr": "Création du code ou enregistrement en cours. Brouillon conservé ; réessayez dans un instant.",
+    "de": "Code wird erstellt oder gespeichert. Dein Entwurf bleibt erhalten; speichere gleich erneut.",
+    "pt": "Criando código ou salvando. Seu rascunho foi mantido; aguarde e salve novamente."
+  },
+  "Nhập ít nhất một tên để UFO biết đón ai nhé.": {
+    "en": "Enter at least one name so the UFO knows who to pick up.",
+    "zh": "请输入至少一个姓名，让飞碟知道接谁。",
+    "ja": "UFOが迎えに行けるように、名前を1人以上入力してください。",
+    "ko": "UFO가 누구를 데려갈지 알 수 있도록 이름을 하나 이상 입력하세요.",
+    "es": "Introduce al menos un nombre para que el ovni sepa a quién recoger.",
+    "fr": "Saisissez au moins un nom pour que l’ovni sache qui chercher.",
+    "de": "Gib mindestens einen Namen ein, damit das UFO weiß, wen es abholen soll.",
+    "pt": "Digite pelo menos um nome para o OVNI saber quem buscar."
+  },
+  "Đang tải danh sách đầy đủ từ lớp. Chờ kết nối rồi thử lại.": {
+    "en": "Loading the full roster. Wait for the connection and try again.",
+    "zh": "正在加载完整名单。请等待连接后重试。",
+    "ja": "名簿全体を読み込み中です。接続を待って再試行してください。",
+    "ko": "전체 명단을 불러오는 중입니다. 연결 후 다시 시도하세요.",
+    "es": "Cargando la lista completa. Espera la conexión y reintenta.",
+    "fr": "Chargement de la liste complète. Attendez la connexion puis réessayez.",
+    "de": "Vollständige Liste wird geladen. Warte auf die Verbindung und versuche es erneut.",
+    "pt": "Carregando a lista completa. Aguarde a conexão e tente novamente."
+  },
+  "Lớp đã có cập nhật mới. Tải danh sách mới rồi chỉnh sửa lại trước khi lưu.": {
+    "en": "The class has new changes. Load the latest roster and edit it before saving.",
+    "zh": "班级已有更新。请加载最新名单，编辑后再保存。",
+    "ja": "クラスが更新されています。最新の名簿を読み込んでから編集・保存してください。",
+    "ko": "학급이 업데이트되었습니다. 최신 명단을 불러와 수정한 후 저장하세요.",
+    "es": "Hay cambios nuevos. Carga la lista actual y edítala antes de guardar.",
+    "fr": "La classe a changé. Chargez la dernière liste avant de modifier et enregistrer.",
+    "de": "Die Klasse wurde geändert. Lade die aktuelle Liste vor dem Bearbeiten und Speichern.",
+    "pt": "A turma tem alterações. Carregue a lista mais recente e edite antes de salvar."
+  },
+  "Thêm tên nhập tay hoặc mời một bạn tham gia lớp trước khi lưu nhé.": {
+    "en": "Add a name manually or invite a student before saving.",
+    "zh": "请手动添加姓名或邀请学生加入后再保存。",
+    "ja": "手入力で追加するか生徒を招待してから保存してください。",
+    "ko": "이름을 직접 추가하거나 학생을 초대한 후 저장하세요.",
+    "es": "Añade un nombre o invita a un estudiante antes de guardar.",
+    "fr": "Ajoutez un nom ou invitez un élève avant d’enregistrer.",
+    "de": "Trage einen Namen ein oder lade einen Schüler ein, bevor du speicherst.",
+    "pt": "Adicione um nome ou convide um aluno antes de salvar."
+  },
+  "Toàn lớp tối đa 120 bạn, gồm cả tên nhập tay và các bạn tự tham gia.": {
+    "en": "Maximum 120 students, including manual entries and self-joins.",
+    "zh": "全班最多120人，包括手动添加和自行加入。",
+    "ja": "手入力と自己登録を合わせて最大120人です。",
+    "ko": "직접 입력과 자율 참여를 합쳐 최대 120명입니다.",
+    "es": "Máximo 120 estudiantes, incluidos los manuales y los que se unen solos.",
+    "fr": "Maximum 120 élèves, ajouts manuels et inscriptions autonomes compris.",
+    "de": "Maximal 120 Schüler, einschließlich manueller Einträge und Selbstanmeldungen.",
+    "pt": "Máximo de 120 alunos, incluindo entradas manuais e autônomas."
+  },
+  "Đã lưu {v0} bạn cho {v1}.": {
+    "en": "Saved {v0} students for {v1}.",
+    "zh": "已为{v1}保存{v0}名学生。",
+    "ja": "{v1}に{v0}人を保存しました。",
+    "ko": "{v1}에 학생 {v0}명을 저장했습니다.",
+    "es": "Se guardaron {v0} estudiantes en {v1}.",
+    "fr": "{v0} élèves enregistrés pour {v1}.",
+    "de": "{v0} Schüler für {v1} gespeichert.",
+    "pt": "{v0} alunos salvos em {v1}."
+  },
+  "Tệp quá lớn. Chọn tệp TXT / CSV dưới 1 MB.": {
+    "en": "File too large. Choose a TXT / CSV file under 1 MB.",
+    "zh": "文件过大。请选择小于1 MB的TXT或CSV文件。",
+    "ja": "ファイルが大きすぎます。1 MB未満のTXT / CSVを選んでください。",
+    "ko": "파일이 너무 큽니다. 1MB 미만의 TXT / CSV를 선택하세요.",
+    "es": "Archivo demasiado grande. Elige un TXT / CSV de menos de 1 MB.",
+    "fr": "Fichier trop volumineux. Choisissez un TXT / CSV de moins de 1 Mo.",
+    "de": "Datei zu groß. Wähle TXT / CSV unter 1 MB.",
+    "pt": "Arquivo muito grande. Escolha um TXT / CSV menor que 1 MB."
+  },
+  "Đã nhập tệp vào bản nháp của lớp bạn vừa chọn.": {
+    "en": "File imported into the selected class draft.",
+    "zh": "文件已导入所选班级草稿。",
+    "ja": "選択したクラスの下書きに読み込みました。",
+    "ko": "선택한 학급의 초안으로 파일을 가져왔습니다.",
+    "es": "Archivo importado al borrador de la clase seleccionada.",
+    "fr": "Fichier importé dans le brouillon de la classe choisie.",
+    "de": "Datei in den Entwurf der gewählten Klasse importiert.",
+    "pt": "Arquivo importado para o rascunho da turma selecionada."
+  },
+  "Không đọc được tệp.": {
+    "en": "Could not read the file.",
+    "zh": "无法读取文件。",
+    "ja": "ファイルを読み取れませんでした。",
+    "ko": "파일을 읽을 수 없습니다.",
+    "es": "No se pudo leer el archivo.",
+    "fr": "Impossible de lire le fichier.",
+    "de": "Datei konnte nicht gelesen werden.",
+    "pt": "Não foi possível ler o arquivo."
+  },
+  "Kiểm tra lại danh sách trước khi xuất tệp.": {
+    "en": "Check the roster before exporting.",
+    "zh": "请检查名单后再导出。",
+    "ja": "書き出す前に名簿を確認してください。",
+    "ko": "내보내기 전에 명단을 확인하세요.",
+    "es": "Revisa la lista antes de exportar.",
+    "fr": "Vérifiez la liste avant d’exporter.",
+    "de": "Prüfe die Liste vor dem Export.",
+    "pt": "Confira a lista antes de exportar."
+  },
+  "Họ và tên": {
+    "en": "Full name",
+    "zh": "姓名",
+    "ja": "氏名",
+    "ko": "이름",
+    "es": "Nombre completo",
+    "fr": "Nom complet",
+    "de": "Vollständiger Name",
+    "pt": "Nome completo"
+  },
+  "Giới tính": {
+    "en": "Gender",
+    "zh": "性别",
+    "ja": "性別",
+    "ko": "성별",
+    "es": "Género",
+    "fr": "Genre",
+    "de": "Geschlecht",
+    "pt": "Gênero"
+  },
+  "Nhập số nguyên từ 1 đến 120, hoặc để trống.": {
+    "en": "Enter a whole number from 1 to 120, or leave blank.",
+    "zh": "请输入1到120的整数，或留空。",
+    "ja": "1〜120の整数を入力するか、空欄にしてください。",
+    "ko": "1~120의 정수를 입력하거나 비워 두세요.",
+    "es": "Introduce un entero de 1 a 120 o deja en blanco.",
+    "fr": "Saisissez un entier de 1 à 120, ou laissez vide.",
+    "de": "Gib eine ganze Zahl von 1 bis 120 ein oder lasse das Feld leer.",
+    "pt": "Digite um inteiro de 1 a 120 ou deixe em branco."
+  },
+  "Đang lưu lớp. Chờ một chút rồi lưu sĩ số.": {
+    "en": "Saving the class. Wait before saving the class size.",
+    "zh": "正在保存班级。请稍后保存班级人数。",
+    "ja": "クラスを保存中です。人数の保存は少し待ってください。",
+    "ko": "학급 저장 중입니다. 잠시 후 정원을 저장하세요.",
+    "es": "Guardando la clase. Espera para guardar el tamaño.",
+    "fr": "Enregistrement en cours. Patientez pour enregistrer l’effectif.",
+    "de": "Klasse wird gespeichert. Warte vor dem Speichern der Klassengröße.",
+    "pt": "Salvando a turma. Aguarde para salvar o total de alunos."
+  },
+  "Đã bỏ sĩ số dự kiến.": {
+    "en": "Expected class size removed.",
+    "zh": "已清除预计人数。",
+    "ja": "予定人数を解除しました。",
+    "ko": "예상 인원을 지웠습니다.",
+    "es": "Tamaño previsto eliminado.",
+    "fr": "Effectif prévu supprimé.",
+    "de": "Erwartete Klassengröße entfernt.",
+    "pt": "Total previsto removido."
+  },
+  "Đã lưu sĩ số {v0} cho {v1}.": {
+    "en": "Saved class size {v0} for {v1}.",
+    "zh": "已将{v1}的班级人数保存为{v0}。",
+    "ja": "{v1}の人数を{v0}人に保存しました。",
+    "ko": "{v1}의 인원을 {v0}명으로 저장했습니다.",
+    "es": "Tamaño {v0} guardado para {v1}.",
+    "fr": "Effectif de {v0} enregistré pour {v1}.",
+    "de": "Klassengröße {v0} für {v1} gespeichert.",
+    "pt": "Total de {v0} salvo para {v1}."
+  },
+  "Chờ đồng bộ điểm danh · ": {
+    "en": "Attendance sync pending · ",
+    "zh": "考勤等待同步 · ",
+    "ja": "出欠の同期待ち · ",
+    "ko": "출석 동기화 대기 · ",
+    "es": "Asistencia pendiente de sincronizar · ",
+    "fr": "Présence en attente de synchronisation · ",
+    "de": "Anwesenheit wartet auf Synchronisierung · ",
+    "pt": "Presença aguardando sincronização · "
+  },
+  "Đang lưu điểm danh lên Cloudflare…": {
+    "en": "Saving attendance to Cloudflare…",
+    "zh": "正在将考勤保存至Cloudflare…",
+    "ja": "出欠をCloudflareに保存中…",
+    "ko": "Cloudflare에 출석 저장 중…",
+    "es": "Guardando asistencia en Cloudflare…",
+    "fr": "Enregistrement de la présence sur Cloudflare…",
+    "de": "Anwesenheit wird auf Cloudflare gespeichert…",
+    "pt": "Salvando presença no Cloudflare…"
+  },
+  "{v0} lượt điểm danh chờ đồng bộ": {
+    "en": "{v0} attendance sessions awaiting sync",
+    "zh": "{v0}次考勤等待同步",
+    "ja": "{v0}回分の出欠が同期待ち",
+    "ko": "출석 기록 {v0}건 동기화 대기",
+    "es": "{v0} sesiones de asistencia pendientes",
+    "fr": "{v0} appels en attente de synchronisation",
+    "de": "{v0} Anwesenheitslisten warten auf Synchronisierung",
+    "pt": "{v0} chamadas aguardando sincronização"
+  },
+  "Điểm danh đã lưu trên Cloudflare": {
+    "en": "Attendance saved to Cloudflare",
+    "zh": "考勤已保存至Cloudflare",
+    "ja": "出欠をCloudflareに保存済み",
+    "ko": "Cloudflare에 출석 저장됨",
+    "es": "Asistencia guardada en Cloudflare",
+    "fr": "Présence enregistrée sur Cloudflare",
+    "de": "Anwesenheit auf Cloudflare gespeichert",
+    "pt": "Presença salva no Cloudflare"
+  },
+  "Chưa tải được lịch sử điểm danh.": {
+    "en": "Could not load attendance history.",
+    "zh": "无法加载考勤历史。",
+    "ja": "出欠履歴を読み込めませんでした。",
+    "ko": "출석 기록을 불러올 수 없습니다.",
+    "es": "No se pudo cargar el historial de asistencia.",
+    "fr": "Impossible de charger l’historique de présence.",
+    "de": "Anwesenheitsverlauf konnte nicht geladen werden.",
+    "pt": "Não foi possível carregar o histórico de presença."
+  },
+  "Chờ lưu lớp hoặc chuyến bay hoàn tất rồi điểm danh nhé.": {
+    "en": "Wait until saving or the flight has finished before taking attendance.",
+    "zh": "请等待保存或飞行结束后再点名。",
+    "ja": "保存またはフライトが終わってから出欠を確認してください。",
+    "ko": "저장 또는 비행이 끝난 후 출석을 확인하세요.",
+    "es": "Espera a que termine el guardado o el vuelo para pasar lista.",
+    "fr": "Attendez la fin de l’enregistrement ou du vol avant l’appel.",
+    "de": "Warte bis zum Ende des Speicherns oder Flugs, bevor du die Anwesenheit prüfst.",
+    "pt": "Aguarde o fim do salvamento ou do voo para fazer a chamada."
+  },
+  "Thêm học sinh vào lớp trước khi điểm danh.": {
+    "en": "Add students before taking attendance.",
+    "zh": "请先添加学生再点名。",
+    "ja": "生徒を追加してから出欠を確認してください。",
+    "ko": "학생을 추가한 후 출석을 확인하세요.",
+    "es": "Añade estudiantes antes de pasar lista.",
+    "fr": "Ajoutez des élèves avant l’appel.",
+    "de": "Füge Schüler hinzu, bevor du die Anwesenheit prüfst.",
+    "pt": "Adicione alunos antes de fazer a chamada."
+  },
+  "Đang kết nối lớp. Chờ một chút rồi điểm danh.": {
+    "en": "Connecting to the class. Wait before taking attendance.",
+    "zh": "正在连接班级。请稍后点名。",
+    "ja": "クラスに接続中です。少し待ってから出欠を確認してください。",
+    "ko": "학급 연결 중입니다. 잠시 후 출석을 확인하세요.",
+    "es": "Conectando con la clase. Espera para pasar lista.",
+    "fr": "Connexion à la classe. Patientez avant l’appel.",
+    "de": "Verbindung zur Klasse wird hergestellt. Warte kurz.",
+    "pt": "Conectando à turma. Aguarde para fazer a chamada."
+  },
+  "Cần tạo mã lớp để lưu lịch sử điểm danh.": {
+    "en": "Create a class code to save attendance history.",
+    "zh": "请创建班级码以保存考勤历史。",
+    "ja": "出欠履歴を保存するにはクラスコードが必要です。",
+    "ko": "출석 기록을 저장하려면 학급 코드를 만드세요.",
+    "es": "Crea un código de clase para guardar la asistencia.",
+    "fr": "Créez un code de classe pour enregistrer la présence.",
+    "de": "Erstelle einen Klassencode, um den Anwesenheitsverlauf zu speichern.",
+    "pt": "Crie um código da turma para salvar a presença."
+  },
+  "Chưa bắt đầu điểm danh: ": {
+    "en": "Could not start attendance: ",
+    "zh": "无法开始点名：",
+    "ja": "出欠確認を開始できませんでした：",
+    "ko": "출석 확인을 시작할 수 없습니다: ",
+    "es": "No se pudo iniciar la asistencia: ",
+    "fr": "Impossible de démarrer l’appel : ",
+    "de": "Anwesenheitsprüfung konnte nicht gestartet werden: ",
+    "pt": "Não foi possível iniciar a chamada: "
+  },
+  "Bắt đầu điểm danh. Chọn Có mặt hoặc Vắng cho từng bạn, không giới hạn thời gian.": {
+    "en": "Attendance started. Choose Present or Absent for each student, with no time limit.",
+    "zh": "开始点名。为每位学生选择出席或缺席，没有时间限制。",
+    "ja": "出欠確認を開始します。時間制限なしで、生徒ごとに出席または欠席を選んでください。",
+    "ko": "출석 확인을 시작합니다. 시간 제한 없이 학생마다 출석 또는 결석을 선택하세요.",
+    "es": "Comienza la asistencia. Elige Presente o Ausente para cada estudiante, sin límite de tiempo.",
+    "fr": "Appel commencé. Choisissez Présent ou Absent pour chaque élève, sans limite de temps.",
+    "de": "Anwesenheitsprüfung gestartet. Wähle für jeden Schüler Anwesend oder Abwesend, ohne Zeitlimit.",
+    "pt": "Chamada iniciada. Escolha Presente ou Ausente para cada aluno, sem limite de tempo."
+  },
+  "{status}: {present} có mặt, {absent} vắng.": {
+    "en": "{status}: {present} present, {absent} absent.",
+    "zh": "{status}：{present}人出席，{absent}人缺席。",
+    "ja": "{status}：出席{present}人、欠席{absent}人。",
+    "ko": "{status}: 출석 {present}명, 결석 {absent}명.",
+    "es": "{status}: {present} presentes, {absent} ausentes.",
+    "fr": "{status} : {present} présents, {absent} absents.",
+    "de": "{status}: {present} anwesend, {absent} abwesend.",
+    "pt": "{status}: {present} presentes, {absent} ausentes."
+  },
+  "Đã điểm danh": {
+    "en": "Attendance complete",
+    "zh": "点名完成",
+    "ja": "出欠確認完了",
+    "ko": "출석 확인 완료",
+    "es": "Asistencia completa",
+    "fr": "Appel terminé",
+    "de": "Anwesenheit erfasst",
+    "pt": "Chamada concluída"
+  },
+  "Đã dừng": {
+    "en": "Stopped",
+    "zh": "已停止",
+    "ja": "停止しました",
+    "ko": "중지됨",
+    "es": "Detenido",
+    "fr": "Arrêté",
+    "de": "Gestoppt",
+    "pt": "Interrompido"
+  },
+  "{count} bạn chưa điểm danh": {
+    "en": "{count} students not yet checked",
+    "zh": "{count}名学生尚未点名",
+    "ja": "未確認{count}人",
+    "ko": "미확인 학생 {count}명",
+    "es": "{count} estudiantes pendientes",
+    "fr": "{count} élèves non vérifiés",
+    "de": "{count} Schüler noch nicht geprüft",
+    "pt": "{count} alunos ainda não verificados"
+  },
+  "Nam": {
+    "en": "Male",
+    "zh": "男性",
+    "ja": "男性",
+    "ko": "남성",
+    "es": "Masculino",
+    "fr": "Homme",
+    "de": "Männlich",
+    "pt": "Masculino"
+  },
+  "Nữ": {
+    "en": "Female",
+    "zh": "女性",
+    "ja": "女性",
+    "ko": "여성",
+    "es": "Femenino",
+    "fr": "Femme",
+    "de": "Weiblich",
+    "pt": "Feminino"
+  },
+  "Khác": {
+    "en": "Other",
+    "zh": "其他",
+    "ja": "その他",
+    "ko": "기타",
+    "es": "Otro",
+    "fr": "Autre",
+    "de": "Divers",
+    "pt": "Outro"
+  },
+  "Dòng {v0}: giới tính “{v1}” chưa hợp lệ. Dùng nam, nữ hoặc khác.": {
+    "en": "Line {v0}: invalid gender “{v1}”. Use male, female or other.",
+    "zh": "第{v0}行：性别“{v1}”无效。请输入男性、女性或其他。",
+    "ja": "{v0}行目：性別「{v1}」が無効です。男性、女性、その他を使用してください。",
+    "ko": "{v0}행: 성별 “{v1}”이 올바르지 않습니다. 남성, 여성 또는 기타를 사용하세요.",
+    "es": "Línea {v0}: género “{v1}” no válido. Usa masculino, femenino u otro.",
+    "fr": "Ligne {v0} : genre « {v1} » invalide. Utilisez homme, femme ou autre.",
+    "de": "Zeile {v0}: ungültiges Geschlecht „{v1}“. Nutze männlich, weiblich oder divers.",
+    "pt": "Linha {v0}: gênero “{v1}” inválido. Use masculino, feminino ou outro."
+  },
+  "Dòng {v0}: thiếu tên.": {
+    "en": "Line {v0}: missing name.",
+    "zh": "第{v0}行：缺少姓名。",
+    "ja": "{v0}行目：名前がありません。",
+    "ko": "{v0}행: 이름이 없습니다.",
+    "es": "Línea {v0}: falta el nombre.",
+    "fr": "Ligne {v0} : nom manquant.",
+    "de": "Zeile {v0}: Name fehlt.",
+    "pt": "Linha {v0}: nome ausente."
+  },
+  "Tối đa {v0} học sinh trong một danh sách.": {
+    "en": "Maximum {v0} students in a roster.",
+    "zh": "名单最多{v0}名学生。",
+    "ja": "名簿は最大{v0}人です。",
+    "ko": "명단에는 최대 {v0}명까지 가능합니다.",
+    "es": "Máximo {v0} estudiantes por lista.",
+    "fr": "Maximum {v0} élèves par liste.",
+    "de": "Maximal {v0} Schüler pro Liste.",
+    "pt": "Máximo de {v0} alunos por lista."
+  },
+  "Danh sách chọn phải có ít nhất một người.": {
+    "en": "Selection needs at least one student.",
+    "zh": "选择名单中至少需要一人。",
+    "ja": "選択には1人以上必要です。",
+    "ko": "선택하려면 최소 한 명이 필요합니다.",
+    "es": "La selección requiere al menos una persona.",
+    "fr": "La sélection nécessite au moins une personne.",
+    "de": "Zur Auswahl wird mindestens eine Person benötigt.",
+    "pt": "A seleção precisa de pelo menos uma pessoa."
+  },
+  "Lớp mẫu": {
+    "en": "Sample class",
+    "zh": "示例班级",
+    "ja": "サンプルクラス",
+    "ko": "예시 학급",
+    "es": "Clase de ejemplo",
+    "fr": "Classe d’exemple",
+    "de": "Beispielklasse",
+    "pt": "Turma de exemplo"
+  },
+  "Lớp của mình": {
+    "en": "My class",
+    "zh": "我的班级",
+    "ja": "自分のクラス",
+    "ko": "우리 반",
+    "es": "Mi clase",
+    "fr": "Ma classe",
+    "de": "Meine Klasse",
+    "pt": "Minha turma"
+  },
+  "Nhập tên lớp để dễ tìm lại nhé.": {
+    "en": "Enter a class name so you can find it later.",
+    "zh": "请输入班级名称，便于以后查找。",
+    "ja": "後で見つけやすいようにクラス名を入力してください。",
+    "ko": "나중에 찾기 쉽도록 학급 이름을 입력하세요.",
+    "es": "Pon un nombre para encontrar la clase después.",
+    "fr": "Donnez un nom à la classe pour la retrouver.",
+    "de": "Gib einen Klassennamen ein, um sie später wiederzufinden.",
+    "pt": "Digite um nome para encontrar a turma depois."
+  },
+  "Tên lớp này đã có. Chọn một tên khác nhé.": {
+    "en": "This class name already exists. Choose another.",
+    "zh": "此班级名称已存在。请使用其他名称。",
+    "ja": "同じクラス名があります。別の名前にしてください。",
+    "ko": "이미 있는 학급 이름입니다. 다른 이름을 선택하세요.",
+    "es": "Ya existe ese nombre. Elige otro.",
+    "fr": "Ce nom existe déjà. Choisissez-en un autre.",
+    "de": "Dieser Klassenname existiert bereits. Wähle einen anderen.",
+    "pt": "Esse nome já existe. Escolha outro."
+  },
+  "Tối đa {v0} lớp trên trình duyệt này.": {
+    "en": "Maximum {v0} classes in this browser.",
+    "zh": "此浏览器最多{v0}个班级。",
+    "ja": "このブラウザでは最大{v0}クラスです。",
+    "ko": "이 브라우저에는 최대 {v0}개 학급까지 가능합니다.",
+    "es": "Máximo {v0} clases en este navegador.",
+    "fr": "Maximum {v0} classes dans ce navigateur.",
+    "de": "Maximal {v0} Klassen in diesem Browser.",
+    "pt": "Máximo de {v0} turmas neste navegador."
+  },
+  "Không tìm thấy lớp này.": {
+    "en": "Class not found.",
+    "zh": "未找到此班级。",
+    "ja": "クラスが見つかりません。",
+    "ko": "학급을 찾을 수 없습니다.",
+    "es": "Clase no encontrada.",
+    "fr": "Classe introuvable.",
+    "de": "Klasse nicht gefunden.",
+    "pt": "Turma não encontrada."
+  },
+  "Danh sách cần từ 1 đến 120 bạn.": {
+    "en": "A roster needs 1 to 120 students.",
+    "zh": "名单需要1至120名学生。",
+    "ja": "名簿には1〜120人が必要です。",
+    "ko": "명단에는 1~120명이 필요합니다.",
+    "es": "La lista debe tener de 1 a 120 estudiantes.",
+    "fr": "La liste doit contenir de 1 à 120 élèves.",
+    "de": "Eine Liste muss 1 bis 120 Schüler enthalten.",
+    "pt": "A lista precisa ter de 1 a 120 alunos."
+  },
+  "Mỗi bạn cần có tên.": {
+    "en": "Every student needs a name.",
+    "zh": "每名学生都需要姓名。",
+    "ja": "全員の名前が必要です。",
+    "ko": "모든 학생에게 이름이 필요합니다.",
+    "es": "Cada estudiante necesita un nombre.",
+    "fr": "Chaque élève doit avoir un nom.",
+    "de": "Jeder Schüler braucht einen Namen.",
+    "pt": "Cada aluno precisa de um nome."
+  },
+  "UFO bắt trả bài – UFO Khảo bài · KROMA": {
+    "en": "UFO Classroom · KROMA",
+    "zh": "飞碟课堂 · KROMA",
+    "ja": "UFO教室 · KROMA",
+    "ko": "UFO 교실 · KROMA",
+    "es": "Aula OVNI · KROMA",
+    "fr": "Classe OVNI · KROMA",
+    "de": "UFO-Klasse · KROMA",
+    "pt": "Sala OVNI · KROMA"
+  },
+  "Sân chơi UFO": {
+    "en": "UFO playground",
+    "zh": "飞碟操场",
+    "ja": "UFO広場",
+    "ko": "UFO 운동장",
+    "es": "Patio del ovni",
+    "fr": "Cour de l’ovni",
+    "de": "UFO-Spielplatz",
+    "pt": "Pátio do OVNI"
+  },
+  "UFO BẮT TRẢ BÀI": {
+    "en": "UFO CLASSROOM",
+    "zh": "飞碟课堂",
+    "ja": "UFO教室",
+    "ko": "UFO 교실",
+    "es": "AULA OVNI",
+    "fr": "CLASSE OVNI",
+    "de": "UFO-KLASSE",
+    "pt": "SALA OVNI"
+  },
+  "KROMA trên App Store (mở tab mới)": {
+    "en": "KROMA on the App Store (new tab)",
+    "zh": "App Store上的KROMA（新标签页）",
+    "ja": "App StoreのKROMA（新しいタブ）",
+    "ko": "App Store의 KROMA (새 탭)",
+    "es": "KROMA en App Store (nueva pestaña)",
+    "fr": "KROMA sur l’App Store (nouvel onglet)",
+    "de": "KROMA im App Store (neuer Tab)",
+    "pt": "KROMA na App Store (nova aba)"
+  },
+  "Tham gia hoặc tạo lớp": {
+    "en": "Join or create a class",
+    "zh": "加入或创建班级",
+    "ja": "クラスに参加・作成",
+    "ko": "학급 참여 또는 만들기",
+    "es": "Unirse o crear una clase",
+    "fr": "Rejoindre ou créer une classe",
+    "de": "Klasse beitreten oder erstellen",
+    "pt": "Entrar ou criar uma turma"
+  },
+  "Tham gia lớp (mở tab mới)": {
+    "en": "Join a class (new tab)",
+    "zh": "加入班级（新标签页）",
+    "ja": "クラスに参加（新しいタブ）",
+    "ko": "학급 참여 (새 탭)",
+    "es": "Unirse a clase (nueva pestaña)",
+    "fr": "Rejoindre une classe (nouvel onglet)",
+    "de": "Klasse beitreten (neuer Tab)",
+    "pt": "Entrar na turma (nova aba)"
+  },
+  "Tham gia lớp": {
+    "en": "Join a class",
+    "zh": "加入班级",
+    "ja": "クラスに参加",
+    "ko": "학급 참여",
+    "es": "Unirse a clase",
+    "fr": "Rejoindre une classe",
+    "de": "Klasse beitreten",
+    "pt": "Entrar na turma"
+  },
+  "Khu phố hoạt hình với học sinh có tên và UFO bay đến chọn ngẫu nhiên": {
+    "en": "Animated street with named students and a UFO choosing at random",
+    "zh": "街道动画，显示学生姓名和随机选人的飞碟",
+    "ja": "名前付きの生徒とランダムに選ぶUFOがいる街のアニメーション",
+    "ko": "학생 이름과 무작위로 선택하는 UFO가 있는 거리 애니메이션",
+    "es": "Calle animada con estudiantes y selección aleatoria por un ovni",
+    "fr": "Rue animée avec élèves nommés et sélection aléatoire par un ovni",
+    "de": "Animierte Straße mit Schülernamen und zufälliger UFO-Auswahl",
+    "pt": "Rua animada com alunos identificados e escolha aleatória por um OVNI"
+  },
+  "Bấm tên học sinh để xem thông tin": {
+    "en": "Tap a student’s name for details",
+    "zh": "点击学生姓名查看信息",
+    "ja": "生徒名を押して情報を見る",
+    "ko": "학생 이름을 눌러 정보 보기",
+    "es": "Pulsa un nombre para ver información",
+    "fr": "Touchez un nom pour voir les détails",
+    "de": "Schülernamen für Details anklicken",
+    "pt": "Toque no nome do aluno para ver informações"
+  },
+  ". Khi chọn sân chơi bằng bàn phím, nhấn Enter để mở danh sách học sinh.": {
+    "en": ". With keyboard focus on the scene, press Enter to open the roster.",
+    "zh": "。使用键盘选择场景后，按Enter打开名单。",
+    "ja": "。キーボードで広場を選択し、Enterで名簿を開きます。",
+    "ko": ". 키보드로 장면을 선택한 후 Enter를 누르면 명단이 열립니다.",
+    "es": ". Con el foco en la escena, pulsa Intro para abrir la lista.",
+    "fr": ". Avec le focus sur la scène, appuyez sur Entrée pour ouvrir la liste.",
+    "de": ". Wenn die Szene fokussiert ist, öffnet Enter die Klassenliste.",
+    "pt": ". Com o foco na cena, pressione Enter para abrir a lista."
+  },
+  "Nhấp đúp biển hiệu để đổi tên": {
+    "en": "Double-click the sign to rename it",
+    "zh": "双击招牌修改名称",
+    "ja": "看板をダブルクリックして名前を変更",
+    "ko": "간판을 두 번 클릭하여 이름 변경",
+    "es": "Doble clic en el letrero para renombrar",
+    "fr": "Double-cliquez sur l’enseigne pour la renommer",
+    "de": "Schild zum Umbenennen doppelklicken",
+    "pt": "Clique duas vezes na placa para renomear"
+  },
+  "Chạm hai lần biển hiệu để đổi tên": {
+    "en": "Double-tap the sign to rename it",
+    "zh": "轻点招牌两次修改名称",
+    "ja": "看板をダブルタップして名前を変更",
+    "ko": "간판을 두 번 탭하여 이름 변경",
+    "es": "Toca dos veces el letrero para renombrar",
+    "fr": "Touchez deux fois l’enseigne pour la renommer",
+    "de": "Schild zum Umbenennen doppelt antippen",
+    "pt": "Toque duas vezes na placa para renomear"
+  },
+  "Khu phố đang bình yên…": {
+    "en": "All quiet in the neighborhood…",
+    "zh": "街区一片宁静…",
+    "ja": "街は平和そのもの…",
+    "ko": "거리는 평화롭네요…",
+    "es": "Todo tranquilo en el barrio…",
+    "fr": "Tout est calme dans le quartier…",
+    "de": "Alles ruhig im Viertel…",
+    "pt": "Tudo tranquilo no bairro…"
+  },
+  "Bỏ qua": {
+    "en": "Skip",
+    "zh": "跳过",
+    "ja": "スキップ",
+    "ko": "건너뛰기",
+    "es": "Saltar",
+    "fr": "Passer",
+    "de": "Überspringen",
+    "pt": "Pular"
+  },
+  "Lớp học": {
+    "en": "Classroom",
+    "zh": "班级",
+    "ja": "クラス",
+    "ko": "학급",
+    "es": "Clase",
+    "fr": "Classe",
+    "de": "Klasse",
+    "pt": "Turma"
+  },
+  "Danh sách và lịch sử gọi UFO": {
+    "en": "Roster and UFO call history",
+    "zh": "名单与飞碟点名历史",
+    "ja": "名簿とUFO指名履歴",
+    "ko": "명단 및 UFO 호명 기록",
+    "es": "Lista e historial del ovni",
+    "fr": "Liste et historique des appels OVNI",
+    "de": "Klassenliste und UFO-Aufrufverlauf",
+    "pt": "Lista e histórico de chamadas do OVNI"
+  },
+  "Danh sách": {
+    "en": "Roster",
+    "zh": "名单",
+    "ja": "名簿",
+    "ko": "명단",
+    "es": "Lista",
+    "fr": "Liste",
+    "de": "Klassenliste",
+    "pt": "Lista"
+  },
+  "Điểm danh": {
+    "en": "Attendance",
+    "zh": "考勤",
+    "ja": "出欠確認",
+    "ko": "출석 확인",
+    "es": "Asistencia",
+    "fr": "Présence",
+    "de": "Anwesenheit",
+    "pt": "Presença"
+  },
+  "Lịch sử điểm danh": {
+    "en": "Attendance history",
+    "zh": "考勤历史",
+    "ja": "出欠履歴",
+    "ko": "출석 기록",
+    "es": "Historial de asistencia",
+    "fr": "Historique de présence",
+    "de": "Anwesenheitsverlauf",
+    "pt": "Histórico de presença"
+  },
+  "Mã lớp": {
+    "en": "Class code",
+    "zh": "班级码",
+    "ja": "クラスコード",
+    "ko": "학급 코드",
+    "es": "Código de clase",
+    "fr": "Code de classe",
+    "de": "Klassencode",
+    "pt": "Código da turma"
+  },
+  "Cài đặt": {
+    "en": "Settings",
+    "zh": "设置",
+    "ja": "設定",
+    "ko": "설정",
+    "es": "Ajustes",
+    "fr": "Réglages",
+    "de": "Einstellungen",
+    "pt": "Configurações"
+  },
+  "Vòng mới": {
+    "en": "New round",
+    "zh": "新一轮",
+    "ja": "新ラウンド",
+    "ko": "새 라운드",
+    "es": "Nueva ronda",
+    "fr": "Nouvelle manche",
+    "de": "Neue Runde",
+    "pt": "Nova rodada"
+  },
+  "Cách chơi": {
+    "en": "How to play",
+    "zh": "使用说明",
+    "ja": "遊び方",
+    "ko": "사용 방법",
+    "es": "Cómo jugar",
+    "fr": "Comment jouer",
+    "de": "Anleitung",
+    "pt": "Como jogar"
+  },
+  "LỆNH TRIỆU TẬP LIÊN HÀNH TINH": {
+    "en": "INTERPLANETARY SUMMONS",
+    "zh": "星际召集令",
+    "ja": "銀河からの呼び出し",
+    "ko": "은하계 소집 명령",
+    "es": "LLAMADA INTERPLANETARIA",
+    "fr": "CONVOCATION INTERPLANÉTAIRE",
+    "de": "INTERPLANETARER AUFRUF",
+    "pt": "CHAMADO INTERPLANETÁRIO"
+  },
+  "ĐÃ BẮT": {
+    "en": "CAUGHT",
+    "zh": "抓到了",
+    "ja": "つかまえた",
+    "ko": "잡았다",
+    "es": "ATRAPADOS",
+    "fr": "ATTRAPÉS",
+    "de": "ERWISCHT",
+    "pt": "CAPTURADOS"
+  },
+  "Phi hành đoàn đã tìm được những cái tên may mắn.": {
+    "en": "The crew has found the lucky names.",
+    "zh": "机组找到了幸运的同学。",
+    "ja": "乗組員が幸運な名前を見つけました。",
+    "ko": "승무원들이 행운의 주인공을 찾았습니다.",
+    "es": "La tripulación encontró los nombres afortunados.",
+    "fr": "L’équipage a trouvé les heureux élus.",
+    "de": "Die Besatzung hat die Glücklichen gefunden.",
+    "pt": "A tripulação encontrou os nomes sortudos."
+  },
+  "Về sân chơi": {
+    "en": "Back to the yard",
+    "zh": "返回操场",
+    "ja": "広場に戻る",
+    "ko": "운동장으로",
+    "es": "Volver al patio",
+    "fr": "Retour à la cour",
+    "de": "Zurück zum Hof",
+    "pt": "Voltar ao pátio"
+  },
+  "Gọi lượt tiếp": {
+    "en": "Next turn",
+    "zh": "下一次",
+    "ja": "次を呼ぶ",
+    "ko": "다음 호명",
+    "es": "Siguiente turno",
+    "fr": "Tour suivant",
+    "de": "Nächster Aufruf",
+    "pt": "Próxima chamada"
+  },
+  "Bình tĩnh, kiến thức vẫn ở trong đầu mà!": {
+    "en": "Stay calm — your knowledge is still in there!",
+    "zh": "别紧张，知识还在脑袋里！",
+    "ja": "落ち着いて、覚えたことは頭の中にあるよ！",
+    "ko": "침착해요, 배운 내용은 머릿속에 있어요!",
+    "es": "¡Tranquilidad, lo aprendido sigue en tu cabeza!",
+    "fr": "Du calme, vos connaissances sont toujours là !",
+    "de": "Ganz ruhig, dein Wissen ist noch da!",
+    "pt": "Calma, o conhecimento continua na sua cabeça!"
+  },
+  "CHUYẾN BAY CỦA LỚP MÌNH": {
+    "en": "OUR CLASS FLIGHT",
+    "zh": "我们班的飞行",
+    "ja": "クラスのフライト",
+    "ko": "우리 반의 비행",
+    "es": "EL VUELO DE NUESTRA CLASE",
+    "fr": "LE VOL DE NOTRE CLASSE",
+    "de": "UNSER KLASSENFLUG",
+    "pt": "O VOO DA NOSSA TURMA"
+  },
+  "Đóng cài đặt": {
+    "en": "Close settings",
+    "zh": "关闭设置",
+    "ja": "設定を閉じる",
+    "ko": "설정 닫기",
+    "es": "Cerrar ajustes",
+    "fr": "Fermer les réglages",
+    "de": "Einstellungen schließen",
+    "pt": "Fechar configurações"
+  },
+  "Cài đặt App": {
+    "en": "App settings",
+    "zh": "应用设置",
+    "ja": "アプリ設定",
+    "ko": "앱 설정",
+    "es": "Ajustes de la aplicación",
+    "fr": "Réglages de l’application",
+    "de": "App-Einstellungen",
+    "pt": "Configurações do aplicativo"
+  },
+  "Bối cảnh": {
+    "en": "Scenery",
+    "zh": "场景",
+    "ja": "背景",
+    "ko": "배경",
+    "es": "Escenario",
+    "fr": "Décor",
+    "de": "Kulisse",
+    "pt": "Cenário"
+  },
+  "Lớp đang dùng": {
+    "en": "Current class",
+    "zh": "当前班级",
+    "ja": "使用中のクラス",
+    "ko": "현재 학급",
+    "es": "Clase actual",
+    "fr": "Classe active",
+    "de": "Aktuelle Klasse",
+    "pt": "Turma atual"
+  },
+  "+ Lớp mới": {
+    "en": "+ New class",
+    "zh": "+ 新班级",
+    "ja": "+ 新しいクラス",
+    "ko": "+ 새 학급",
+    "es": "+ Nueva clase",
+    "fr": "+ Nouvelle classe",
+    "de": "+ Neue Klasse",
+    "pt": "+ Nova turma"
+  },
+  "Đổi tên": {
+    "en": "Rename",
+    "zh": "重命名",
+    "ja": "名前を変更",
+    "ko": "이름 변경",
+    "es": "Renombrar",
+    "fr": "Renommer",
+    "de": "Umbenennen",
+    "pt": "Renomear"
+  },
+  "Số bạn được gọi": {
+    "en": "Students per turn",
+    "zh": "每次选择人数",
+    "ja": "1回の人数",
+    "ko": "한 번에 호명할 인원",
+    "es": "Estudiantes por turno",
+    "fr": "Élèves par tour",
+    "de": "Schüler pro Aufruf",
+    "pt": "Alunos por chamada"
+  },
+  "Giảm số bạn": {
+    "en": "Fewer students",
+    "zh": "减少人数",
+    "ja": "人数を減らす",
+    "ko": "인원 줄이기",
+    "es": "Menos estudiantes",
+    "fr": "Moins d’élèves",
+    "de": "Weniger Schüler",
+    "pt": "Menos alunos"
+  },
+  "Tăng số bạn": {
+    "en": "More students",
+    "zh": "增加人数",
+    "ja": "人数を増やす",
+    "ko": "인원 늘리기",
+    "es": "Más estudiantes",
+    "fr": "Plus d’élèves",
+    "de": "Mehr Schüler",
+    "pt": "Mais alunos"
+  },
+  "Không gọi trùng": {
+    "en": "No repeats",
+    "zh": "不重复点名",
+    "ja": "重複なし",
+    "ko": "중복 없이",
+    "es": "Sin repetir",
+    "fr": "Sans répétition",
+    "de": "Ohne Wiederholung",
+    "pt": "Sem repetir"
+  },
+  "Trong cùng một vòng": {
+    "en": "Within the same round",
+    "zh": "同一轮内",
+    "ja": "同じラウンド内",
+    "ko": "같은 라운드 내",
+    "es": "En la misma ronda",
+    "fr": "Dans la même manche",
+    "de": "Innerhalb einer Runde",
+    "pt": "Na mesma rodada"
+  },
+  "Sĩ số tổng": {
+    "en": "Class size",
+    "zh": "班级总人数",
+    "ja": "クラス人数",
+    "ko": "학급 총인원",
+    "es": "Tamaño de la clase",
+    "fr": "Effectif total",
+    "de": "Klassengröße",
+    "pt": "Total de alunos"
+  },
+  "Chưa đặt": {
+    "en": "Not set",
+    "zh": "未设置",
+    "ja": "未設定",
+    "ko": "미설정",
+    "es": "Sin definir",
+    "fr": "Non défini",
+    "de": "Nicht festgelegt",
+    "pt": "Não definido"
+  },
+  "Lưu sĩ số": {
+    "en": "Save class size",
+    "zh": "保存人数",
+    "ja": "人数を保存",
+    "ko": "인원 저장",
+    "es": "Guardar tamaño",
+    "fr": "Enregistrer l’effectif",
+    "de": "Größe speichern",
+    "pt": "Salvar total"
+  },
+  "Số học sinh dự kiến của lớp, từ 1 đến 120. Để trống nếu chưa xác định.": {
+    "en": "Expected number of students, from 1 to 120. Leave blank if unknown.",
+    "zh": "预计班级人数，1至120。尚未确定可留空。",
+    "ja": "予定人数は1〜120人。不明な場合は空欄にしてください。",
+    "ko": "예상 학생 수는 1~120명입니다. 미정이면 비워 두세요.",
+    "es": "Número previsto de estudiantes, de 1 a 120. Deja en blanco si no se sabe.",
+    "fr": "Effectif prévu de 1 à 120 élèves. Laissez vide si inconnu.",
+    "de": "Erwartete Schülerzahl von 1 bis 120. Leer lassen, falls unbekannt.",
+    "pt": "Número previsto de alunos, de 1 a 120. Deixe vazio se não souber."
+  },
+  "Ví dụ: Lớp 7A": {
+    "en": "Example: Class 7A",
+    "zh": "例如：七年级A班",
+    "ja": "例：1年A組",
+    "ko": "예: 1학년 1반",
+    "es": "Ejemplo: Clase 7A",
+    "fr": "Exemple : Classe 7A",
+    "de": "Beispiel: Klasse 7A",
+    "pt": "Exemplo: Turma 7A"
+  },
+  "Hủy": {
+    "en": "Cancel",
+    "zh": "取消",
+    "ja": "キャンセル",
+    "ko": "취소",
+    "es": "Cancelar",
+    "fr": "Annuler",
+    "de": "Abbrechen",
+    "pt": "Cancelar"
+  },
+  "Mỗi lớp lưu riêng danh sách, điểm danh và lịch sử. Bản nháp được giữ khi chuyển lớp trong phiên này.": {
+    "en": "Each class keeps its own roster, attendance and history. Drafts are kept when switching classes in this session.",
+    "zh": "每个班级独立保存名单、考勤和历史。本次会话切换班级时会保留草稿。",
+    "ja": "クラスごとに名簿・出欠・履歴を保存します。このセッションでクラスを切り替えても下書きは残ります。",
+    "ko": "학급마다 명단, 출석 및 기록을 따로 저장합니다. 현재 세션에서 학급을 바꿔도 초안은 유지됩니다.",
+    "es": "Cada clase guarda su lista, asistencia e historial. Los borradores se conservan al cambiar de clase en esta sesión.",
+    "fr": "Chaque classe conserve sa liste, sa présence et son historique. Les brouillons restent lors des changements de classe dans cette session.",
+    "de": "Jede Klasse speichert Liste, Anwesenheit und Verlauf separat. Entwürfe bleiben beim Klassenwechsel in dieser Sitzung erhalten.",
+    "pt": "Cada turma guarda sua lista, presença e histórico. Os rascunhos são mantidos ao trocar de turma nesta sessão."
+  },
+  "Nhập danh sách lớp bằng tay": {
+    "en": "Enter a class roster manually",
+    "zh": "手动输入班级名单",
+    "ja": "名簿を手入力",
+    "ko": "학급 명단 직접 입력",
+    "es": "Introducir lista manualmente",
+    "fr": "Saisir la liste manuellement",
+    "de": "Klassenliste manuell eingeben",
+    "pt": "Inserir lista manualmente"
+  },
+  "Dán danh sách có sẵn hoặc nhập tên từng bạn.": {
+    "en": "Paste an existing list or type each student’s name.",
+    "zh": "粘贴已有名单，或逐个输入姓名。",
+    "ja": "名簿を貼り付けるか、1人ずつ名前を入力してください。",
+    "ko": "기존 명단을 붙여 넣거나 이름을 하나씩 입력하세요.",
+    "es": "Pega una lista o escribe cada nombre.",
+    "fr": "Collez une liste ou saisissez chaque nom.",
+    "de": "Füge eine Liste ein oder tippe jeden Namen.",
+    "pt": "Cole uma lista ou digite cada nome."
+  },
+  "Danh sách trên lớp đã thay đổi. Bản nháp của bạn vẫn được giữ. Tải danh sách mới trước khi lưu lại để tránh ghi đè.": {
+    "en": "The class roster has changed. Your draft is kept. Load the latest roster before saving to avoid overwriting changes.",
+    "zh": "班级名单已更改。草稿已保留。保存前请加载最新名单，避免覆盖更改。",
+    "ja": "名簿が更新されました。下書きは残っています。上書きを避けるため、最新の名簿を読み込んでから保存してください。",
+    "ko": "학급 명단이 변경되었습니다. 초안은 유지됩니다. 변경 사항을 덮어쓰지 않도록 최신 명단을 불러온 후 저장하세요.",
+    "es": "La lista cambió. Se conserva tu borrador. Carga la lista actual antes de guardar para no sobrescribir cambios.",
+    "fr": "La liste a changé. Votre brouillon est conservé. Chargez la dernière liste avant d’enregistrer pour éviter d’écraser les modifications.",
+    "de": "Die Liste wurde geändert. Dein Entwurf bleibt erhalten. Lade die aktuelle Liste vor dem Speichern, um nichts zu überschreiben.",
+    "pt": "A lista mudou. Seu rascunho foi mantido. Carregue a lista mais recente antes de salvar para não sobrescrever alterações."
+  },
+  "Tải danh sách mới": {
+    "en": "Load latest roster",
+    "zh": "加载最新名单",
+    "ja": "最新の名簿を読込",
+    "ko": "최신 명단 불러오기",
+    "es": "Cargar lista actual",
+    "fr": "Charger la dernière liste",
+    "de": "Aktuelle Liste laden",
+    "pt": "Carregar lista atual"
+  },
+  "Mỗi dòng một bạn. Thêm": {
+    "en": "One student per line. Add",
+    "zh": "每行一名学生。姓名后添加",
+    "ja": "1行に1人。名前の後に",
+    "ko": "한 줄에 한 명씩 입력하세요. 이름 뒤에",
+    "es": "Un estudiante por línea. Añade",
+    "fr": "Un élève par ligne. Ajoutez",
+    "de": "Ein Schüler pro Zeile. Ergänze",
+    "pt": "Um aluno por linha. Adicione"
+  },
+  ", nữ": {
+    "en": ", female",
+    "zh": ", 女",
+    "ja": ", 女性",
+    "ko": ", 여성",
+    "es": ", femenino",
+    "fr": ", féminin",
+    "de": ", weiblich",
+    "pt": ", feminino"
+  },
+  "hoặc": {
+    "en": "or",
+    "zh": "或",
+    "ja": "または",
+    "ko": "또는",
+    "es": "o",
+    "fr": "ou",
+    "de": "oder",
+    "pt": "ou"
+  },
+  "sau tên. Không nhập giới tính sẽ mặc định là nam.": {
+    "en": "after the name. Gender defaults to male when omitted.",
+    "zh": "。不填写性别时默认为男性。",
+    "ja": "を追加。省略時は男性になります。",
+    "ko": "을 붙이세요. 성별을 생략하면 남성으로 설정됩니다.",
+    "es": "después del nombre. Si se omite, se asume masculino.",
+    "fr": "après le nom. Sans indication, le genre est masculin.",
+    "de": "nach dem Namen. Ohne Angabe gilt männlich.",
+    "pt": "após o nome. Se omitido, o padrão é masculino."
+  },
+  "Dán danh sách vào đây": {
+    "en": "Paste the roster here",
+    "zh": "在此粘贴名单",
+    "ja": "ここに名簿を貼り付け",
+    "ko": "여기에 명단 붙여넣기",
+    "es": "Pega la lista aquí",
+    "fr": "Collez la liste ici",
+    "de": "Liste hier einfügen",
+    "pt": "Cole a lista aqui"
+  },
+  "Nguyễn Minh Anh, nữ\nTrần Đức Huy\nLê Hoàng Nam, nam": {
+    "en": "Nguyễn Minh Anh, female\nTrần Đức Huy\nLê Hoàng Nam, male",
+    "zh": "Nguyễn Minh Anh, 女\nTrần Đức Huy\nLê Hoàng Nam, 男",
+    "ja": "Nguyễn Minh Anh, 女性\nTrần Đức Huy\nLê Hoàng Nam, 男性",
+    "ko": "Nguyễn Minh Anh, 여성\nTrần Đức Huy\nLê Hoàng Nam, 남성",
+    "es": "Nguyễn Minh Anh, femenino\nTrần Đức Huy\nLê Hoàng Nam, masculino",
+    "fr": "Nguyễn Minh Anh, féminin\nTrần Đức Huy\nLê Hoàng Nam, masculin",
+    "de": "Nguyễn Minh Anh, weiblich\nTrần Đức Huy\nLê Hoàng Nam, männlich",
+    "pt": "Nguyễn Minh Anh, feminino\nTrần Đức Huy\nLê Hoàng Nam, masculino"
+  },
+  "↑ Nhập tệp TXT / CSV": {
+    "en": "↑ Import TXT / CSV",
+    "zh": "↑ 导入 TXT / CSV",
+    "ja": "↑ TXT / CSVを読込",
+    "ko": "↑ TXT / CSV 가져오기",
+    "es": "↑ Importar TXT / CSV",
+    "fr": "↑ Importer TXT / CSV",
+    "de": "↑ TXT / CSV importieren",
+    "pt": "↑ Importar TXT / CSV"
+  },
+  "↓ Xuất danh sách": {
+    "en": "↓ Export roster",
+    "zh": "↓ 导出名单",
+    "ja": "↓ 名簿を書出",
+    "ko": "↓ 명단 내보내기",
+    "es": "↓ Exportar lista",
+    "fr": "↓ Exporter la liste",
+    "de": "↓ Liste exportieren",
+    "pt": "↓ Exportar lista"
+  },
+  "Xem trước": {
+    "en": "Preview",
+    "zh": "预览",
+    "ja": "プレビュー",
+    "ko": "미리보기",
+    "es": "Vista previa",
+    "fr": "Aperçu",
+    "de": "Vorschau",
+    "pt": "Prévia"
+  },
+  "0 bạn": {
+    "en": "0 students",
+    "zh": "0名学生",
+    "ja": "0人",
+    "ko": "0명",
+    "es": "0 estudiantes",
+    "fr": "0 élèves",
+    "de": "0 Schüler",
+    "pt": "0 alunos"
+  },
+  "Để sau": {
+    "en": "Later",
+    "zh": "稍后",
+    "ja": "あとで",
+    "ko": "나중에",
+    "es": "Más tarde",
+    "fr": "Plus tard",
+    "de": "Später",
+    "pt": "Depois"
+  },
+  "Lưu & vào chơi": {
+    "en": "Save & play",
+    "zh": "保存并开始",
+    "ja": "保存して開始",
+    "ko": "저장하고 시작",
+    "es": "Guardar e iniciar",
+    "fr": "Enregistrer et jouer",
+    "de": "Speichern und starten",
+    "pt": "Salvar e iniciar"
+  },
+  "Chia sẻ lớp học": {
+    "en": "Share classroom",
+    "zh": "分享班级",
+    "ja": "クラスを共有",
+    "ko": "학급 공유",
+    "es": "Compartir clase",
+    "fr": "Partager la classe",
+    "de": "Klasse teilen",
+    "pt": "Compartilhar turma"
+  },
+  "Cài đặt thống kê truy cập": {
+    "en": "Analytics settings",
+    "zh": "访问统计设置",
+    "ja": "アクセス解析の設定",
+    "ko": "방문 통계 설정",
+    "es": "Ajustes de estadísticas",
+    "fr": "Réglages des statistiques",
+    "de": "Statistikeinstellungen",
+    "pt": "Configurações de estatísticas"
+  },
+  "Chọn nơi cả lớp gặp UFO và đặt tên cho biển hiệu. Thay đổi được áp dụng và lưu ngay trên trình duyệt này.": {
+    "en": "Choose where the class meets the UFO and name the sign. Changes apply immediately and are saved in this browser.",
+    "zh": "选择全班遇见飞碟的地点，并设置招牌文字。更改立即生效并保存在此浏览器。",
+    "ja": "UFOと出会う場所と看板の名前を選びます。変更はすぐに反映され、このブラウザに保存されます。",
+    "ko": "UFO를 만날 장소와 간판 이름을 정하세요. 변경 사항은 즉시 적용되고 이 브라우저에 저장됩니다.",
+    "es": "Elige dónde se encuentra la clase con el ovni y el nombre del letrero. Los cambios se aplican y guardan de inmediato en este navegador.",
+    "fr": "Choisissez où la classe rencontre l’ovni et nommez l’enseigne. Les changements s’appliquent immédiatement et sont enregistrés ici.",
+    "de": "Wähle den Treffpunkt mit dem UFO und beschrifte das Schild. Änderungen gelten sofort und werden in diesem Browser gespeichert.",
+    "pt": "Escolha onde a turma encontra o OVNI e o nome da placa. As alterações são aplicadas e salvas imediatamente neste navegador."
+  },
+  "Chọn bối cảnh": {
+    "en": "Choose scenery",
+    "zh": "选择场景",
+    "ja": "背景を選ぶ",
+    "ko": "배경 선택",
+    "es": "Elegir escenario",
+    "fr": "Choisir le décor",
+    "de": "Kulisse wählen",
+    "pt": "Escolher cenário"
+  },
+  "Mặc định · Quen thuộc, rộn ràng": {
+    "en": "Default · Familiar and lively",
+    "zh": "默认 · 亲切热闹",
+    "ja": "標準 · にぎやかな街",
+    "ko": "기본 · 익숙하고 활기찬 거리",
+    "es": "Predeterminado · Familiar y animado",
+    "fr": "Par défaut · Familier et animé",
+    "de": "Standard · Vertraut und lebendig",
+    "pt": "Padrão · Familiar e animado"
+  },
+  "Mái trường và sân chơi": {
+    "en": "School buildings and playground",
+    "zh": "校舍与操场",
+    "ja": "校舎と校庭",
+    "ko": "학교 건물과 운동장",
+    "es": "Escuela y patio",
+    "fr": "École et cour",
+    "de": "Schulgebäude und Schulhof",
+    "pt": "Escola e pátio"
+  },
+  "Cây xanh, lối đi dạo": {
+    "en": "Trees and walking paths",
+    "zh": "绿树与步道",
+    "ja": "緑と散歩道",
+    "ko": "나무와 산책로",
+    "es": "Árboles y senderos",
+    "fr": "Arbres et promenades",
+    "de": "Bäume und Spazierwege",
+    "pt": "Árvores e caminhos"
+  },
+  "Nắng vàng và biển xanh": {
+    "en": "Sunshine and blue sea",
+    "zh": "阳光与碧海",
+    "ja": "太陽と青い海",
+    "ko": "햇살과 푸른 바다",
+    "es": "Sol y mar azul",
+    "fr": "Soleil et mer bleue",
+    "de": "Sonne und blaues Meer",
+    "pt": "Sol e mar azul"
+  },
+  "Dòng trên": {
+    "en": "Top line",
+    "zh": "上行文字",
+    "ja": "上の行",
+    "ko": "윗줄",
+    "es": "Línea superior",
+    "fr": "Ligne du haut",
+    "de": "Obere Zeile",
+    "pt": "Linha superior"
+  },
+  "Chữ lớn, đậm": {
+    "en": "Large, bold text",
+    "zh": "大号粗体字",
+    "ja": "大きな太字",
+    "ko": "크고 굵은 글씨",
+    "es": "Texto grande y en negrita",
+    "fr": "Texte grand et gras",
+    "de": "Große, fette Schrift",
+    "pt": "Texto grande e em negrito"
+  },
+  "Dòng dưới": {
+    "en": "Bottom line",
+    "zh": "下行文字",
+    "ja": "下の行",
+    "ko": "아랫줄",
+    "es": "Línea inferior",
+    "fr": "Ligne du bas",
+    "de": "Untere Zeile",
+    "pt": "Linha inferior"
+  },
+  "Chữ nhỏ hơn": {
+    "en": "Smaller text",
+    "zh": "较小文字",
+    "ja": "小さな文字",
+    "ko": "작은 글씨",
+    "es": "Texto más pequeño",
+    "fr": "Texte plus petit",
+    "de": "Kleinere Schrift",
+    "pt": "Texto menor"
+  },
+  "Tối đa 32 / 48 ký tự. Để trống sẽ dùng tên mặc định. Ở sân trường, dòng dưới mặc định là tên lớp đang dùng.": {
+    "en": "Up to 32 / 48 characters. Leave blank for defaults. In the schoolyard, the bottom line defaults to the current class name.",
+    "zh": "最多32 / 48个字符。留空使用默认值。校园场景下，下行默认为当前班级名称。",
+    "ja": "最大32 / 48文字。空欄なら標準表示。校庭では下の行に現在のクラス名を表示します。",
+    "ko": "최대 32 / 48자. 비워 두면 기본값을 사용합니다. 운동장에서는 아랫줄에 현재 학급 이름이 표시됩니다.",
+    "es": "Máximo 32 / 48 caracteres. Vacío para valores predeterminados. En el patio escolar, la línea inferior usa el nombre de la clase actual.",
+    "fr": "Maximum 32 / 48 caractères. Laissez vide pour les valeurs par défaut. Dans la cour d’école, la ligne du bas affiche le nom de la classe.",
+    "de": "Maximal 32 / 48 Zeichen. Leer für Standardwerte. Im Schulhof zeigt die untere Zeile standardmäßig den aktuellen Klassennamen.",
+    "pt": "Até 32 / 48 caracteres. Deixe vazio para o padrão. No pátio escolar, a linha inferior usa o nome da turma atual."
+  },
+  "Xem trước biển hiệu": {
+    "en": "Sign preview",
+    "zh": "招牌预览",
+    "ja": "看板のプレビュー",
+    "ko": "간판 미리보기",
+    "es": "Vista previa del letrero",
+    "fr": "Aperçu de l’enseigne",
+    "de": "Schildvorschau",
+    "pt": "Prévia da placa"
+  },
+  "Khôi phục tên mặc định": {
+    "en": "Restore defaults",
+    "zh": "恢复默认",
+    "ja": "初期設定に戻す",
+    "ko": "기본값 복원",
+    "es": "Restaurar valores",
+    "fr": "Rétablir les valeurs",
+    "de": "Standard wiederherstellen",
+    "pt": "Restaurar padrões"
+  },
+  "UFO Khảo bài, còn gọi là UFO bắt trả bài, giúp giáo viên gọi học sinh ngẫu nhiên để trả bài.": {
+    "en": "UFO Khảo bài, also known as UFO bắt trả bài, helps teachers pick students at random to answer questions.",
+    "zh": "UFO Khảo bài（也叫 UFO bắt trả bài）帮助老师随机抽选学生回答问题。",
+    "ja": "UFO Khảo bài（UFO bắt trả bàiとも呼ばれます）は、先生が質問に答える生徒をランダムに選ぶためのゲームです。",
+    "ko": "UFO bắt trả bài라고도 하는 UFO Khảo bài는 선생님이 질문에 답할 학생을 무작위로 뽑도록 도와줘요.",
+    "es": "UFO Khảo bài, también llamado UFO bắt trả bài, ayuda a los docentes a elegir estudiantes al azar para responder preguntas.",
+    "fr": "UFO Khảo bài, aussi appelé UFO bắt trả bài, aide les enseignants à choisir des élèves au hasard pour répondre aux questions.",
+    "de": "UFO Khảo bài, auch bekannt als UFO bắt trả bài, hilft Lehrkräften, Schüler zufällig zum Beantworten von Fragen auszuwählen.",
+    "pt": "UFO Khảo bài, também chamado UFO bắt trả bài, ajuda professores a escolher alunos aleatoriamente para responder perguntas."
+  },
+  "Chuyến bay bắt đầu thế nào?": {
+    "en": "How does the flight start?",
+    "zh": "如何开始飞行？",
+    "ja": "フライトの始め方",
+    "ko": "비행은 어떻게 시작하나요?",
+    "es": "¿Cómo empieza el vuelo?",
+    "fr": "Comment démarrer le vol ?",
+    "de": "Wie startet der Flug?",
+    "pt": "Como o voo começa?"
+  },
+  "Đóng hướng dẫn": {
+    "en": "Close instructions",
+    "zh": "关闭说明",
+    "ja": "説明を閉じる",
+    "ko": "안내 닫기",
+    "es": "Cerrar instrucciones",
+    "fr": "Fermer les instructions",
+    "de": "Anleitung schließen",
+    "pt": "Fechar instruções"
+  },
+  "Điểm danh cả lớp": {
+    "en": "Take class attendance",
+    "zh": "全班点名",
+    "ja": "クラスの出欠を確認",
+    "ko": "학급 출석 확인",
+    "es": "Pasar lista a la clase",
+    "fr": "Faire l’appel de la classe",
+    "de": "Anwesenheit der Klasse prüfen",
+    "pt": "Fazer a chamada da turma"
+  },
+  "Trong Cài đặt → Lớp học, tạo hoặc chọn lớp rồi nhập mỗi tên một dòng. Ghi thêm “, nữ” khi cần; mặc định là nam. Bấm Điểm danh: giáo viên chọn Có mặt hoặc Vắng cho từng bạn, không giới hạn thời gian. Mục Danh sách cho phép sửa điểm danh và bấm tên để xem thông tin và mở thẻ QR. Trên sân chơi hoặc bảng kết quả, cũng có thể bấm trực tiếp vào tên học sinh.": {
+    "en": "In Settings → Classroom, create or select a class and enter one name per line. Add “, female” when needed; the default is male. Start Attendance: the teacher chooses Present or Absent for each student, with no time limit. Use Roster to correct attendance, view details and open QR cards. You can also tap names in the scene or results.",
+    "zh": "在设置→班级中创建或选择班级，每行输入一个姓名。需要时加“，女”；默认男性。开始点名后，教师为每位学生选择出席或缺席，没有时间限制。在名单中可修改考勤、查看信息并打开二维码卡，也可直接点击场景或结果中的姓名。",
+    "ja": "設定→クラスで作成・選択し、1行に1人入力します。必要に応じて「, 女性」を付けます。省略時は男性です。出欠確認を開始すると、教師が時間制限なしで生徒ごとに出席または欠席を選びます。名簿で出欠修正・情報表示・QRカードを開けます。場面や結果の名前からも情報を開けます。",
+    "ko": "설정→학급에서 학급을 만들거나 선택하고 한 줄에 이름 하나씩 입력하세요. 필요하면 “, 여성”을 붙이세요. 기본은 남성입니다. 출석 확인을 시작하면 교사가 시간 제한 없이 학생마다 출석 또는 결석을 선택합니다. 명단에서 출석 수정, 정보 확인, QR 카드를 열 수 있고 장면과 결과의 이름도 누를 수 있습니다.",
+    "es": "En Ajustes → Clase, crea o elige una clase e introduce un nombre por línea. Añade “, femenino” cuando corresponda; por defecto es masculino. Inicia Asistencia: el docente elige Presente o Ausente para cada estudiante, sin límite de tiempo. En Lista puedes corregir asistencia, ver detalles y abrir tarjetas QR. También puedes pulsar nombres en la escena o los resultados.",
+    "fr": "Dans Réglages → Classe, créez ou choisissez une classe et saisissez un nom par ligne. Ajoutez « , féminin » au besoin ; masculin par défaut. Lancez l’appel : l’enseignant choisit Présent ou Absent pour chaque élève, sans limite de temps. La Liste permet de corriger la présence, voir les détails et ouvrir les cartes QR. Les noms de la scène et des résultats sont aussi cliquables.",
+    "de": "Erstelle oder wähle unter Einstellungen → Klasse eine Klasse und gib einen Namen pro Zeile ein. Ergänze bei Bedarf „, weiblich“; Standard ist männlich. Starte die Anwesenheitsprüfung: Die Lehrkraft wählt für jeden Schüler Anwesend oder Abwesend, ohne Zeitlimit. In der Klassenliste kannst du Anwesenheit korrigieren, Details und QR-Karten öffnen. Namen in Szene und Ergebnis sind ebenfalls anklickbar.",
+    "pt": "Em Configurações → Turma, crie ou escolha uma turma e digite um nome por linha. Acrescente “, feminino” quando necessário; o padrão é masculino. Inicie a chamada: o professor escolhe Presente ou Ausente para cada aluno, sem limite de tempo. Na Lista, corrija presença, veja detalhes e abra cartões QR. Também é possível tocar nos nomes da cena ou dos resultados."
+  },
+  "Chọn số người lên bảng": {
+    "en": "Choose how many students to call",
+    "zh": "选择点名人数",
+    "ja": "指名する人数を選ぶ",
+    "ko": "호명할 인원 선택",
+    "es": "Elegir cuántos estudiantes llamar",
+    "fr": "Choisir le nombre d’élèves",
+    "de": "Anzahl der aufzurufenden Schüler wählen",
+    "pt": "Escolher quantos alunos chamar"
+  },
+  "Từ 1 đến 10 bạn mỗi lượt. Bật “Không gọi trùng” để lần lượt gọi cả lớp.": {
+    "en": "From 1 to 10 per turn. Enable No repeats to work through the whole class.",
+    "zh": "每次1到10人。开启不重复点名，依次点遍全班。",
+    "ja": "1回に1〜10人。「重複なし」で全員を順に指名できます。",
+    "ko": "한 번에 1~10명. 중복 없이를 켜면 반 전체를 차례로 호명합니다.",
+    "es": "De 1 a 10 por turno. Activa Sin repetir para pasar por toda la clase.",
+    "fr": "De 1 à 10 par tour. Activez Sans répétition pour faire passer toute la classe.",
+    "de": "1 bis 10 pro Aufruf. Aktiviere Ohne Wiederholung, damit alle drankommen.",
+    "pt": "De 1 a 10 por chamada. Ative Sem repetir para chamar a turma toda."
+  },
+  "Gọi UFO thôi!": {
+    "en": "Call the UFO!",
+    "zh": "召唤飞碟！",
+    "ja": "UFOを呼ぼう！",
+    "ko": "UFO를 불러요!",
+    "es": "¡Llama al ovni!",
+    "fr": "Appelez l’ovni !",
+    "de": "Ruf das UFO!",
+    "pt": "Chame o OVNI!"
+  },
+  "Nhấn nút hoặc phím Space. UFO sẽ chọn ngẫu nhiên, bay đến và đưa các bạn lên.": {
+    "en": "Press the button or Space. The UFO picks students at random, flies in and lifts them up.",
+    "zh": "点击按钮或按空格键。飞碟会随机选人，飞来把他们接走。",
+    "ja": "ボタンかスペースキーを押すと、UFOがランダムに選んだ生徒を迎えに来ます。",
+    "ko": "버튼이나 Space를 누르면 UFO가 무작위로 학생을 선택해 데려갑니다.",
+    "es": "Pulsa el botón o Espacio. El ovni elige al azar, llega y se lleva a los estudiantes.",
+    "fr": "Appuyez sur le bouton ou Espace. L’ovni choisit au hasard, arrive et emmène les élèves.",
+    "de": "Drücke den Knopf oder die Leertaste. Das UFO wählt zufällig Schüler aus, fliegt heran und hebt sie hoch.",
+    "pt": "Pressione o botão ou Espaço. O OVNI escolhe alunos aleatoriamente, chega e os leva para cima."
+  },
+  "“Vòng mới” xóa lịch sử gọi của lớp đang dùng và giữ điểm danh. Lớp đã bật chia sẻ lưu hồ sơ trên đám mây. Mỗi lượt điểm danh lưu theo ngày trên Cloudflare và có thể xuất Excel. Mở link quản lý riêng của lớp trên thiết bị khác để xem. Lịch sử gọi UFO và dấu Vắng hiện tại lưu trên trình duyệt này.": {
+    "en": "New round clears call history for the current class and keeps attendance. Shared class profiles are stored in the cloud. Attendance sessions are saved by date on Cloudflare and can be exported to Excel. Use the private class management link on another device to view them. UFO call history and current absence marks stay in this browser.",
+    "zh": "新一轮会清除当前班级的飞碟点名历史，保留考勤。已分享班级的资料保存在云端。每次考勤按日期保存到Cloudflare，可导出Excel。在其他设备打开班级私密管理链接可查看。飞碟点名历史和当前缺席标记保存在此浏览器。",
+    "ja": "新ラウンドは現在のクラスの指名履歴を消し、出欠は残します。共有クラスの情報はクラウド保存です。出欠は日付ごとにCloudflareへ保存し、Excelに出力できます。別の端末では専用管理リンクで閲覧できます。UFO指名履歴と現在の欠席マークはこのブラウザに保存されます。",
+    "ko": "새 라운드는 현재 학급의 호명 기록을 지우고 출석은 유지합니다. 공유 학급 프로필은 클라우드에 저장됩니다. 출석 기록은 날짜별로 Cloudflare에 저장되며 Excel로 내보낼 수 있습니다. 다른 기기에서는 비공개 학급 관리 링크로 확인하세요. UFO 호명 기록과 현재 결석 표시는 이 브라우저에 저장됩니다.",
+    "es": "Nueva ronda borra el historial de llamadas de la clase actual y mantiene la asistencia. Los perfiles compartidos se guardan en la nube. La asistencia se guarda por fecha en Cloudflare y se puede exportar a Excel. Usa el enlace privado de gestión en otro dispositivo para verla. El historial del ovni y las ausencias actuales quedan en este navegador.",
+    "fr": "Nouvelle manche efface l’historique des appels de la classe active en conservant la présence. Les profils partagés sont dans le cloud. Les appels sont enregistrés par date sur Cloudflare et exportables en Excel. Ouvrez le lien de gestion privé sur un autre appareil pour les consulter. L’historique OVNI et les absences actuelles restent dans ce navigateur.",
+    "de": "Neue Runde löscht den Aufrufverlauf der aktuellen Klasse und behält die Anwesenheit. Geteilte Profile liegen in der Cloud. Anwesenheitslisten werden nach Datum auf Cloudflare gespeichert und lassen sich als Excel exportieren. Nutze den privaten Verwaltungslink auf anderen Geräten. UFO-Verlauf und aktuelle Abwesenheitsmarkierungen bleiben in diesem Browser.",
+    "pt": "Nova rodada apaga o histórico de chamadas da turma atual e mantém a presença. Perfis compartilhados ficam na nuvem. As chamadas são salvas por data no Cloudflare e podem ser exportadas para Excel. Use o link privado de gerenciamento em outro dispositivo para consultá-las. O histórico do OVNI e as ausências atuais ficam neste navegador."
+  },
+  "Đã rõ, sẵn sàng cất cánh!": {
+    "en": "Got it, ready for takeoff!",
+    "zh": "明白了，准备起飞！",
+    "ja": "わかった、出発しよう！",
+    "ko": "알겠어요, 이륙 준비 완료!",
+    "es": "¡Entendido, listos para despegar!",
+    "fr": "Compris, prêts au décollage !",
+    "de": "Verstanden, bereit zum Abflug!",
+    "pt": "Entendido, prontos para decolar!"
+  },
+  "Bắt đầu vòng mới?": {
+    "en": "Start a new round?",
+    "zh": "开始新一轮？",
+    "ja": "新しいラウンドを始めますか？",
+    "ko": "새 라운드를 시작할까요?",
+    "es": "¿Iniciar una nueva ronda?",
+    "fr": "Lancer une nouvelle manche ?",
+    "de": "Neue Runde starten?",
+    "pt": "Iniciar uma nova rodada?"
+  },
+  "Xóa lịch sử gọi của lớp đang dùng. Các bạn có mặt trở lại danh sách chờ; các bạn đánh dấu vắng vẫn được bỏ qua.": {
+    "en": "Clear call history for the current class. Present students return to the waiting list; absent students remain excluded.",
+    "zh": "清除当前班级的点名历史。出席学生回到待选名单，缺席学生继续跳过。",
+    "ja": "現在のクラスの指名履歴を消去します。出席者は待機名簿に戻り、欠席者は引き続き対象外です。",
+    "ko": "현재 학급의 호명 기록을 지웁니다. 출석 학생은 대기 명단으로 돌아오고 결석 학생은 계속 제외됩니다.",
+    "es": "Borra el historial de la clase actual. Los presentes vuelven a la lista de espera; los ausentes siguen excluidos.",
+    "fr": "Efface l’historique de la classe active. Les présents reviennent dans la liste d’attente ; les absents restent exclus.",
+    "de": "Löscht den Aufrufverlauf der aktuellen Klasse. Anwesende kommen zurück in die Warteliste, Abwesende bleiben ausgeschlossen.",
+    "pt": "Apaga o histórico da turma atual. Os presentes voltam à lista de espera; ausentes continuam excluídos."
+  },
+  "Danh sách & lịch sử": {
+    "en": "Roster & history",
+    "zh": "名单与历史",
+    "ja": "名簿と履歴",
+    "ko": "명단 및 기록",
+    "es": "Lista e historial",
+    "fr": "Liste et historique",
+    "de": "Liste und Verlauf",
+    "pt": "Lista e histórico"
+  },
+  "Đóng danh sách": {
+    "en": "Close roster",
+    "zh": "关闭名单",
+    "ja": "名簿を閉じる",
+    "ko": "명단 닫기",
+    "es": "Cerrar lista",
+    "fr": "Fermer la liste",
+    "de": "Klassenliste schließen",
+    "pt": "Fechar lista"
+  },
+  "Lớp của chúng mình": {
+    "en": "Our class",
+    "zh": "我们的班级",
+    "ja": "私たちのクラス",
+    "ko": "우리 반",
+    "es": "Nuestra clase",
+    "fr": "Notre classe",
+    "de": "Unsere Klasse",
+    "pt": "Nossa turma"
+  },
+  "16 thành viên · Danh sách mẫu": {
+    "en": "16 students · Sample roster",
+    "zh": "16名学生 · 示例名单",
+    "ja": "16人 · サンプル名簿",
+    "ko": "16명 · 예시 명단",
+    "es": "16 estudiantes · Lista de ejemplo",
+    "fr": "16 élèves · Liste d’exemple",
+    "de": "16 Schüler · Beispielliste",
+    "pt": "16 alunos · Lista de exemplo"
+  },
+  "Danh sách và lịch sử": {
+    "en": "Roster and history",
+    "zh": "名单和历史",
+    "ja": "名簿と履歴",
+    "ko": "명단과 기록",
+    "es": "Lista e historial",
+    "fr": "Liste et historique",
+    "de": "Klassenliste und Verlauf",
+    "pt": "Lista e histórico"
+  },
+  "Bấm tên để xem thông tin chi tiết và mở thẻ QR. Bấm": {
+    "en": "Tap a name for details and its QR card. Select",
+    "zh": "点击姓名查看详情和二维码卡。点击",
+    "ja": "名前を押して情報とQRカードを開きます。",
+    "ko": "이름을 눌러 상세 정보와 QR 카드를 보세요.",
+    "es": "Pulsa un nombre para ver información y su tarjeta QR. Elige",
+    "fr": "Touchez un nom pour voir ses détails et sa carte QR. Choisissez",
+    "de": "Klicke auf einen Namen für Details und QR-Karte. Wähle",
+    "pt": "Toque em um nome para ver detalhes e o cartão QR. Selecione"
+  },
+  "để gọi lần lượt; chọn Có mặt hoặc Vắng cho từng bạn, không giới hạn thời gian.": {
+    "en": "to call students in order; choose Present or Absent for each student, with no time limit.",
+    "zh": "可依次点名；为每位学生选择出席或缺席，没有时间限制。",
+    "ja": "で順に点呼します。時間制限なしで、生徒ごとに出席または欠席を選んでください。",
+    "ko": "을 선택해 순서대로 확인하세요. 시간 제한 없이 학생마다 출석 또는 결석을 선택하세요.",
+    "es": "para pasar lista en orden; elige Presente o Ausente para cada estudiante, sin límite de tiempo.",
+    "fr": "pour faire l’appel dans l’ordre ; choisissez Présent ou Absent pour chaque élève, sans limite de temps.",
+    "de": "für die Anwesenheitsprüfung der Reihe nach; wähle für jeden Schüler Anwesend oder Abwesend, ohne Zeitlimit.",
+    "pt": "para chamar em ordem; escolha Presente ou Ausente para cada aluno, sem limite de tempo."
+  },
+  "Bắt đầu điểm danh": {
+    "en": "Start attendance",
+    "zh": "开始点名",
+    "ja": "出欠確認を開始",
+    "ko": "출석 확인 시작",
+    "es": "Iniciar asistencia",
+    "fr": "Commencer l’appel",
+    "de": "Anwesenheitsprüfung starten",
+    "pt": "Iniciar chamada"
+  },
+  "Lịch sử & xuất Excel": {
+    "en": "History & Excel export",
+    "zh": "历史与Excel导出",
+    "ja": "履歴とExcel出力",
+    "ko": "기록 및 Excel 내보내기",
+    "es": "Historial y exportar Excel",
+    "fr": "Historique et export Excel",
+    "de": "Verlauf und Excel-Export",
+    "pt": "Histórico e exportar Excel"
+  },
+  "Lịch sử điểm danh lưu theo ngày trên Cloudflare. Mở link quản lý lớp để xem trên thiết bị khác.": {
+    "en": "Attendance history is saved by date on Cloudflare. Open the class management link to view it on other devices.",
+    "zh": "考勤历史按日期保存在Cloudflare。打开班级管理链接可在其他设备查看。",
+    "ja": "出欠履歴は日付ごとにCloudflareへ保存されます。他の端末ではクラス管理リンクから確認できます。",
+    "ko": "출석 기록은 날짜별로 Cloudflare에 저장됩니다. 다른 기기에서는 학급 관리 링크로 확인하세요.",
+    "es": "La asistencia se guarda por fecha en Cloudflare. Usa el enlace de gestión para verla en otros dispositivos.",
+    "fr": "L’historique de présence est enregistré par date sur Cloudflare. Utilisez le lien de gestion pour le consulter ailleurs.",
+    "de": "Der Anwesenheitsverlauf wird nach Datum auf Cloudflare gespeichert. Öffne den Verwaltungslink auf anderen Geräten.",
+    "pt": "O histórico de presença é salvo por data no Cloudflare. Abra o link de gerenciamento para vê-lo em outros dispositivos."
+  },
+  "Ngôn ngữ": {
+    "en": "Language",
+    "zh": "语言",
+    "ja": "言語",
+    "ko": "언어",
+    "es": "Idioma",
+    "fr": "Langue",
+    "de": "Sprache",
+    "pt": "Idioma"
+  },
+  "Chưa có ai lên tàu.": {
+    "en": "No one aboard yet.",
+    "zh": "还没有人登船。",
+    "ja": "まだ誰も乗っていません。",
+    "ko": "아직 탑승한 사람이 없어요.",
+    "es": "Aún no hay nadie a bordo.",
+    "fr": "Personne à bord pour l’instant.",
+    "de": "Noch niemand an Bord.",
+    "pt": "Ainda não há ninguém a bordo."
+  },
+  "Chuyến bay đầu tiên đang chờ!": {
+    "en": "The first flight is waiting!",
+    "zh": "第一次飞行等你开始！",
+    "ja": "最初のフライトが待っています！",
+    "ko": "첫 비행이 기다리고 있어요!",
+    "es": "¡El primer vuelo está esperando!",
+    "fr": "Le premier vol vous attend !",
+    "de": "Der erste Flug wartet!",
+    "pt": "O primeiro voo está esperando!"
+  },
+  ", nam": {
+    "en": ", male",
+    "zh": ", 男",
+    "ja": ", 男性",
+    "ko": ", 남성",
+    "es": ", masculino",
+    "fr": ", masculin",
+    "de": ", männlich",
+    "pt": ", masculino"
+  },
+  "UFO chốt đơn: mời cao nhân xuất hiện!": {
+    "en": "UFO pick confirmed: show yourself, genius!",
+    "zh": "UFO已下单：高手请现身！",
+    "ja": "UFOの指名です！達人、出番ですよ！",
+    "ko": "UFO 선택 완료! 고수님, 나와 주세요!",
+    "es": "¡El ovni ya eligió: que aparezca el genio!",
+    "fr": "L’OVNI a choisi : que le génie se montre !",
+    "de": "Das UFO hat gewählt: Zeig dich, du Genie!",
+    "pt": "O disco voador escolheu: apareça, gênio!"
+  },
+  "Tín hiệu từ vũ trụ: đến lượt bạn rồi!": {
+    "en": "Message from space: it’s your turn!",
+    "zh": "宇宙来信：轮到你啦！",
+    "ja": "宇宙からの通信：次はあなたの番！",
+    "ko": "우주에서 온 신호: 이제 당신 차례!",
+    "es": "¡Mensaje del espacio: te toca!",
+    "fr": "Message de l’espace : c’est votre tour !",
+    "de": "Nachricht aus dem All: Du bist dran!",
+    "pt": "Recado do espaço: chegou a sua vez!"
+  },
+  "Phi thuyền đã đến, cao nhân lên sóng!": {
+    "en": "Spaceship’s here. Genius, you’re on air!",
+    "zh": "飞船已到，高手请上线！",
+    "ja": "宇宙船が到着！達人、いざ本番！",
+    "ko": "우주선 도착! 고수님, 방송 시작입니다!",
+    "es": "¡Llegó la nave! Genio, estás en directo.",
+    "fr": "Le vaisseau est là ! Génie, à vous l’antenne !",
+    "de": "Das Raumschiff ist da. Genie, du bist live!",
+    "pt": "A nave chegou! Gênio, você está no ar!"
+  },
+  "UFO đã bắt được tín hiệu học bá!": {
+    "en": "UFO radar has spotted a brainiac!",
+    "zh": "UFO已捕捉到学霸信号！",
+    "ja": "UFOが秀才のシグナルをキャッチ！",
+    "ko": "UFO가 공부 고수의 신호를 포착했어요!",
+    "es": "¡El radar del ovni detectó un cerebrito!",
+    "fr": "Le radar de l’OVNI a repéré un cerveau !",
+    "de": "Das UFO hat einen Schlaukopf geortet!",
+    "pt": "O radar do disco voador detectou um crânio!"
+  },
+  "Khách VIP, mời lên khoang trả bài!": {
+    "en": "VIP boarding! Your quiz cabin awaits.",
+    "zh": "VIP贵宾，请登舱答题！",
+    "ja": "VIPのお客様、解答キャビンへどうぞ！",
+    "ko": "VIP 손님, 답변 객실로 모시겠습니다!",
+    "es": "¡Pasajero VIP, a bordo para responder!",
+    "fr": "Passager VIP, embarquement pour le quiz !",
+    "de": "VIP-Gast, bitte in die Quizkabine!",
+    "pt": "Passageiro VIP, embarque para responder!"
+  },
+  "Vũ trụ tò mò: bạn nhớ bài chứ?": {
+    "en": "The universe is curious: did you study?",
+    "zh": "宇宙很好奇：课文还记得吗？",
+    "ja": "宇宙も気になる：勉強したこと、覚えてる？",
+    "ko": "우주가 궁금해해요. 배운 내용 기억하죠?",
+    "es": "El universo tiene curiosidad: ¿te sabes la lección?",
+    "fr": "L’univers se demande : vous connaissez la leçon ?",
+    "de": "Das Universum ist neugierig: Sitzt der Lernstoff?",
+    "pt": "O universo quer saber: lembra da matéria?"
+  },
+  "Trạm vũ trụ đang chờ câu trả lời!": {
+    "en": "The space station is waiting for your answer!",
+    "zh": "空间站正在等待你的答案！",
+    "ja": "宇宙ステーションがあなたの答えを待っています！",
+    "ko": "우주 정거장이 당신의 답을 기다려요!",
+    "es": "¡La estación espacial espera tu respuesta!",
+    "fr": "La station spatiale attend votre réponse !",
+    "de": "Die Raumstation wartet auf deine Antwort!",
+    "pt": "A estação espacial espera sua resposta!"
+  },
+  "Chuyến bay này cần phi hành gia thuộc bài!": {
+    "en": "This flight needs an astronaut who did the homework!",
+    "zh": "本次航班需要一位会背课文的宇航员！",
+    "ja": "このフライトには、予習ばっちりの宇宙飛行士が必要です！",
+    "ko": "이번 비행에는 공부를 마친 우주비행사가 필요해요!",
+    "es": "¡Este vuelo necesita un astronauta que se sepa la lección!",
+    "fr": "Ce vol cherche un astronaute qui connaît sa leçon !",
+    "de": "Dieser Flug braucht einen Astronauten, der gelernt hat!",
+    "pt": "Este voo precisa de um astronauta que saiba a matéria!"
+  },
+  "Xong": {
+    "en": "Done",
+    "zh": "完成",
+    "ja": "完了",
+    "ko": "완료",
+    "es": "Listo",
+    "fr": "Terminé",
+    "de": "Fertig",
+    "pt": "Concluído"
+  }
+};

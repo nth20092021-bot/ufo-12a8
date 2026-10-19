@@ -1,0 +1,53 @@
+.student-details-dialog { width: 750px; padding: 23px 27px 28px; overflow-y: auto; overscroll-behavior: contain; background: #fffef8; }
+.student-details-top { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 17px; }
+.student-details-eyebrow { color: #6d805d; font-size: 11px; font-weight: 750; letter-spacing: 1.4px; }
+.student-details-close { min-width: 45px; min-height: 36px; padding: 6px; }
+.student-details-layout { display: grid; grid-template-columns: minmax(0, 230px) minmax(0, 1fr); align-items: start; gap: 28px; }
+.student-details-preview { position: relative; min-width: 0; overflow: hidden; border: 1px solid #dce6cf; border-radius: 18px; background: radial-gradient(ellipse at 50% 34%, #fffef7 0, #f4f8e9 46%, #eaf2df 100%); padding: 12px 0; }
+.student-details-canvas { display: block; width: 100%; height: auto; aspect-ratio: 480 / 500; }
+.student-details-preview-fallback { min-height: 200px; display: grid; place-items: center; padding: 20px; margin: 0; font-size: 12px; line-height: 1.8; text-align: center; color: #6d805d; }
+.student-details-content { min-width: 0; padding-top: 4px; }
+.student-details-name { margin: 0; color: #35543b; font-size: clamp(25px, 3.2vw, 33px); line-height: 1.22; letter-spacing: -.7px; overflow-wrap: anywhere; }
+.student-details-class { margin: 9px 0 20px; color: #6d805d; font-size: 14px; line-height: 1.7; overflow-wrap: anywhere; }
+.student-details-facts { margin: 0; }
+.student-details-facts > div { display: flex; justify-content: space-between; align-items: center; gap: 13px; padding: 10px 0; border-bottom: 1px solid #e9edde; }
+.student-details-facts dt { min-width: 0; color: #6d805d; font-size: 12px; line-height: 1.65; }
+.student-details-facts dd { min-width: 0; margin: 0; color: #506a41; text-align: right; font-size: 13px; line-height: 1.65; font-weight: 600; }
+.student-details-status { display: inline-block; min-width: 61px; padding: 3px 9px; border: 1px solid #d4e3c5; border-radius: 16px; color: #506f3c; background: #edf5e3; font-size: 13px; text-align: center; }
+.student-details-status[data-status="absent"] { border-color: #e7d9c0; color: #8d7044; background: #faf2e6; }
+.student-details-round[data-called="false"] { color: #6d805d; font-weight: 500; }
+.student-details-stats { display: grid; grid-template-columns: minmax(90px, .85fr) minmax(0, 1.4fr); gap: 18px; margin-top: 20px; }
+.student-details-stats > div > span { display: block; color: #6d805d; font-size: 11px; line-height: 1.7; margin-bottom: 6px; }
+.student-details-call-count strong { display: block; color: #65874e; font-size: 37px; line-height: 1.15; font-weight: 750; letter-spacing: -.7px; }
+.student-details-last-call { padding-left: 18px; border-left: 1px solid #e3ead7; }
+.student-details-last-call time { display: block; color: #60784e; font-size: 13px; line-height: 1.65; font-weight: 600; font-variant-numeric: tabular-nums; }
+.student-details-card-button { width: 100%; min-height: 44px; margin-top: 18px; font-size: 13px; }
+.student-details-dialog [hidden] { display: none !important; }
+@media (max-width: 600px) {
+  .student-details-dialog { width: calc(100vw - 26px); max-width: calc(100vw - 26px); max-height: calc(100dvh - 28px); padding: 18px 19px 22px; }
+  .student-details-top { margin-bottom: 13px; gap: 10px; }
+  .student-details-eyebrow { font-size: 11px; letter-spacing: .7px; }
+  .student-details-layout { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .student-details-preview { width: min(100%, 205px); margin: 0 auto; padding: 3px 0 30px; border-radius: 15px; }
+  .student-details-canvas { max-height: 206px; object-fit: contain; }
+  .student-details-preview-fallback { min-height: 180px; }
+  .student-details-content { padding-top: 0; }
+  .student-details-name { font-size: 27px; text-align: center; }
+  .student-details-class { text-align: center; margin: 7px 0 16px; font-size: 14px; }
+  .student-details-facts > div { padding: 9px 0; gap: 10px; }
+  .student-details-facts dt { font-size: 12px; }
+  .student-details-facts dd, .student-details-status { font-size: 13px; }
+  .student-details-stats { gap: 13px; margin-top: 18px; }
+  .student-details-last-call { padding-left: 13px; }
+  .student-details-call-count strong { font-size: 34px; }
+  .student-details-last-call time { font-size: 13px; }
+}
+@media (max-height: 500px) and (min-width: 601px) {
+  .student-details-dialog { padding: 15px 23px 21px; }
+  .student-details-top { margin-bottom: 10px; }
+  .student-details-layout { grid-template-columns: 180px minmax(0, 1fr); gap: 24px; }
+  .student-details-name { font-size: 26px; }
+  .student-details-class { margin-bottom: 12px; }
+  .student-details-facts > div { padding: 7px 0; }
+  .student-details-stats { margin-top: 15px; }
+}

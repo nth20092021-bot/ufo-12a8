@@ -1,0 +1,76 @@
+/* The invitation appears only before a real classroom exists. */
+.scene-top .quick-add-btn {
+  animation: none;
+}
+.scene-top .quick-add-btn.needs-classroom {
+  border-color: #90ab6b;
+  background: #e5f1d0;
+  color: #3d6c37;
+  box-shadow: 0 0 0 2px #91ae6220;
+}
+.scene-top .quick-add-btn.needs-classroom:where(:not(:hover):not(:focus):not(:disabled):not([aria-expanded="true"])) {
+  animation: classroom-invite-pulse 4.8s ease-in-out infinite;
+}
+.scene-top .quick-add-btn.needs-classroom:hover,
+.scene-top .quick-add-btn.needs-classroom:focus,
+.scene-top .quick-add-btn.needs-classroom[aria-expanded="true"],
+.scene-top .quick-add-btn.needs-classroom:disabled,
+body:has(dialog[open]) .scene-top .quick-add-btn.needs-classroom {
+  animation: none;
+}
+.scene-top .quick-add-btn.needs-classroom:hover,
+.scene-top .quick-add-btn.needs-classroom[aria-expanded="true"] {
+  background: #dcecc3;
+  border-color: #7e9c58;
+}
+@keyframes classroom-invite-pulse {
+  0%, 60%, 100% { opacity: 1; box-shadow: 0 0 0 2px #91ae6220; }
+  20% { opacity: .78; box-shadow: 0 0 0 2px #91ae6220; }
+  38% { opacity: 1; box-shadow: 0 0 0 6px #91ae6210; }
+}
+
+/* A single person in a round control distinguishes accounts from classroom groups. */
+.scene-top #teacherAccountBtn.header-icon-btn {
+  width: 34px;
+  min-width: 34px;
+  height: 34px;
+  min-height: 34px;
+  flex-basis: 34px;
+  padding: 6px;
+  border-radius: 50%;
+  border-color: #afc3a0;
+  background: #eef4e5;
+  color: #3d6649;
+  box-shadow: inset 0 1px 0 #ffffffd9;
+}
+.scene-top #teacherAccountBtn.header-icon-btn > .icon {
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.85;
+}
+.scene-top #teacherAccountBtn.header-icon-btn:hover:not(:disabled),
+.scene-top #teacherAccountBtn.header-icon-btn:focus-visible {
+  background: #e0ecd4;
+  border-color: #8daa79;
+  color: #2e5839;
+}
+@media (max-width: 370px) {
+  .scene-top #teacherAccountBtn.header-icon-btn {
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+    min-height: 32px;
+    flex-basis: 32px;
+    padding: 5px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene-top .quick-add-btn.needs-classroom:where(:not(:hover):not(:focus):not(:disabled):not([aria-expanded="true"])) {
+    animation: none;
+  }
+  .scene-top .quick-add-btn.needs-classroom {
+    border-color: #8aa466;
+    box-shadow: 0 0 0 2px #91ae6220;
+    opacity: 1;
+  }
+}

@@ -1,0 +1,20 @@
+/* Reference video 31.93–32.17s: a single red stamp landing at a fixed tilt. */
+.result-layer .caught-stamp {
+  transform: rotate(-11deg);
+  transform-origin: center;
+}
+.result-layer:not([hidden]) .caught-stamp {
+  animation: caught-stamp-land 250ms cubic-bezier(.16, .75, .25, 1) 300ms 1 both;
+}
+@keyframes caught-stamp-land {
+  0% { opacity: 0; transform: rotate(-11deg) scale(1.7); }
+  35% { opacity: .85; }
+  80% { opacity: 1; transform: rotate(-11deg) scale(.98); }
+  100% { opacity: 1; transform: rotate(-11deg) scale(1); }
+}
+@media (max-width: 700px) {
+  .result-layer .result-card h2 { max-width: calc(100% - 140px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .result-layer:not([hidden]) .caught-stamp { animation: none; }
+}

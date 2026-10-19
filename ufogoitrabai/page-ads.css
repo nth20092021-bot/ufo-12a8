@@ -1,0 +1,26 @@
+/* The game fills the viewport; the join page keeps its normal document flow. */
+body.ufo-page-ads:not(.join-scene-page) { overflow: hidden; height: 100dvh; }
+.ufo-page-ads:not(.join-scene-page) .page-shell,
+.ufo-page-ads:not(.join-scene-page) .page-shell > main { height: 100dvh; }
+.ufo-page-ads:not(.join-scene-page) #gamePanel { height: 100dvh; }
+.ufo-page-ads:not(.join-scene-page) .ufo-page-footer { display: none; }
+.ufo-page-ads:not(.join-scene-page) .scene-top,
+.ufo-page-ads:not(.join-scene-page) #sceneCaption { display: none !important; }
+body.ufo-page-ads.join-scene-page { height: auto !important; overflow-x: hidden !important; overflow-y: auto !important; }
+.ufo-page-ads .student-class-view { position: relative; inset: auto; height: 100dvh; }
+.ufo-page-footer { background: #f7f7ee; color: #435e4a; }
+.ufo-page-information { min-height: 160px; max-width: 1040px; margin: 0 auto; padding: 32px 24px; }
+.ufo-page-information h2 { font-size: 19px; margin: 0 0 10px; letter-spacing: -.2px; }
+.ufo-page-information p { max-width: 760px; font-size: 13px; line-height: 1.8; margin: 0; color: #65775b; }
+.ufo-page-ad { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 24px 32px; }
+.ufo-page-ad-label { margin: 0 0 10px; font-size: 11px; font-weight: 500; color: #747d6f; text-align: center; }
+.ufo-page-ad .adsbygoogle { display: block; width: 100%; min-height: 100px; }
+.ufo-page-ad .adsbygoogle[data-ad-status="unfilled"] { display: none !important; }
+.ufo-page-ad[hidden] { display: none !important; }
+.ufo-page-links { max-width: 1040px; margin: 0 auto; padding: 0 24px 28px; font-size: 12px; }
+.ufo-result-close-actions { display: flex; justify-content: flex-end; margin-top: 18px; }
+@media (max-width: 600px) {
+  .ufo-page-information { padding: 28px 16px; }
+  .ufo-page-ad { padding-left: 12px; padding-right: 12px; }
+  .ufo-page-links { padding-left: 16px; padding-right: 16px; }
+}

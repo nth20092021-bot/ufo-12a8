@@ -1,0 +1,26 @@
+.join-code-card{max-width:580px;margin:0 auto 24px;padding:30px;border:1px solid #dce4d2;border-radius:20px;background:#fffef8;box-shadow:0 12px 36px #304e3010}
+.join-code-symbol{font-size:38px;margin-bottom:18px}
+.join-code-form label{display:block;font-size:14px;font-weight:750;margin-bottom:10px;color:#365b43}
+.join-code-row{display:flex;gap:12px;align-items:stretch}
+.join-code-input{min-width:0;width:100%;flex:1;border:2px solid #d5dfc9;border-radius:11px;background:#fff;padding:15px 16px;font:750 24px ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.14em;text-transform:uppercase;color:#2e654c}
+.join-code-input::placeholder{color:#a0ae94;opacity:1}
+.join-code-row .primary-btn{white-space:nowrap;font-size:13px}
+.join-code-hint{font-size:12px;line-height:1.7;color:#718065;margin:12px 0 0}
+.join-code-navigation{margin:15px 0 20px;text-align:center}
+.join-code-back{color:#527550;font-size:12px;text-underline-offset:3px}
+.join-class-link{text-decoration:none}
+.join-class-link:hover{text-decoration:none}
+.share-code-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 8px;min-width:0}
+.share-code-toolbar>.share-code-eyebrow{font-size:12px;letter-spacing:2px;margin:0;min-width:0;overflow-wrap:anywhere;text-align:left}
+.share-code-dialog .share-code-copy,.share-code-dialog .share-code-close{display:inline-flex;align-items:center;justify-content:center;flex:0 0 44px;width:44px;min-width:44px;height:44px;min-height:44px;padding:10px;border-radius:10px;color:#52724a;line-height:1}
+.share-code-dialog .share-code-copy{border:1px solid #d3dfc8;background:#f2f7eb;box-shadow:none}
+.share-code-dialog .share-code-copy[data-copied=true]{border-color:#bdd3b1;background:#e5f0dd;color:#367244}
+.share-code-dialog .share-code-close{border:1px solid transparent;background:transparent}
+.share-code-dialog .share-code-copy:hover:not(:disabled),.share-code-dialog .share-code-close:hover{background:#e8f0df;border-color:#c5d6b9}
+.share-code-dialog .share-code-copy:focus-visible,.share-code-dialog .share-code-close:focus-visible{outline:3px solid #639151;outline-offset:3px}
+.share-code-copy svg,.share-code-close svg{display:block;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.share-code-dialog .share-code-qr-pane{padding:13px}
+@media(max-width:650px){.share-code-toolbar{margin-bottom:6px}.share-code-toolbar>.share-code-eyebrow{font-size:10px}.share-code-dialog .share-code-qr-pane{padding:6px}}
+@media(max-width:600px){.join-code-card{padding:23px 20px}.join-code-row{flex-direction:column}.join-code-input{font-size:26px;text-align:center;padding:16px 10px}.join-code-row .primary-btn{min-height:46px;width:100%}.join-code-symbol{text-align:center}.join-code-hint{font-size:12px}}
+
+.classroom-manager .classroom-draw-settings{margin:14px 0 12px;padding:13px 14px;background:#f4f7ed;border:1px solid #dfe6d5;border-radius:10px}.manual-roster-section{padding:20px 18px;border:1px solid #dfe5d4;border-radius:14px;background:#fffef9;margin-top:18px}.class-section-heading{display:flex;align-items:center;gap:12px;margin-bottom:17px}.class-section-number{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:34px;height:34px;border-radius:10px;background:#e6eedc;color:#64864d;font-size:11px;font-weight:750}.class-section-heading h3{margin:0 0 5px;font-size:14px;color:#35543d}.class-section-heading p{margin:0;font-size:11px;color:#839375;line-height:1.5}.manual-roster-section .dialog-actions{padding-top:14px;margin-top:16px}.manual-roster-section .dialog-description{margin-top:0}@media(max-width:600px){.manual-roster-section{padding:17px 13px}.class-section-heading{gap:10px}.class-section-heading h3{font-size:13px}.classroom-manager .classroom-draw-settings{gap:12px;padding:11px}.classroom-draw-settings .count-control label{font-size:11px}}

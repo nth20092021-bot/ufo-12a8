@@ -1,0 +1,162 @@
+/* One phone at a time emerges behind the sponsor strip, above both actions. */
+.result-sponsor-showcase {
+  --phone-max-height: 190px;
+  --phone-height: 140px;
+  --phone-peek: 84px;
+  flex: 0 0 auto;
+  min-width: 0;
+  margin-top: 17px;
+  overflow: hidden;
+  isolation: isolate;
+}
+.result-sponsor-phone-stage { position: relative; height: calc(var(--phone-peek) + 18px); pointer-events: none; z-index: 0; }
+.result-sponsor-phone {
+  --phone-offset: 0px;
+  --phone-angle: 0deg;
+  --phone-delay: 100ms;
+  --phone-rise: 1775ms;
+  --phone-sway: 1250ms;
+  --phone-sway-delay: 1875ms;
+  --phone-sink: 1100ms;
+  --phone-sink-delay: 3575ms;
+  position: absolute;
+  left: var(--phone-center, 50%);
+  bottom: calc(var(--phone-peek) - var(--phone-height));
+  height: var(--phone-height);
+  width: auto;
+  max-width: none;
+  pointer-events: none;
+  user-select: none;
+  filter: drop-shadow(0 2px 3px rgba(24, 39, 31, .28));
+  transform: translateX(-50%) translateX(var(--phone-offset)) translateY(82%) rotate(var(--phone-angle));
+  transform-origin: 50% 70%;
+}
+.result-layer:not([hidden]) .result-phones-active .result-sponsor-phone.result-phone-current {
+  animation: result-sponsor-phone-rise var(--phone-rise) cubic-bezier(.25, .65, .35, 1) var(--phone-delay) both,
+    result-sponsor-phone-sway var(--phone-sway) ease-in-out var(--phone-sway-delay),
+    result-sponsor-phone-sink var(--phone-sink) cubic-bezier(.55, 0, .85, .5) var(--phone-sink-delay) forwards;
+}
+.result-phones-static .result-sponsor-phone.result-phone-current { transform: translateX(-50%) translateX(var(--phone-offset)) translateY(0) rotate(var(--phone-angle)); }
+@keyframes result-sponsor-phone-rise {
+  0% { transform: translateX(-50%) translateX(var(--phone-offset)) translateY(82%) rotate(var(--phone-angle)); }
+  76% { transform: translateX(-50%) translateX(var(--phone-offset)) translateY(-5px) rotate(var(--phone-angle)); }
+  100% { transform: translateX(-50%) translateX(var(--phone-offset)) translateY(0) rotate(var(--phone-angle)); }
+}
+@keyframes result-sponsor-phone-sink {
+  0% { transform: translateX(-50%) translateX(var(--phone-offset)) translateY(0) rotate(var(--phone-angle)); }
+  100% { transform: translateX(-50%) translateX(var(--phone-offset)) translateY(82%) rotate(var(--phone-angle)); }
+}
+@keyframes result-sponsor-phone-sway {
+  0%, 100% { transform: translateX(-50%) translateX(var(--phone-offset)) translateY(0) rotate(var(--phone-angle)); }
+  28% { transform: translateX(-50%) translateX(var(--phone-offset)) translateY(-3px) rotate(calc(var(--phone-angle) + 5deg)); }
+  68% { transform: translateX(-50%) translateX(var(--phone-offset)) translateY(-1px) rotate(calc(var(--phone-angle) - 4.5deg)); }
+}
+.result-sponsor-showcase > .result-sponsor { position: relative; z-index: 1; margin-top: 0; background: var(--paper); }
+.result-sponsor.result-sponsor-nudge {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  text-align: left;
+}
+.result-sponsor-copy { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 3px 10px; min-width: 0; }
+.result-sponsor-logo { grid-column: 1; grid-row: 1 / span 2; align-self: center; display: block; width: 52px; height: 52px; object-fit: contain; border-radius: 11px; }
+.result-sponsor-copy > .result-sponsor-credit { grid-column: 2; align-self: end; }
+.result-sponsor-copy > .result-sponsor-question { grid-column: 2; align-self: start; }
+.result-footer-actions { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.result-footer-actions .result-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  gap: 5px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  line-height: 1.35;
+}
+.result-sponsor-credit { color: #69765c; font-size: 11px; font-weight: 550; }
+.result-sponsor-question { color: #465b39; font-size: 14px; font-weight: 700; line-height: 1.4; text-wrap: pretty; }
+.sponsor-typing-word { display: inline-block; white-space: nowrap; }
+.result-sponsor-question { padding-inline-end: 3px; }
+/* KROMA LCDInputCaret: 2px wide, round(fontSize * .85) high, one-second blink.
+ * A zero-net-width inline box follows the actual text baseline and advance
+ * without changing the text layout. */
+.typing-caret:not(.typing-caret-before)::after,
+.typing-caret-before::before {
+  content: '';
+  display: inline-block;
+  width: 2px;
+  height: 12px;
+  margin-right: -2px;
+  vertical-align: -1px;
+  visibility: visible;
+  background: currentColor;
+  pointer-events: none;
+  animation: sponsor-caret-blink 1000ms cubic-bezier(.2, 1, .2, 1) infinite;
+}
+@keyframes sponsor-caret-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+/* Keep Apple's artwork at its original ratio with a quarter-height clear space. */
+.result-sponsor-nudge .result-sponsor-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: auto;
+  height: 60px;
+  min-height: 60px;
+  padding: 10px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  animation: none;
+}
+.result-sponsor-link img { display: block; width: auto; height: 40px; max-width: none; }
+.result-sponsor-nudge .result-sponsor-link:hover { background: transparent; }
+.result-qr-button {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  padding: 8px;
+  border: 1px solid #d6dfcc;
+  border-radius: 12px;
+  background: #f9faef;
+  color: #465b39;
+}
+.result-qr-button .icon { width: 24px; height: 24px; }
+.result-qr-button:hover { background: #edf2e2; }
+.result-sponsor-link:focus-visible, .result-qr-button:focus-visible { outline: 3px solid #845b2f; outline-offset: 2px; }
+@media (max-width: 520px) {
+  .result-sponsor-showcase { --phone-max-height: 170px; margin-top: 12px; }
+  .result-sponsor.result-sponsor-nudge { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .result-sponsor-question { font-size: 13px; }
+  .typing-caret:not(.typing-caret-before)::after,
+  .typing-caret-before::before { height: 11px; }
+  .result-sponsor-credit { font-size: 10px; }
+  .result-footer-actions { gap: 6px; justify-content: flex-end; }
+  .result-footer-actions .result-close { padding: 8px 10px; }
+}
+@media (max-height: 700px) and (orientation: portrait) {
+  .result-sponsor-showcase { --phone-max-height: 142px; margin-top: 4px; }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .result-sponsor-showcase { --phone-max-height: 92px; margin-top: 5px; }
+  .result-sponsor.result-sponsor-nudge { grid-template-columns: minmax(0, 1fr) auto; gap: 9px; }
+  .result-sponsor-credit { font-size: 10px; }
+  .result-sponsor-question { font-size: 12px; }
+  .typing-caret:not(.typing-caret-before)::after,
+  .typing-caret-before::before { height: 10px; }
+}
+@media (max-height: 360px) and (orientation: landscape) {
+  .result-sponsor-showcase { --phone-max-height: 68px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .result-layer:not([hidden]) .result-phones-active .result-sponsor-phone.result-phone-current { animation: none; }
+  .typing-caret::after, .typing-caret-before::before { display: none; animation: none; }
+  .result-layer:not([hidden]) .result-sponsor-nudge .result-sponsor-link,
+  .result-layer:not([hidden]) .result-sponsor-nudge .result-sponsor-link::after,
+  .result-layer:not([hidden]) .result-sponsor-nudge .result-sponsor-link .icon { animation: none; }
+}

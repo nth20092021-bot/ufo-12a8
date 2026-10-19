@@ -1,0 +1,15 @@
+.result-layer { isolation: isolate; background: transparent; }
+.result-fireworks { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+.result-fireworks[hidden] { display: none; }
+.result-layer > .result-card { z-index: 1; }
+.result-confetti-front { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
+.result-confetti-front[hidden] { display: none; }
+.result-border{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:3}
+.result-border rect{x:1px;y:1px;width:calc(100% - 2px);height:calc(100% - 2px);rx:16px;ry:16px;fill:none;vector-effect:non-scaling-stroke;stroke-linecap:round}
+.result-border-base{stroke:#9eb779;stroke-width:1;opacity:.6}
+.result-border-tail{stroke:#e6b352;stroke-width:3;stroke-dasharray:14 86;opacity:.5}
+.result-border-spark{stroke:#c78d28;stroke-width:2;stroke-dasharray:6 94}
+.result-layer:not([hidden]) .result-border-tail,.result-layer:not([hidden]) .result-border-spark{animation:result-border-run 6s linear infinite}
+@keyframes result-border-run{to{stroke-dashoffset:-100}}
+@media(max-width:700px){.result-border rect{rx:13px;ry:13px}}
+@media(prefers-reduced-motion:reduce){.result-layer:not([hidden]) .result-border-tail,.result-layer:not([hidden]) .result-border-spark{animation:none}.result-border-spark{stroke-dasharray:none;opacity:.7}.result-border-tail{display:none}}

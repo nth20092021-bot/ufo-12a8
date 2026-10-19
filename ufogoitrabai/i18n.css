@@ -1,0 +1,10 @@
+.language-picker{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:5px;min-width:54px;height:34px;padding:0 7px;border:1px solid #c7d5b8;border-radius:9px;color:#526f44;background:#fffef2;font-size:11px;font-weight:650;letter-spacing:0;cursor:pointer}
+.language-flag{display:inline-flex;align-items:center;font-size:18px;line-height:1;font-weight:400}
+.language-picker select{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer}
+.language-picker:focus-within{outline:2px solid #8eaa64;outline-offset:2px}
+.language-picker:has(select:disabled){opacity:.45;cursor:not-allowed}
+.language-picker select:disabled{cursor:not-allowed}
+.join-language-host{display:flex;justify-content:flex-end;margin-bottom:10px}
+html:not([lang="vi"]) .scene-location{letter-spacing:.02em}
+html:not([lang="vi"]) .toolbar-buttons{flex-wrap:wrap}
+@media(max-width:370px){.toolbar-buttons{gap:5px}.toolbar-buttons>.toolbar-btn{padding-left:8px;padding-right:8px}html[lang="de"] .toolbar-buttons>.toolbar-btn,html[lang="pt"] .toolbar-buttons>.toolbar-btn,html[lang="fr"] .toolbar-buttons>.toolbar-btn{font-size:10px}}
