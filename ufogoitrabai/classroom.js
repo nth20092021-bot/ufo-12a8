@@ -8,6 +8,13 @@ export const MAX_CLASSROOMS=30;
 export const normalizeExpectedSize=value=>Number.isInteger(value)&&value>=1&&value<=120?value:null;
 const className=value=>cleanName(value).slice(0,40);
 const emptyState=()=>({students:[],history:[],called:[],absent:[],count:1,noRepeat:true,sound:true,isDemo:false});
+const defaultState=()=>({
+  ...emptyState(),
+  students:makeStudents(Array.from({length:28},(_,index)=>({
+    name:`Học sinh ${String(index+1).padStart(2,'0')}`,
+    gender:index<26?'female':'male'
+  })))
+});
 // Only an untouched workspace created by account removal is disposable. Any
 // user edit makes it a normal guest class that must survive the next sign-in.
 export const isAccountPlaceholder=room=>typeof room.accountPlaceholder==='string'&&room.accountPlaceholder===JSON.stringify({...room,accountPlaceholder:undefined});
@@ -63,7 +70,8 @@ export function restoreClassrooms(raw,legacyState){
     }
     if(classes.length)return {version:1,activeId:ids.has(data.activeId)?data.activeId:classes[0].id,classes};
   }catch{/* A damaged or unavailable collection must not erase the previous roster. */}
-  const state=restoreClassState(legacyState)||emptyState();
+  const restoredLegacy=restoreClassState(legacyState);
+  const state=restoredLegacy?.students.length?restoredLegacy:defaultState();
   const id=crypto.randomUUID();
   return {version:1,activeId:id,classes:[{id,name:state.isDemo?t("Lớp mẫu"):t("Lớp của mình"),expectedSize:null,state}]};
 }

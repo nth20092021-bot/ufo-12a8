@@ -13,4 +13,4 @@ Tạo repository với thư mục này làm gốc, đẩy nhánh `main`, rồi b
 - Link không chứa roster, thông tin tài khoản hay lịch sử gọi. Ai có link vẫn có thể xem cấu hình trong đó.
 - GitHub Pages không chạy API hoặc cơ sở dữ liệu. Đồng bộ dữ liệu lớp giữa thiết bị, tài khoản, mã mời và điểm danh qua mạng cần backend riêng.
 
-Danh sách học sinh mẫu đã được bỏ khỏi mã nguồn để tránh công khai tên học sinh. Nhập roster sau khi mở trang.
+Lớp mặc định của lượt cài mới có 28 tên ẩn danh (`Học sinh 01`–`Học sinh 28`), gồm 26 nữ và 2 nam; không có tên học sinh thật trong mã nguồn. Dữ liệu lớp được giữ trong `localStorage` của trình duyệt. Các lớp đã lưu trước đó không bị thay thế.
