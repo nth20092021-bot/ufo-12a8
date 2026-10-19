@@ -10,7 +10,7 @@ Tạo repository với thư mục này làm gốc, đẩy nhánh `main`, rồi b
 
 - Danh sách, trạng thái lớp và bối cảnh được lưu trong `localStorage` của trình duyệt hiện tại.
 - Nút **Chia sẻ** tạo link có bối cảnh, tên biển hiệu, thiết lập chọn lượt và roster đang mở (tên, giới tính); mở link sẽ khôi phục các giá trị đó.
-- Roster được đóng gói dạng Base64 trong URL fragment (không phải mã hóa bảo mật) và không gửi kèm request tới máy chủ, nhưng bất kỳ ai nhận được link đều có thể xem tên và giới tính. Chia sẻ link đồng nghĩa chia sẻ roster; không dùng với dữ liệu bạn không có quyền chia sẻ.
+- Thiết lập được đóng gói bằng cấu trúc rút gọn Base64 trong URL fragment để link ngắn hơn (không phải mã hóa bảo mật). Roster, nếu có, cũng nằm trong fragment và không gửi kèm request tới máy chủ; bất kỳ ai nhận link đều có thể đọc tên và giới tính. Chia sẻ link đồng nghĩa chia sẻ roster; không dùng với dữ liệu bạn không có quyền chia sẻ.
 - Link không chứa thông tin tài khoản, nhân vật/ngoại hình hay lịch sử gọi.
 - GitHub Pages không chạy API hoặc cơ sở dữ liệu. Đồng bộ dữ liệu lớp giữa thiết bị, tài khoản, mã mời và điểm danh qua mạng cần backend riêng.
 

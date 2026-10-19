@@ -28,7 +28,11 @@ function decodeBase64Url(value) {
 }
 
 export function createShareUrl(location, settings) {
-  const payload = {...settings, students:cleanStudents(settings.students)};
+  const payload = [
+    settings.version, settings.theme, settings.names, settings.count,
+    settings.noRepeat, settings.suspense,
+  ];
+  if (settings.students !== undefined) payload.push(cleanStudents(settings.students));
   const hash = new URLSearchParams();
   hash.set('ufo-share', encodeBase64Url(payload));
   const url = `${location.origin}${location.pathname}${location.search}#${hash}`;
@@ -40,7 +44,15 @@ export function readSharedSettings(hash) {
   const value = new URLSearchParams(hash.slice(1)).get('ufo-share');
   if (!value || value.length > MAX_SHARE_LENGTH) return null;
   try {
-    const source = JSON.parse(decodeBase64Url(value));
+    let source = JSON.parse(decodeBase64Url(value));
+    if (Array.isArray(source)) {
+      if (source.length !== 6 && source.length !== 7) return null;
+      source = {
+        version:source[0],theme:source[1],names:source[2],count:source[3],
+        noRepeat:source[4],suspense:source[5],
+        ...(source.length === 7 ? {students:source[6]} : {}),
+      };
+    }
     if (source?.version !== 1 || !THEMES.has(source.theme)
       || !Number.isInteger(source.count) || source.count < 1 || source.count > 10
       || typeof source.noRepeat !== 'boolean' || !SUSPENSE_LEVELS.has(source.suspense)) return null;
