@@ -8,11 +8,15 @@ export const MAX_CLASSROOMS=30;
 export const normalizeExpectedSize=value=>Number.isInteger(value)&&value>=1&&value<=120?value:null;
 const className=value=>cleanName(value).slice(0,40);
 const emptyState=()=>({students:[],history:[],called:[],absent:[],count:1,noRepeat:true,sound:true,isDemo:false});
+const isDefaultRoster=students=>students.length===28&&students.every((student,index)=>student.name===`Học sinh ${String(index+1).padStart(2,'0')}`);
+function updateDefaultRosterGenders(state){
+  if(isDefaultRoster(state.students))for(const [index,student] of state.students.entries())student.gender=[18,24].includes(index)?'male':'female';
+}
 const defaultState=()=>({
   ...emptyState(),
   students:makeStudents(Array.from({length:28},(_,index)=>({
     name:`Học sinh ${String(index+1).padStart(2,'0')}`,
-    gender:[18,24].includes(index)?'male':'female'
+    gender:index===18||index===24?'male':'female'
   })))
 });
 // Only an untouched workspace created by account removal is disposable. Any
@@ -38,6 +42,7 @@ function restoreClassState(data){
   // New classes may be saved before their first roster is entered.
   const restored=data.students.length?restoreState(JSON.stringify(data)):emptyState();
   if(!restored)return null;
+  updateDefaultRosterGenders(restored);
   const savedStudents=new Map(data.students.map(student=>[student?.id,student]));
   for(const student of restored.students){const saved=savedStudents.get(student.id);if(typeof saved?.claimed==='boolean')student.claimed=saved.claimed;}
   if(!data.students.length){restored.count=Math.min(10,Math.max(1,Math.floor(Number(data.count)||1)));restored.noRepeat=data.noRepeat!==false;}
@@ -68,7 +73,13 @@ export function restoreClassrooms(raw,legacyState){
       if(!item.cloud&&isAccountPlaceholder(item))classroom.accountPlaceholder=JSON.stringify(classroom);
       classes.push(classroom);ids.add(item.id);
     }
-    if(classes.length)return {version:1,activeId:ids.has(data.activeId)?data.activeId:classes[0].id,classes};
+    if(classes.length){
+      if(classes.length===1){
+        const room=classes[0],state=room.state;
+        if(!room.cloud&&room.name===t('Lớp của mình')&&!state.students.length&&!state.history.length&&!state.called.length&&!state.absent.length&&state.count===1&&state.noRepeat&&!state.isDemo)Object.assign(state,defaultState());
+      }
+      return {version:1,activeId:ids.has(data.activeId)?data.activeId:classes[0].id,classes};
+    }
   }catch{/* A damaged or unavailable collection must not erase the previous roster. */}
   const restoredLegacy=restoreClassState(legacyState);
   const state=restoredLegacy?.students.length?restoredLegacy:defaultState();
