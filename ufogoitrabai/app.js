@@ -31,7 +31,7 @@ import {createAccountController} from './account.js';
 import {setupTeacherAccount,quarantineAccountClassrooms,accountSafeCollection,flushBeforeAccountLogout,deduplicateConnectedClassroom,hasUnsavedTeacherDrafts} from './teacher-account.js';
 import {createGameStateSync} from './game-state-sync.js';
 import {createTeacherLive} from './teacher-live.js';
-import { STORAGE_KEY, parseRoster, restoreState, pickStudents, genderLabel } from './core.js';
+import { STORAGE_KEY, parseRoster, restoreState, pickStudents, genderLabel, makeStudents } from './core.js';
 import { CLASSROOMS_STORAGE_KEY, MAX_CLASSROOMS, restoreClassrooms, getActiveClassroom, manualClassroomStudents, addClassroom, renameClassroom, selectClassroom, removeClassroom, presentStudents, availableStudents, pendingAbsentStudents, setStudentAbsent, replaceClassRoster, mergeCloudClassroom, cloudRosterRows, rebaseDraftAfterMetadataSave, initializeClassroomEnvironments, rebaseDraftForJoinedProfiles } from './classroom.js';
 
 const $ = id => document.getElementById(id);
@@ -103,8 +103,31 @@ environment.theme=getActiveClassroom(classrooms).environmentTheme;
 environment.names=structuredClone(getActiveClassroom(classrooms).environmentNames);
 const sharedSettings=readSharedSettings(location.hash);
 if(sharedSettings){
-  const room=getActiveClassroom(classrooms);
+  if(Array.isArray(sharedSettings.students)){
+    const sameRoster=room=>!room.cloud&&room.state.students.length===sharedSettings.students.length&&room.state.students.every((student,index)=>student.name===sharedSettings.students[index].name&&student.gender===sharedSettings.students[index].gender);
+    let room=classrooms.classes.find(sameRoster);
+    if(!room){
+      const active=getActiveClassroom(classrooms),activeState=active.state;
+      const emptyWorkspace=!active.cloud&&!activeState.students.length&&!activeState.history.length&&!activeState.called.length&&!activeState.absent.length;
+      const anonymousDefault=!active.cloud&&activeState.students.length===28&&activeState.students.every((student,index)=>student.name===`Học sinh ${String(index+1).padStart(2,'0')}`);
+      if(emptyWorkspace||anonymousDefault)room=active;
+      else if(classrooms.classes.length<MAX_CLASSROOMS){
+        const baseName=t('Lớp từ link');let name=baseName,suffix=2;
+        while(classrooms.classes.some(item=>item.name.normalize('NFC').toLocaleLowerCase('vi')===name.normalize('NFC').toLocaleLowerCase('vi')))name=`${baseName} ${suffix++}`;
+        room=addClassroom(classrooms,name);
+      }else toast(t('Không còn chỗ tạo lớp cho danh sách trong link. Các lớp hiện có vẫn được giữ nguyên.'));
+    }
+    if(room){
+      selectClassroom(classrooms,room.id);
+      if(!sameRoster(room)){
+        room.state.students=makeStudents(sharedSettings.students);
+        room.state.history=[];room.state.called=[];room.state.absent=[];
+      }
+      state=room.state;
+    }
+  }
   environment={theme:sharedSettings.theme,names:{...environment.names,...structuredClone(sharedSettings.names)}};
+  const room=getActiveClassroom(classrooms);
   room.environmentTheme=sharedSettings.theme;
   room.environmentNames=structuredClone(environment.names);
   state.count=sharedSettings.count;
@@ -265,10 +288,14 @@ async function shareSettingsLink(){
   const settings={
     version:1,theme:environment.theme,names:environment.names,
     count:state.count,noRepeat:state.noRepeat,suspense:suspensePreference.getLevel(),
+    students:state.students.map(({name,gender})=>({name,gender})),
   };
-  const url=createShareUrl(location,settings);
-  history.replaceState(null,'',url);
-  try{await copyText(url);toast(t('Đã sao chép link chia sẻ cấu hình. Link không chứa danh sách học sinh.'));}
+  try{
+    const url=createShareUrl(location,settings);
+    history.replaceState(null,'',url);
+    await copyText(url);
+    toast(t('Đã sao chép link kèm danh sách học sinh. Người có liên kết có thể xem tên và giới tính trong đó.'));
+  }
   catch(error){toast(error.message||t('Không sao chép được link chia sẻ.'));}
 }
 function available(){return availableStudents(state);}
