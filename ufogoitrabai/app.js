@@ -457,6 +457,7 @@ function showResult(selected){
   void drainCharacters();
   actionMenus?.closeAll();
   $('resultLayer').dataset.count=String(selected.length);
+  $('resultMapSelect').value=environment.theme;
   $('resultNames').replaceChildren();selected.forEach((s,index)=>{const r=document.createElement('button');r.type='button';r.className='result-person student-result-trigger';r.setAttribute('aria-label',t('Xem thông tin của {name}',{name:s.name}));r.append(avatar(s,index));const n=document.createElement('span');n.textContent=s.name;r.append(n);r.addEventListener('click',()=>openStudentDetails(s.id,r));$('resultNames').append(r);});
   $('resultLayer').hidden=false;resultOpen=true;$('gamePanel').classList.add('result-active');
   sponsorTyping.start();
@@ -482,6 +483,17 @@ document.addEventListener('visibilitychange',()=>{
   syncPeaceAudio();
 });
 $('resultClose').addEventListener('click',()=>closeResult());
+$('resultMapSelect').addEventListener('change',async()=>{
+  const select=$('resultMapSelect'),theme=select.value;
+  if(!Object.hasOwn(ENVIRONMENTS,theme)){select.value=environment.theme;return;}
+  if(theme===environment.theme)return;
+  const room=getActiveClassroom(classrooms);localWriteBusy=true;select.disabled=true;render();
+  try{
+    await saveClassroomEnvironment(room,theme,room.environmentNames||{});
+    select.value=environment.theme;
+  }catch(error){select.value=environment.theme;toast(error.message||t('Không đổi được bản đồ. Hãy thử lại.'));}
+  finally{localWriteBusy=false;select.disabled=false;render();}
+});
 function resetRound(){if(isBusy())return;void teacherLive?.reset().catch(()=>toast(t('Mất kết nối · Sẽ tự thử lại')));joinWelcome?.drain();state.history=[];state.called=[];save();scene.setStudents(visibleStudents());render();caption(classroomCaption());announce(t("Đã bắt đầu vòng mới. Điểm danh được giữ nguyên."));}
 $('resetBtn').addEventListener('click',()=>{if(state.history.length)$('resetDialog').showModal();else{resetRound();toast(t("Cả lớp đã sẵn sàng cho vòng mới."));}});
 $('confirmReset').addEventListener('click',()=>{$('resetDialog').close();closeResult(false);resetRound();toast(t("Vòng mới đã sẵn sàng!"));$('drawBtn').focus();});

@@ -18,7 +18,10 @@ body.ufo-page-ads.join-scene-page { height: auto !important; overflow-x: hidden 
 .ufo-page-ad .adsbygoogle[data-ad-status="unfilled"] { display: none !important; }
 .ufo-page-ad[hidden] { display: none !important; }
 .ufo-page-links { max-width: 1040px; margin: 0 auto; padding: 0 24px 28px; font-size: 12px; }
-.ufo-result-close-actions { display: flex; justify-content: flex-end; margin-top: 18px; }
+.ufo-result-close-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; }
+.result-map-choice { display: flex; align-items: center; gap: 8px; color: #435e4a; font-size: 13px; font-weight: 650; }
+.result-map-choice select { max-width: min(48vw, 190px); min-height: 40px; padding: 7px 30px 7px 10px; border: 1px solid #aebfa1; border-radius: 10px; background: #f7f7ee; color: #294a39; font: inherit; }
+.result-map-choice select:focus-visible { outline: 3px solid #c27d34; outline-offset: 2px; }
 @media (max-width: 600px) {
   .ufo-page-information { padding: 28px 16px; }
   .ufo-page-ad { padding-left: 12px; padding-right: 12px; }
