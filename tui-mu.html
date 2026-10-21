@@ -47,15 +47,15 @@
       inset: 0;
       z-index: 1;
       background: linear-gradient(180deg, 
-        #5db7e8 0%, 
-        #82cef0 22%, 
-        #bfe9f7 42%, 
-        #d8f4d0 60%, 
-        #96d860 85%, 
-        #70c440 100%);
+        #4ba9e3 0%, 
+        #78c4ed 20%, 
+        #b4e5f7 38%, 
+        #dff3d8 58%, 
+        #9ad668 82%, 
+        #6dc23d 100%);
     }
 
-    /* Radiating Sunburst behind Title */
+    /* Radiating Sunburst behind Title with Gentle Breathing */
     .sunburst {
       position: absolute;
       top: -15%;
@@ -65,9 +65,15 @@
       height: 140vw;
       max-width: 1500px;
       max-height: 1500px;
-      background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, rgba(255,248,180,0.35) 30%, rgba(255,255,255,0) 65%);
+      background: radial-gradient(circle, rgba(255,255,255,0.75) 0%, rgba(255,248,180,0.4) 30%, rgba(255,255,255,0) 65%);
       pointer-events: none;
       z-index: 2;
+      animation: sunburstBreathe 7s ease-in-out infinite alternate;
+    }
+
+    @keyframes sunburstBreathe {
+      0% { opacity: 0.82; transform: translateX(-50%) scale(0.96); }
+      100% { opacity: 1; transform: translateX(-50%) scale(1.05); }
     }
 
     .sun-rays {
@@ -79,7 +85,7 @@
       height: 1400px;
       background: repeating-conic-gradient(
         from 0deg,
-        rgba(255, 255, 255, 0.16) 0deg 8deg,
+        rgba(255, 255, 255, 0.18) 0deg 8deg,
         rgba(255, 255, 255, 0) 8deg 16deg
       );
       border-radius: 50%;
@@ -93,15 +99,205 @@
       to { transform: translateX(-50%) rotate(360deg); }
     }
 
+    /* ==========================================================
+       ANIMATED SKY ELEMENTS (Clouds, Birds, Flute Kite)
+       ========================================================== */
+    .sky-clouds-wrap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60vh;
+      pointer-events: none;
+      z-index: 3;
+      overflow: hidden;
+    }
+
+    .cloud-cluster {
+      position: absolute;
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    .cloud-1 {
+      top: 9%;
+      left: -220px;
+      width: clamp(140px, 16vw, 240px);
+      animation: cloudDriftSlow 75s linear infinite;
+    }
+
+    .cloud-2 {
+      top: 22%;
+      left: -280px;
+      width: clamp(170px, 19vw, 290px);
+      animation: cloudDriftMid 58s linear infinite 14s;
+    }
+
+    .cloud-3 {
+      top: 36%;
+      left: -180px;
+      width: clamp(120px, 13vw, 200px);
+      animation: cloudDriftFast 85s linear infinite 32s;
+    }
+
+    @keyframes cloudDriftSlow {
+      from { transform: translateX(0); }
+      to { transform: translateX(calc(100vw + 420px)); }
+    }
+    @keyframes cloudDriftMid {
+      from { transform: translateX(0); }
+      to { transform: translateX(calc(100vw + 460px)); }
+    }
+    @keyframes cloudDriftFast {
+      from { transform: translateX(0); }
+      to { transform: translateX(calc(100vw + 360px)); }
+    }
+
+    /* Spring Swallows (Đàn chim én mùa xuân chao lượn) */
+    .swallow-flock {
+      position: absolute;
+      top: 14%;
+      left: -120px;
+      pointer-events: none;
+      z-index: 3;
+      animation: flockFlight 34s cubic-bezier(0.35, 0, 0.25, 1) infinite 4s;
+    }
+
+    @keyframes flockFlight {
+      0% {
+        transform: translate(-100px, 50px) scale(0.65);
+        opacity: 0;
+      }
+      10% { opacity: 0.92; }
+      50% {
+        transform: translate(55vw, -35px) scale(0.88);
+        opacity: 0.88;
+      }
+      88% { opacity: 0.85; }
+      100% {
+        transform: translate(calc(100vw + 120px), -65px) scale(0.6);
+        opacity: 0;
+      }
+    }
+
+    .swallow-svg {
+      width: 25px;
+      height: 17px;
+      display: inline-block;
+      filter: drop-shadow(0 2px 5px rgba(0,0,0,0.25));
+      animation: birdWing 0.55s ease-in-out infinite alternate;
+    }
+    .swallow-svg.bird-2 {
+      margin-left: 12px;
+      margin-top: 10px;
+      animation-delay: 0.16s;
+    }
+    .swallow-svg.bird-3 {
+      margin-left: 8px;
+      margin-top: -8px;
+      animation-delay: 0.3s;
+    }
+
+    @keyframes birdWing {
+      0% { transform: scaleY(0.72) rotate(-3deg); }
+      100% { transform: scaleY(1.22) rotate(4deg); }
+    }
+
+    /* Traditional Vietnamese Flute Kite (Cánh diều sáo truyền thống) */
+    .flying-kite-wrap {
+      position: absolute;
+      top: 16%;
+      left: 11vw;
+      width: clamp(75px, 8.5vw, 118px);
+      height: auto;
+      z-index: 3;
+      pointer-events: none;
+      animation: kiteHover 7.5s ease-in-out infinite alternate;
+      transform-origin: top center;
+    }
+
+    @keyframes kiteHover {
+      0% {
+        transform: translate(0, 0) rotate(-6deg);
+      }
+      50% {
+        transform: translate(18px, -20px) rotate(5deg);
+      }
+      100% {
+        transform: translate(-14px, -10px) rotate(-4deg);
+      }
+    }
+
+    .kite-tail-1, .kite-tail-2, .kite-tail-3 {
+      animation: tailWave 2.8s ease-in-out infinite alternate;
+      transform-origin: top center;
+    }
+    .kite-tail-2 { animation-delay: 0.45s; }
+    .kite-tail-3 { animation-delay: 0.9s; }
+
+    @keyframes tailWave {
+      0% { transform: scaleX(0.85) skewX(-5deg); }
+      100% { transform: scaleX(1.15) skewX(7deg); }
+    }
+
     /* Distant mountain backdrop */
     .mountains-svg {
+      position: absolute;
+      bottom: 21vh;
+      left: 0;
+      width: 100%;
+      height: 42vh;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    /* Rolling valley mist layer */
+    .mist-layer {
       position: absolute;
       bottom: 22vh;
       left: 0;
       width: 100%;
-      height: 40vh;
-      z-index: 3;
+      height: 14vh;
+      z-index: 5;
       pointer-events: none;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(225, 248, 238, 0.42) 50%, rgba(255, 255, 255, 0) 100%);
+      animation: mistDrift 14s ease-in-out infinite alternate;
+    }
+
+    @keyframes mistDrift {
+      0% { transform: translateX(-2%) scaleY(0.92); opacity: 0.45; }
+      100% { transform: translateX(2%) scaleY(1.18); opacity: 0.72; }
+    }
+
+    /* Left Heritage Scenery (Bamboo Grove, Lotus Pond, Spring Blossoms) */
+    .heritage-scenery-left {
+      position: absolute;
+      bottom: 8vh;
+      left: 0;
+      width: clamp(260px, 32vw, 480px);
+      height: auto;
+      z-index: 6;
+      pointer-events: none;
+      filter: drop-shadow(0 14px 24px rgba(22, 55, 15, 0.34));
+    }
+
+    .bamboo-cluster {
+      transform-origin: bottom center;
+      animation: bambooBreeze 7s ease-in-out infinite alternate;
+    }
+    @keyframes bambooBreeze {
+      0% { transform: rotate(0deg); }
+      50% { transform: rotate(1.5deg) skewX(0.8deg); }
+      100% { transform: rotate(-0.9deg) skewX(-0.5deg); }
+    }
+
+    .peach-branch-group {
+      transform-origin: 0% 50%;
+      animation: peachSway 5.5s ease-in-out infinite alternate;
+    }
+    @keyframes peachSway {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(2deg); }
     }
 
     /* Vietnamese Temple Gate / Pagoda on Right */
@@ -111,9 +307,22 @@
       bottom: 18vh;
       width: clamp(240px, 28vw, 420px);
       height: auto;
-      z-index: 5;
+      z-index: 7;
       pointer-events: none;
       filter: drop-shadow(0 15px 25px rgba(28, 60, 15, 0.35));
+    }
+
+    /* Red Silk Lanterns swaying on the Pagoda Gate */
+    .pagoda-lantern {
+      transform-origin: top center;
+      animation: lanternSwing 3.6s ease-in-out infinite alternate;
+    }
+    .pagoda-lantern.right-lantern {
+      animation-delay: 0.85s;
+    }
+    @keyframes lanternSwing {
+      0% { transform: rotate(-8deg); }
+      100% { transform: rotate(8deg); }
     }
 
     /* Grassy rolling foreground */
@@ -123,8 +332,39 @@
       left: 0;
       width: 100%;
       height: 38vh;
-      z-index: 6;
+      z-index: 8;
       pointer-events: none;
+    }
+
+    /* Spring Butterflies (Bướm xuân chao lượn) */
+    .butterfly-wrap {
+      position: absolute;
+      bottom: 24vh;
+      left: 36vw;
+      width: 32px;
+      height: 32px;
+      pointer-events: none;
+      z-index: 9;
+      animation: butterflyFlight 18s ease-in-out infinite;
+    }
+
+    @keyframes butterflyFlight {
+      0% { transform: translate(0, 0) scale(0.9); }
+      25% { transform: translate(60px, -35px) scale(1.05) rotate(15deg); }
+      50% { transform: translate(140px, -15px) scale(0.85) rotate(-10deg); }
+      75% { transform: translate(80px, -60px) scale(1) rotate(20deg); }
+      100% { transform: translate(0, 0) scale(0.9); }
+    }
+
+    .butterfly-svg {
+      width: 26px;
+      height: 26px;
+      animation: butterflyFlap 0.28s ease-in-out infinite alternate;
+      transform-origin: center center;
+    }
+    @keyframes butterflyFlap {
+      0% { transform: scaleX(0.3) rotate(-5deg); }
+      100% { transform: scaleX(1.1) rotate(5deg); }
     }
 
     /* Buntings & Vietnamese 5-Color Festival Flags */
@@ -134,8 +374,18 @@
       left: 0;
       width: 100%;
       height: 45vh;
-      z-index: 7;
+      z-index: 9;
       pointer-events: none;
+    }
+
+    /* Ambient Sparks & Falling Petals Canvas */
+    .ambient-sparks {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
     }
 
     /* ==========================================================
@@ -1415,11 +1665,238 @@
   <div class="sun-rays"></div>
 
   <!-- Mountain Silhouettes -->
-  <svg class="mountains-svg" viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- Far mountain layer -->
-    <path d="M0,240 Q180,90 420,190 T900,140 Q1180,70 1440,210 L1440,320 L0,320 Z" fill="#88c78c" opacity="0.6"/>
-    <!-- Near mountain layer -->
-    <path d="M0,210 Q280,120 620,230 T1260,180 Q1380,150 1440,190 L1440,320 L0,320 Z" fill="#6bb575" opacity="0.75"/>
+  <!-- Animated Sky Elements: Fluffy Clouds, Spring Swallows, Vietnamese Flute Kite -->
+  <div class="sky-clouds-wrap">
+    <!-- Cloud 1 -->
+    <div class="cloud-cluster cloud-1">
+      <svg viewBox="0 0 160 65" class="cloud-svg">
+        <path d="M25,50 A20,20 0 0,1 45,25 A30,30 0 0,1 95,20 A24,24 0 0,1 135,35 A18,18 0 0,1 155,50 A12,12 0 0,1 145,62 L20,62 A12,12 0 0,1 25,50 Z" fill="#ffffff" opacity="0.82" filter="drop-shadow(0 6px 12px rgba(80, 160, 220, 0.22))"/>
+      </svg>
+    </div>
+    <!-- Cloud 2 -->
+    <div class="cloud-cluster cloud-2">
+      <svg viewBox="0 0 200 75" class="cloud-svg">
+        <path d="M30,60 A24,24 0 0,1 58,30 A36,36 0 0,1 120,22 A28,28 0 0,1 168,40 A22,22 0 0,1 190,60 A14,14 0 0,1 180,72 L22,72 A14,14 0 0,1 30,60 Z" fill="#ffffff" opacity="0.75" filter="drop-shadow(0 8px 14px rgba(80, 160, 220, 0.2))"/>
+      </svg>
+    </div>
+    <!-- Cloud 3 -->
+    <div class="cloud-cluster cloud-3">
+      <svg viewBox="0 0 140 50" class="cloud-svg">
+        <path d="M20,40 A16,16 0 0,1 38,20 A24,24 0 0,1 80,16 A20,20 0 0,1 115,28 A14,14 0 0,1 135,40 L15,40 Z" fill="#ffffff" opacity="0.6"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Flock of Spring Swallows (Đàn chim én mùa xuân chao liệng) -->
+  <div class="swallow-flock">
+    <svg class="swallow-svg bird-1" viewBox="0 0 32 20">
+      <path d="M0,8 Q10,0 16,8 Q22,0 32,8 Q20,12 16,20 Q12,12 0,8 Z" fill="#212121"/>
+    </svg>
+    <svg class="swallow-svg bird-2" viewBox="0 0 32 20">
+      <path d="M0,8 Q10,0 16,8 Q22,0 32,8 Q20,12 16,20 Q12,12 0,8 Z" fill="#37474f"/>
+    </svg>
+    <svg class="swallow-svg bird-3" viewBox="0 0 32 20">
+      <path d="M0,8 Q10,0 16,8 Q22,0 32,8 Q20,12 16,20 Q12,12 0,8 Z" fill="#455a64"/>
+    </svg>
+  </div>
+
+  <!-- Traditional Vietnamese Flute Kite (Cánh diều sáo bay lượn trên nền trời) -->
+  <div class="flying-kite-wrap">
+    <svg class="flute-kite-svg" viewBox="0 0 120 180">
+      <defs>
+        <linearGradient id="kiteGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#ff1744"/>
+          <stop offset="50%" stop-color="#ff9100"/>
+          <stop offset="100%" stop-color="#ffd600"/>
+        </linearGradient>
+      </defs>
+      <!-- Bamboo Spine & Bow -->
+      <path d="M60,10 L60,85" stroke="#5d4037" stroke-width="2.5"/>
+      <path d="M10,48 Q60,20 110,48" stroke="#5d4037" stroke-width="2.5" fill="none"/>
+      <!-- Crescent Wing Surface (Cánh diều cong mềm mại) -->
+      <path d="M10,48 Q60,15 110,48 Q85,75 60,85 Q35,75 10,48 Z" fill="url(#kiteGrad)" stroke="#b71c1c" stroke-width="1.5" filter="drop-shadow(0 4px 8px rgba(0,0,0,0.22))"/>
+      <!-- Golden Star / Emblem -->
+      <polygon points="60,38 63,46 72,46 64,51 67,60 60,54 53,60 56,51 48,46 57,46" fill="#ffffff"/>
+      <!-- Bamboo Flute (Sáo diều) -->
+      <rect x="52" y="14" width="16" height="5" rx="2" fill="#d7ccc8" stroke="#4e342e" stroke-width="1"/>
+      <ellipse cx="52" cy="16.5" rx="1.5" ry="2.5" fill="#3e2723"/>
+      <ellipse cx="68" cy="16.5" rx="1.5" ry="2.5" fill="#3e2723"/>
+      <!-- Flowing Ribbon Streamer Tails -->
+      <path class="kite-tail-1" d="M35,80 Q45,115 30,140 T40,180" fill="none" stroke="#e91e63" stroke-width="2.2" stroke-linecap="round"/>
+      <path class="kite-tail-2" d="M60,85 Q75,120 55,150 T65,190" fill="none" stroke="#ffeb3b" stroke-width="2.6" stroke-linecap="round"/>
+      <path class="kite-tail-3" d="M85,80 Q75,115 90,140 T80,180" fill="none" stroke="#00e5ff" stroke-width="2.2" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <!-- Majestic Vietnamese Karst Mountains (Dãy núi đá vôi Tràng An & non nước hữu tình) -->
+  <svg class="mountains-svg" viewBox="0 0 1440 340" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Karst Gradients -->
+      <linearGradient id="karstFarGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#5ca9a2" stop-opacity="0.85"/>
+        <stop offset="60%" stop-color="#80cbb5" stop-opacity="0.75"/>
+        <stop offset="100%" stop-color="#bfe8d4" stop-opacity="0.6"/>
+      </linearGradient>
+      <linearGradient id="karstMidGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#469376"/>
+        <stop offset="50%" stop-color="#5eb592"/>
+        <stop offset="100%" stop-color="#8fd6b3"/>
+      </linearGradient>
+      <linearGradient id="hillNearGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#48a85f"/>
+        <stop offset="100%" stop-color="#76cc49"/>
+      </linearGradient>
+    </defs>
+
+    <!-- Layer 1: Distant Misty Karst Peaks (Núi đá vôi xa xa) -->
+    <path d="M0,250 
+             Q120,120 220,170 
+             T440,110 
+             Q540,60 620,120 
+             T840,90 
+             Q960,40 1080,120 
+             T1320,80 
+             Q1390,120 1440,180 
+             L1440,340 L0,340 Z" fill="url(#karstFarGrad)"/>
+
+    <!-- Mountain Temple / Pagoda Tower on Far Peak (Ngọn tháp cổ trên đỉnh núi) -->
+    <g transform="translate(615, 88) scale(0.65)" opacity="0.8">
+      <rect x="0" y="24" width="22" height="18" fill="#3a5a40"/>
+      <path d="M-4,24 L11,14 L26,24 Z" fill="#8d3a1f"/>
+      <rect x="3" y="10" width="16" height="14" fill="#3a5a40"/>
+      <path d="M0,10 L11,3 L22,10 Z" fill="#8d3a1f"/>
+      <line x1="11" y1="3" x2="11" y2="-4" stroke="#ffd54f" stroke-width="2"/>
+    </g>
+
+    <!-- Layer 2: Mid-range Karst Ridges with Atmospheric Depth -->
+    <path d="M0,230 
+             Q160,140 320,200 
+             T680,150 
+             Q820,90 980,170 
+             T1300,140 
+             Q1380,170 1440,210 
+             L1440,340 L0,340 Z" fill="url(#karstMidGrad)" opacity="0.9"/>
+
+    <!-- Layer 3: Sunlit Rolling Hills in Fore-Backdrop -->
+    <path d="M0,210 
+             Q260,150 540,230 
+             T1100,180 
+             Q1280,140 1440,200 
+             L1440,340 L0,340 Z" fill="url(#hillNearGrad)"/>
+  </svg>
+
+  <!-- Rolling Valley Mist Layer -->
+  <div class="mist-layer"></div>
+
+  <!-- Left Heritage Scenery (Cụm tre trúc làng quê, cành hoa đào & đầm sen) -->
+  <svg class="heritage-scenery-left" viewBox="0 0 460 380" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="bambooGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#388e3c"/>
+        <stop offset="35%" stop-color="#81c784"/>
+        <stop offset="70%" stop-color="#a5d6a7"/>
+        <stop offset="100%" stop-color="#2e7d32"/>
+      </linearGradient>
+      <linearGradient id="lotusPink" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0%" stop-color="#ffffff"/>
+        <stop offset="50%" stop-color="#ff80ab"/>
+        <stop offset="100%" stop-color="#f50057"/>
+      </linearGradient>
+      <linearGradient id="leafGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#4caf50"/>
+        <stop offset="100%" stop-color="#1b5e20"/>
+      </linearGradient>
+    </defs>
+
+    <!-- Bamboo Grove (Lũy tre xanh làng quê) with swaying animation -->
+    <g class="bamboo-cluster">
+      <!-- Stalk 1 -->
+      <path d="M60,380 C65,280 75,180 95,90" stroke="url(#bambooGrad)" stroke-width="11" fill="none" stroke-linecap="round"/>
+      <line x1="62" y1="310" x2="72" y2="308" stroke="#1b5e20" stroke-width="3"/>
+      <line x1="68" y1="240" x2="78" y2="238" stroke="#1b5e20" stroke-width="3"/>
+      <line x1="75" y1="170" x2="85" y2="168" stroke="#1b5e20" stroke-width="2.5"/>
+      <line x1="84" y1="115" x2="94" y2="113" stroke="#1b5e20" stroke-width="2"/>
+
+      <!-- Stalk 2 -->
+      <path d="M110,380 C115,290 120,200 135,110" stroke="url(#bambooGrad)" stroke-width="8.5" fill="none" stroke-linecap="round"/>
+      <line x1="112" y1="320" x2="120" y2="318" stroke="#1b5e20" stroke-width="2.5"/>
+      <line x1="116" y1="250" x2="124" y2="248" stroke="#1b5e20" stroke-width="2.5"/>
+      <line x1="122" y1="180" x2="130" y2="178" stroke="#1b5e20" stroke-width="2"/>
+
+      <!-- Stalk 3 -->
+      <path d="M30,380 C32,290 40,210 20,130" stroke="url(#bambooGrad)" stroke-width="7.5" fill="none" stroke-linecap="round"/>
+
+      <!-- Bamboo Leaves (Tán lá tre rợp bóng) -->
+      <g class="bamboo-leaves">
+        <path d="M95,90 Q120,80 145,95 Q120,95 95,90 Z" fill="#43a047"/>
+        <path d="M95,90 Q125,95 150,115 Q125,110 95,90 Z" fill="#66bb6a"/>
+        <path d="M95,90 Q75,70 50,75 Q75,85 95,90 Z" fill="#388e3c"/>
+        <path d="M85,120 Q120,120 140,140 Q115,135 85,120 Z" fill="#43a047"/>
+        <path d="M85,120 Q60,110 35,120 Q60,125 85,120 Z" fill="#2e7d32"/>
+        <path d="M135,110 Q165,100 190,115 Q165,115 135,110 Z" fill="#66bb6a"/>
+        <path d="M135,110 Q160,125 180,145 Q155,135 135,110 Z" fill="#43a047"/>
+        <path d="M20,130 Q-5,120 -30,135 Q-5,135 20,130 Z" fill="#388e3c"/>
+        <path d="M20,130 Q10,105 -5,95 Q10,115 20,130 Z" fill="#4caf50"/>
+      </g>
+    </g>
+
+    <!-- Flowering Peach Blossom Branch (Cành hoa đào tươi thắm mùa xuân) -->
+    <g class="peach-branch-group">
+      <!-- Wood Branch -->
+      <path d="M0,180 Q60,160 110,190 T180,170" fill="none" stroke="#5d4037" stroke-width="7" stroke-linecap="round"/>
+      <path d="M70,170 Q100,130 140,125" fill="none" stroke="#6d4c41" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M120,185 Q150,210 175,205" fill="none" stroke="#6d4c41" stroke-width="3" stroke-linecap="round"/>
+
+      <!-- Blossoms -->
+      <g transform="translate(140, 125) scale(0.95)">
+        <circle cx="-6" cy="-4" r="7" fill="url(#lotusPink)"/>
+        <circle cx="6" cy="-4" r="7" fill="url(#lotusPink)"/>
+        <circle cx="-8" cy="5" r="7" fill="url(#lotusPink)"/>
+        <circle cx="8" cy="5" r="7" fill="url(#lotusPink)"/>
+        <circle cx="0" cy="8" r="7" fill="url(#lotusPink)"/>
+        <circle cx="0" cy="2" r="3.5" fill="#ffd600"/>
+      </g>
+      <g transform="translate(110, 190) scale(1.15)">
+        <circle cx="-6" cy="-4" r="7" fill="url(#lotusPink)"/>
+        <circle cx="6" cy="-4" r="7" fill="url(#lotusPink)"/>
+        <circle cx="-8" cy="5" r="7" fill="url(#lotusPink)"/>
+        <circle cx="8" cy="5" r="7" fill="url(#lotusPink)"/>
+        <circle cx="0" cy="8" r="7" fill="url(#lotusPink)"/>
+        <circle cx="0" cy="2" r="3.5" fill="#ffd600"/>
+      </g>
+      <g transform="translate(180, 170) scale(0.85)">
+        <circle cx="-5" cy="-3" r="6" fill="url(#lotusPink)"/>
+        <circle cx="5" cy="-3" r="6" fill="url(#lotusPink)"/>
+        <circle cx="0" cy="5" r="6" fill="url(#lotusPink)"/>
+        <circle cx="0" cy="1" r="2.5" fill="#ffd600"/>
+      </g>
+      <!-- Green buds & leaves -->
+      <ellipse cx="60" cy="165" rx="5" ry="2.2" transform="rotate(-30 60 165)" fill="#7cb342"/>
+      <ellipse cx="125" cy="140" rx="6" ry="2.6" transform="rotate(25 125 140)" fill="#7cb342"/>
+      <ellipse cx="165" cy="175" rx="5" ry="2.2" transform="rotate(-40 165 175)" fill="#7cb342"/>
+    </g>
+
+    <!-- Lotus Pond on Lower Left (Đầm sen nở hoa ngát hương) -->
+    <g class="lotus-pond">
+      <ellipse cx="190" cy="358" rx="160" ry="22" fill="#5fbcd3" opacity="0.6"/>
+      <ellipse cx="190" cy="358" rx="140" ry="16" fill="#3aa8c2" opacity="0.45"/>
+      <ellipse cx="150" cy="352" rx="36" ry="13" fill="url(#leafGrad)"/>
+      <path d="M150,352 L172,346" stroke="#81c784" stroke-width="1.5"/>
+      <ellipse cx="230" cy="360" rx="44" ry="15" fill="url(#leafGrad)"/>
+      <path d="M230,360 L256,354" stroke="#81c784" stroke-width="1.5"/>
+      <ellipse cx="90" cy="362" rx="26" ry="9" fill="url(#leafGrad)"/>
+
+      <!-- Lotus Flower 1 (Blooming) -->
+      <g transform="translate(180, 334) scale(0.95)">
+        <path d="M-15,10 C-18,-5 0,-18 0,-18 C0,-18 18,-5 15,10 Z" fill="url(#lotusPink)"/>
+        <path d="M-22,12 C-22,0 -5,-12 0,-15 C5,-12 22,0 22,12 Z" fill="url(#lotusPink)" opacity="0.85"/>
+        <ellipse cx="0" cy="2" rx="4" ry="5" fill="#fbc02d"/>
+      </g>
+      <!-- Lotus Flower 2 (Bud) -->
+      <g transform="translate(245, 344) scale(0.75)">
+        <path d="M-10,8 C-12,-3 0,-14 0,-14 C0,-14 12,-3 10,8 Z" fill="url(#lotusPink)"/>
+      </g>
+    </g>
   </svg>
 
   <!-- Traditional Pagoda / Temple Gate on the Right -->
@@ -1473,6 +1950,28 @@
     <path d="M12,79 Q5,68 0,55 Q10,65 24,72 Z" fill="#f5af3d"/>
     <path d="M308,79 Q315,68 320,55 Q310,65 296,72 Z" fill="#f5af3d"/>
 
+    <!-- Left Hanging Red Silk Lantern (Đèn lồng đỏ) -->
+    <g class="pagoda-lantern" transform="translate(26, 92)">
+      <line x1="0" y1="0" x2="0" y2="12" stroke="#ffeb3b" stroke-width="1.5"/>
+      <rect x="-6" y="12" width="12" height="3" rx="1" fill="#ffd54f"/>
+      <ellipse cx="0" cy="22" rx="9" ry="8" fill="#d32f2f" filter="drop-shadow(0 2px 5px rgba(211, 47, 47, 0.45))"/>
+      <ellipse cx="0" cy="22" rx="4.5" ry="8" fill="#f44336"/>
+      <line x1="0" y1="14" x2="0" y2="30" stroke="#ffca28" stroke-width="1"/>
+      <rect x="-5" y="29" width="10" height="2.5" rx="1" fill="#ffd54f"/>
+      <line x1="0" y1="31.5" x2="0" y2="44" stroke="#ffeb3b" stroke-width="2"/>
+    </g>
+
+    <!-- Right Hanging Red Silk Lantern -->
+    <g class="pagoda-lantern right-lantern" transform="translate(294, 92)">
+      <line x1="0" y1="0" x2="0" y2="12" stroke="#ffeb3b" stroke-width="1.5"/>
+      <rect x="-6" y="12" width="12" height="3" rx="1" fill="#ffd54f"/>
+      <ellipse cx="0" cy="22" rx="9" ry="8" fill="#d32f2f" filter="drop-shadow(0 2px 5px rgba(211, 47, 47, 0.45))"/>
+      <ellipse cx="0" cy="22" rx="4.5" ry="8" fill="#f44336"/>
+      <line x1="0" y1="14" x2="0" y2="30" stroke="#ffca28" stroke-width="1"/>
+      <rect x="-5" y="29" width="10" height="2.5" rx="1" fill="#ffd54f"/>
+      <line x1="0" y1="31.5" x2="0" y2="44" stroke="#ffeb3b" stroke-width="2"/>
+    </g>
+
     <!-- Upper Pavilion / Bell Tower -->
     <rect x="95" y="44" width="130" height="24" rx="2" fill="url(#wallGrad)"/>
     <rect x="110" y="46" width="18" height="20" rx="1" fill="#4d240d"/>
@@ -1499,9 +1998,37 @@
     <!-- Wild grass clumps & leaves on bottom-left -->
     <path d="M0,280 L20,210 Q40,230 60,190 Q75,225 110,185 Q125,230 160,200 L180,280 Z" fill="#388e1e"/>
     <path d="M15,280 Q45,215 90,235 Q130,220 170,280 Z" fill="#2d6f16"/>
+    <!-- Wild daisies and spring blooms scattered in meadow -->
+    <g class="meadow-flowers">
+      <circle cx="380" cy="225" r="4.5" fill="#ffffff"/>
+      <circle cx="380" cy="225" r="2" fill="#ffd600"/>
+      <circle cx="430" cy="235" r="4" fill="#ffca28"/>
+      <circle cx="430" cy="235" r="1.8" fill="#e65100"/>
+      <circle cx="580" cy="215" r="5" fill="#ffffff"/>
+      <circle cx="580" cy="215" r="2.2" fill="#ffd600"/>
+      <circle cx="740" cy="235" r="4.5" fill="#ff80ab"/>
+      <circle cx="740" cy="235" r="2" fill="#ffd600"/>
+      <circle cx="890" cy="220" r="5" fill="#ffffff"/>
+      <circle cx="890" cy="220" r="2.2" fill="#ffd600"/>
+      <circle cx="1060" cy="232" r="4.5" fill="#ffca28"/>
+      <circle cx="1060" cy="232" r="2" fill="#d84315"/>
+    </g>
     <!-- Grass clumps on bottom-right -->
     <path d="M1280,280 L1310,215 Q1335,235 1370,195 Q1395,228 1430,205 L1440,280 Z" fill="#388e1e"/>
   </svg>
+
+  <!-- Spring Butterfly (Bướm xuân chao lượn) -->
+  <div class="butterfly-wrap">
+    <svg class="butterfly-svg" viewBox="0 0 30 30">
+      <path d="M15,15 Q5,5 3,12 Q0,20 15,17" fill="#ffeb3b" stroke="#f57f17" stroke-width="0.8"/>
+      <path d="M15,15 Q25,5 27,12 Q30,20 15,17" fill="#ffeb3b" stroke="#f57f17" stroke-width="0.8"/>
+      <path d="M15,17 Q6,20 8,26 Q12,28 15,19" fill="#ff7043" stroke="#d84315" stroke-width="0.7"/>
+      <path d="M15,17 Q24,20 22,26 Q18,28 15,19" fill="#ff7043" stroke="#d84315" stroke-width="0.7"/>
+      <ellipse cx="15" cy="17" rx="1.5" ry="6" fill="#3e2723"/>
+      <line x1="15" y1="11" x2="11" y2="6" stroke="#3e2723" stroke-width="0.8"/>
+      <line x1="15" y1="11" x2="19" y2="6" stroke="#3e2723" stroke-width="0.8"/>
+    </svg>
+  </div>
 
   <!-- Bunting Pennants & Vietnamese Festival Flags (Cờ Ngũ Sắc) -->
   <svg class="festive-decorations" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
@@ -2915,21 +3442,88 @@ function initAmbientSparks() {
     h = canvas.height = window.innerHeight;
   });
 
-  const SPARKS_COUNT = 38;
+  // 1. Golden Fireflies & Stardust (Đom đóm & Tinh tú lấp lánh)
+  const SPARKS_COUNT = 34;
   const sparks = Array.from({ length: SPARKS_COUNT }, () => ({
     x: Math.random() * w,
     y: Math.random() * h,
-    size: Math.random() * 2.6 + 1.2,
-    speedY: Math.random() * 0.45 + 0.22,
-    speedX: (Math.random() - 0.5) * 0.35,
+    size: Math.random() * 2.5 + 1.2,
+    speedY: Math.random() * 0.42 + 0.18,
+    speedX: (Math.random() - 0.5) * 0.32,
     opacity: Math.random() * 0.65 + 0.35,
-    pulseSpeed: Math.random() * 0.03 + 0.015,
-    pulse: Math.random() * Math.PI,
+    pulseSpeed: Math.random() * 0.028 + 0.014,
+    pulse: Math.random() * Math.PI * 2,
     color: Math.random() > 0.4 ? '#fff9c4' : (Math.random() > 0.5 ? '#ffd54f' : '#b2ff59')
+  }));
+
+  // 2. Swirling Peach Blossom Petals (Cánh hoa đào rơi chao nghiêng trong gió)
+  const PETALS_COUNT = 32;
+  const petals = Array.from({ length: PETALS_COUNT }, () => ({
+    x: Math.random() * (w + 200) - 100,
+    y: Math.random() * h - 20,
+    size: Math.random() * 5 + 6.5,
+    speedY: Math.random() * 0.75 + 0.65,
+    speedX: Math.random() * 0.7 + 0.45,
+    sway: Math.random() * Math.PI * 2,
+    swaySpeed: Math.random() * 0.035 + 0.02,
+    swayRadius: Math.random() * 18 + 12,
+    rotation: Math.random() * Math.PI * 2,
+    rotationSpeed: (Math.random() - 0.5) * 0.03,
+    flip: Math.random() * Math.PI * 2,
+    flipSpeed: Math.random() * 0.035 + 0.02,
+    opacity: Math.random() * 0.35 + 0.65,
+    color1: Math.random() > 0.3 ? '#ff8da1' : '#ff6f91',
+    color2: '#ffcdd2'
   }));
 
   function draw() {
     ctx.clearRect(0, 0, w, h);
+
+    // Render falling petals with 3D wind tumbling
+    petals.forEach(p => {
+      p.y += p.speedY;
+      p.x += p.speedX;
+      p.sway += p.swaySpeed;
+      p.rotation += p.rotationSpeed;
+      p.flip += p.flipSpeed;
+
+      if (p.y > h + 25 || p.x > w + 40) {
+        p.y = -25 - Math.random() * 50;
+        p.x = Math.random() * (w * 1.1) - w * 0.15;
+      }
+
+      const swayOffset = Math.sin(p.sway) * p.swayRadius;
+      const flipScale = Math.cos(p.flip);
+
+      ctx.save();
+      ctx.translate(p.x + swayOffset, p.y);
+      ctx.rotate(p.rotation);
+      ctx.scale(Math.abs(flipScale) < 0.1 ? 0.1 : flipScale, 1);
+      ctx.globalAlpha = p.opacity;
+
+      const grad = ctx.createLinearGradient(-p.size, -p.size, p.size, p.size);
+      grad.addColorStop(0, p.color1);
+      grad.addColorStop(1, p.color2);
+      ctx.fillStyle = grad;
+
+      ctx.beginPath();
+      ctx.moveTo(0, -p.size);
+      ctx.bezierCurveTo(p.size * 0.95, -p.size * 0.65, p.size * 0.85, p.size * 0.75, 0, p.size);
+      ctx.bezierCurveTo(-p.size * 0.85, p.size * 0.75, -p.size * 0.95, -p.size * 0.65, 0, -p.size);
+      ctx.fill();
+
+      // Delicate center vein
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+      ctx.lineWidth = 0.8;
+      ctx.beginPath();
+      ctx.moveTo(0, -p.size * 0.65);
+      ctx.lineTo(0, p.size * 0.6);
+      ctx.stroke();
+
+      ctx.restore();
+    });
+
+    // Render golden fireflies
     sparks.forEach(s => {
       s.y -= s.speedY;
       s.x += s.speedX;
@@ -2946,13 +3540,13 @@ function initAmbientSparks() {
       ctx.globalAlpha = alpha;
       ctx.fillStyle = s.color;
       ctx.shadowColor = s.color;
-      ctx.shadowBlur = 8;
+      ctx.shadowBlur = 9;
       ctx.beginPath();
       ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
       ctx.fill();
 
-      // Delicate sparkle star flare on bigger sparks
-      if (s.size > 2.5 && alpha > 0.55) {
+      // Star flare on brighter sparks
+      if (s.size > 2.4 && alpha > 0.55) {
         ctx.strokeStyle = '#ffffff';
         ctx.lineWidth = 0.8;
         ctx.beginPath();
@@ -2964,6 +3558,7 @@ function initAmbientSparks() {
       }
       ctx.restore();
     });
+
     requestAnimationFrame(draw);
   }
   requestAnimationFrame(draw);
