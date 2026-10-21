@@ -391,15 +391,38 @@
   <div class="warp-text">🛸 ĐANG QUAY VỀ GAME TÚI MÙ...</div>
 </div>
 <script>
+  function isParentFs() {
+    try {
+      return !!(window.parent && window.parent !== window && window.parent.document && window.parent.document.fullscreenElement);
+    } catch(e) {
+      return false;
+    }
+  }
+
+  function isAnyFs() {
+    return !!document.fullscreenElement || isParentFs();
+  }
+
   function updateFsState() {
-    const isFs = !!document.fullscreenElement;
+    const isFs = isAnyFs();
     sessionStorage.setItem('game_fullscreen', isFs ? 'true' : 'false');
+    const btn = document.getElementById('fullscreenToggleBtn');
+    if (btn) {
+      btn.setAttribute('aria-label', isFs ? 'Thoát toàn màn hình' : 'Toàn màn hình');
+      btn.title = isFs ? 'Thoát toàn màn hình' : 'Toàn màn hình';
+    }
   }
   document.addEventListener('fullscreenchange', updateFsState);
+  try {
+    if (window.parent && window.parent !== window && window.parent.document) {
+      window.parent.document.addEventListener('fullscreenchange', updateFsState);
+    }
+  } catch(e) {}
 
   function tryRestoreFullscreen() {
-    if (sessionStorage.getItem('game_fullscreen') === 'true' && !document.fullscreenElement) {
-      document.documentElement.requestFullscreen().catch(() => {});
+    if (sessionStorage.getItem('game_fullscreen') === 'true' && !isAnyFs()) {
+      const targetDoc = (window.parent && window.parent !== window) ? window.parent.document : document;
+      targetDoc.documentElement.requestFullscreen().catch(() => {});
     }
   }
 
@@ -413,22 +436,32 @@
   window.addEventListener('keydown', handleUserGesture);
 
   document.getElementById('fullscreenToggleBtn')?.addEventListener('click', () => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().then(() => {
+    const targetDoc = (window.parent && window.parent !== window) ? window.parent.document : document;
+    if (!isAnyFs()) {
+      targetDoc.documentElement.requestFullscreen().then(() => {
         sessionStorage.setItem('game_fullscreen', 'true');
+        updateFsState();
       }).catch(() => {});
     } else {
-      document.exitFullscreen().then(() => {
+      targetDoc.exitFullscreen().then(() => {
         sessionStorage.setItem('game_fullscreen', 'false');
+        updateFsState();
       }).catch(() => {});
     }
   });
 
   function goBackTuiMu() {
-    sessionStorage.setItem('game_fullscreen', !!document.fullscreenElement ? 'true' : 'false');
+    sessionStorage.setItem('game_fullscreen', isAnyFs() ? 'true' : 'false');
     const overlay = document.getElementById('warpExitOverlay');
     if (overlay) overlay.classList.add('active');
     setTimeout(() => {
+      try {
+        if (window.parent && window.parent !== window && typeof window.parent.closeUFOEmbeddedView === 'function') {
+          window.parent.closeUFOEmbeddedView();
+          if (overlay) overlay.classList.remove('active');
+          return;
+        }
+      } catch(e) {}
       window.location.href = 'tui-mu.html?from=ufo';
     }, 450);
   }

@@ -809,30 +809,152 @@
       animation: bagVanish 0.5s ease forwards;
     }
 
-    /* Aura glow behind each bag */
+    /* Dynamic Animated Glowing Aura for Mystery Bags */
     .bag-aura {
       position: absolute;
-      top: 45%;
+      top: 48%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 140%;
-      height: 120%;
+      width: 155%;
+      height: 140%;
       border-radius: 50%;
       pointer-events: none;
-      filter: blur(28px);
-      opacity: 0.5;
-      transition: opacity 0.35s ease, transform 0.35s ease;
       z-index: -1;
+      opacity: 0.72;
+      animation: bagAuraBreath 3.2s ease-in-out infinite;
+      transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
+      filter: blur(20px);
     }
+
+    /* Rotating Conic Radiant Sunburst Rays */
+    .bag-aura::before {
+      content: '';
+      position: absolute;
+      inset: -22%;
+      border-radius: 50%;
+      background: conic-gradient(
+        from 0deg,
+        var(--aura-color1, rgba(255, 215, 0, 0.7)) 0deg,
+        transparent 35deg,
+        var(--aura-color2, rgba(255, 140, 0, 0.8)) 70deg,
+        transparent 105deg,
+        var(--aura-color3, rgba(255, 255, 255, 0.9)) 140deg,
+        transparent 175deg,
+        var(--aura-color1, rgba(255, 215, 0, 0.7)) 210deg,
+        transparent 245deg,
+        var(--aura-color2, rgba(255, 140, 0, 0.8)) 280deg,
+        transparent 315deg,
+        var(--aura-color3, rgba(255, 255, 255, 0.9)) 360deg
+      );
+      filter: blur(14px);
+      opacity: 0.75;
+      animation: auraSpin 9s linear infinite;
+    }
+
+    /* Expanding Pulse Halo Ring */
+    .bag-aura::after {
+      content: '';
+      position: absolute;
+      inset: -10%;
+      border-radius: 50%;
+      border: 3.5px solid var(--aura-color1, #ffd700);
+      box-shadow: 0 0 22px var(--aura-color1, #ffd700), inset 0 0 16px var(--aura-color3, #ffffff);
+      opacity: 0;
+      animation: auraPulseWave 3.2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+    }
+
+    @keyframes bagAuraBreath {
+      0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.65;
+        filter: blur(18px);
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.25);
+        opacity: 0.95;
+        filter: blur(28px);
+      }
+    }
+
+    @keyframes auraSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes auraPulseWave {
+      0% {
+        transform: scale(0.75);
+        opacity: 0.85;
+      }
+      50% {
+        opacity: 0.55;
+      }
+      100% {
+        transform: scale(1.48);
+        opacity: 0;
+      }
+    }
+
+    /* Distinct Celestial Colors and Phase Delays for Each Bag */
+    #bag-1 .bag-aura {
+      --aura-color1: #ba68c8;
+      --aura-color2: #7b1fa2;
+      --aura-color3: #ea80fc;
+      background: radial-gradient(circle, rgba(186, 104, 200, 0.85) 0%, rgba(123, 31, 162, 0.6) 55%, transparent 75%);
+      animation-delay: 0s;
+    }
+    #bag-1 .bag-aura::after { animation-delay: 0s; }
+
+    #bag-2 .bag-aura {
+      --aura-color1: #ff4081;
+      --aura-color2: #c2185b;
+      --aura-color3: #ff80ab;
+      background: radial-gradient(circle, rgba(255, 64, 129, 0.85) 0%, rgba(194, 24, 91, 0.6) 55%, transparent 75%);
+      animation-delay: 0.65s;
+    }
+    #bag-2 .bag-aura::after { animation-delay: 0.65s; }
+
+    #bag-3 .bag-aura {
+      --aura-color1: #00e5ff;
+      --aura-color2: #0288d1;
+      --aura-color3: #84ffff;
+      background: radial-gradient(circle, rgba(0, 229, 255, 0.85) 0%, rgba(2, 136, 209, 0.6) 55%, transparent 75%);
+      animation-delay: 1.3s;
+    }
+    #bag-3 .bag-aura::after { animation-delay: 1.3s; }
+
+    #bag-4 .bag-aura {
+      --aura-color1: #ffd600;
+      --aura-color2: #f57f17;
+      --aura-color3: #fff59d;
+      background: radial-gradient(circle, rgba(255, 214, 0, 0.85) 0%, rgba(245, 127, 23, 0.6) 55%, transparent 75%);
+      animation-delay: 1.95s;
+    }
+    #bag-4 .bag-aura::after { animation-delay: 1.95s; }
+
+    #bag-5 .bag-aura {
+      --aura-color1: #ff5252;
+      --aura-color2: #ad1457;
+      --aura-color3: #ff80ab;
+      background: radial-gradient(circle, rgba(255, 82, 82, 0.85) 0%, rgba(173, 20, 87, 0.6) 55%, transparent 75%);
+      animation-delay: 2.6s;
+    }
+    #bag-5 .bag-aura::after { animation-delay: 2.6s; }
+
+    /* Hover effect */
     .bag-item:hover:not(.opened) .bag-aura {
-      opacity: 0.88;
-      transform: translate(-50%, -50%) scale(1.25);
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.38);
+      filter: blur(24px);
     }
-    #bag-1 .bag-aura { background: radial-gradient(circle, #ab47bc 0%, #4a148c 60%, transparent 80%); }
-    #bag-2 .bag-aura { background: radial-gradient(circle, #ff7043 0%, #d84315 60%, transparent 80%); }
-    #bag-3 .bag-aura { background: radial-gradient(circle, #29b6f6 0%, #0277bd 60%, transparent 80%); }
-    #bag-4 .bag-aura { background: radial-gradient(circle, #ffee58 0%, #f57f17 60%, transparent 80%); }
-    #bag-5 .bag-aura { background: radial-gradient(circle, #ec407a 0%, #ad1457 60%, transparent 80%); }
+    .bag-item:hover:not(.opened) .bag-aura::before {
+      opacity: 0.95;
+      animation-duration: 4.5s;
+    }
+
+    .bag-item.opened .bag-aura {
+      display: none !important;
+    }
 
     /* Interactive hint badge */
     .bag-hint-badge {
@@ -1147,17 +1269,90 @@
       padding: 16px;
     }
 
+    /* ==========================================================
+       SEAMLESS EMBEDDED UFO GAME VIEWPORT (NO FULLSCREEN LOSS)
+       ========================================================== */
+    .ufo-embedded-container {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9990;
+      background: #000000;
+      display: none;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .ufo-embedded-container.active {
+      display: block;
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .ufo-embedded-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      background: #000000;
+    }
+
     .modal-overlay.active {
       opacity: 1;
       pointer-events: all;
     }
 
+    /* Modal Wrapper holding Top Crest & Wooden Board */
+    .quiz-board-wrapper {
+      position: relative;
+      width: min(95vw, 960px);
+      max-height: 94vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 52px;
+      box-sizing: border-box;
+      transform: scale(0.85) translateY(20px);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      overflow: visible;
+    }
+
+    .modal-overlay.active .quiz-board-wrapper {
+      transform: scale(1) translateY(0);
+    }
+
+    /* Bursting Open Bag Crest on Top Center of Board - Positioned outside overflow, NEVER clipped! */
+    .board-top-crest {
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 35;
+      pointer-events: none;
+      animation: bagFloat 3s ease-in-out infinite;
+    }
+
+    .board-top-bag {
+      width: 145px;
+      height: 120px;
+      display: block;
+      filter: drop-shadow(0 12px 22px rgba(0,0,0,0.55));
+    }
+
+    @keyframes bagFloat {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-7px) rotate(2deg); }
+    }
+
     /* Wooden Scroll Plaque Board */
     .quiz-board {
       position: relative;
-      width: min(95vw, 960px);
-      max-height: 92vh;
+      width: 100%;
+      max-height: calc(94vh - 52px);
       overflow-y: auto;
+      overflow-x: hidden;
       background: #e8cca0;
       background-image: 
         radial-gradient(ellipse at 50% 50%, #f7e6ce 0%, #dfbe8d 68%, #cca062 100%);
@@ -1167,18 +1362,12 @@
         0 25px 70px rgba(0, 0, 0, 0.75),
         inset 0 0 25px rgba(107, 58, 22, 0.45),
         0 0 0 4px #e0b368;
-      padding: 48px 36px 28px;
-      transform: scale(0.85) translateY(20px);
-      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      padding: 44px 36px 28px;
       display: flex;
       flex-direction: column;
       align-items: center;
       scrollbar-width: thin;
       scrollbar-color: #9c5c24 transparent;
-    }
-
-    .modal-overlay.active .quiz-board {
-      transform: scale(1) translateY(0);
     }
 
     /* Inner carved line */
@@ -1187,27 +1376,8 @@
       position: absolute;
       inset: 8px;
       border: 2px dashed rgba(115, 67, 29, 0.35);
-      border-radius: 18px;
+      border-radius: 20px;
       pointer-events: none;
-    }
-
-    /* Bursting Open Bag on Top Center of Board */
-    .board-top-bag {
-      position: absolute;
-      top: -65px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 130px;
-      height: 110px;
-      filter: drop-shadow(0 8px 14px rgba(0,0,0,0.4));
-      z-index: 10;
-      pointer-events: none;
-      animation: bagFloat 3s ease-in-out infinite;
-    }
-
-    @keyframes bagFloat {
-      0%, 100% { transform: translateX(-50%) translateY(0) rotate(-2deg); }
-      50% { transform: translateX(-50%) translateY(-6px) rotate(2deg); }
     }
 
     /* Top Left Timer / Bag Counter Badge */
@@ -1652,9 +1822,20 @@
     }
 
     @media (max-width: 720px) {
-      .quiz-board {
+      .quiz-board-wrapper {
         width: 96vw;
-        padding: 42px 18px 22px;
+        padding-top: 42px;
+      }
+      .board-top-crest {
+        top: -12px;
+      }
+      .board-top-bag {
+        width: 115px;
+        height: 96px;
+      }
+      .quiz-board {
+        width: 100%;
+        padding: 38px 18px 20px;
         border-radius: 22px;
         border-width: 7px;
       }
@@ -2691,63 +2872,73 @@
      QUIZ MODAL POPUP (EXACT MATCH TO REFERENCE IMAGE 2)
      ========================================================== -->
 <div class="modal-overlay" id="quizModal">
-  <div class="quiz-board">
+  <div class="quiz-board-wrapper">
 
-    <!-- Overflowing Open Mystery Bag at Top Center -->
-    <svg class="board-top-bag" viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="openBagGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#ff4081"/>
-          <stop offset="60%" stop-color="#ab47bc"/>
-          <stop offset="100%" stop-color="#4a148c"/>
-        </linearGradient>
-      </defs>
-      <!-- Confetti & Candies Bursting Out -->
-      <circle cx="35" cy="18" r="4" fill="#ffeb3b"/>
-      <circle cx="50" cy="10" r="5" fill="#00e676"/>
-      <circle cx="70" cy="12" r="4" fill="#ff1744"/>
-      <circle cx="85" cy="22" r="5" fill="#00b0ff"/>
-      <polygon points="40,24 45,28 38,32" fill="#ffd600"/>
-      <polygon points="76,20 82,26 74,30" fill="#e040fb"/>
-      <!-- Open Bag Pouch -->
-      <path d="M 25 36 Q 60 22 95 36 L 90 90 Q 60 98 30 90 Z" fill="url(#openBagGrad)" stroke="#4a148c" stroke-width="3"/>
-      <!-- Folded open lip -->
-      <path d="M 22 36 Q 60 48 98 36 L 93 46 Q 60 56 27 46 Z" fill="#ea80fc"/>
-      <!-- Big Gold Star on Bag front -->
-      <polygon points="60,54 64,65 76,65 67,72 70,83 60,76 50,83 53,72 44,65 56,65" fill="#ffd600" stroke="#ff8f00" stroke-width="1.5"/>
-    </svg>
-
-    <!-- Top Left Timer Badge -->
-    <div class="board-timer-badge">
-      <span>⏱</span>
-      <span id="quizTimer">0</span>
+    <!-- Overflowing Open Mystery Bag at Top Center - Positioned OUTSIDE overflow container, NEVER clipped! -->
+    <div class="board-top-crest">
+      <svg class="board-top-bag" viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="openBagGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ff4081"/>
+            <stop offset="60%" stop-color="#ab47bc"/>
+            <stop offset="100%" stop-color="#4a148c"/>
+          </linearGradient>
+          <filter id="starGoldGlow" x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#ff6f00" flood-opacity="0.8"/>
+          </filter>
+        </defs>
+        <!-- Confetti & Candies Bursting Out -->
+        <circle cx="35" cy="18" r="4.5" fill="#ffeb3b"/>
+        <circle cx="50" cy="10" r="5.5" fill="#00e676"/>
+        <circle cx="70" cy="12" r="4.5" fill="#ff1744"/>
+        <circle cx="85" cy="22" r="5.5" fill="#00b0ff"/>
+        <polygon points="40,24 45,28 38,32" fill="#ffd600"/>
+        <polygon points="76,20 82,26 74,30" fill="#e040fb"/>
+        <!-- Open Bag Pouch -->
+        <path d="M 25 36 Q 60 22 95 36 L 90 90 Q 60 98 30 90 Z" fill="url(#openBagGrad)" stroke="#4a148c" stroke-width="3"/>
+        <!-- Folded open lip -->
+        <path d="M 22 36 Q 60 48 98 36 L 93 46 Q 60 56 27 46 Z" fill="#ea80fc"/>
+        <!-- Big Gold Star on Bag front - Adjusted UP & fitted nicely ("kéo lên trên hãy chỉnh lại cho khớp") -->
+        <polygon points="60,46 64,58 77,58 67,65 71,77 60,70 49,77 53,65 43,58 56,58" fill="#ffd700" stroke="#ff6f00" stroke-width="1.8" filter="url(#starGoldGlow)"/>
+        <polygon points="60,50 63,58 72,58 65,63.5 68,72 60,67.5 52,72 55,63.5 48,58 57,58" fill="#fff9c4"/>
+      </svg>
     </div>
 
-    <!-- Top Right Close Button -->
-    <button class="board-close-btn" onclick="closeQuizModal()" title="Đóng câu hỏi">✕</button>
+    <!-- Wooden Scroll Plaque Board -->
+    <div class="quiz-board">
 
-    <!-- Question Title & Content Banner -->
-    <div class="question-banner">
-      <div class="q-title" id="qTitle">Câu hỏi 1</div>
-      <div class="q-text" id="qContent">Nội dung câu hỏi trắc nghiệm sẽ hiển thị tại đây?</div>
+      <!-- Top Left Timer Badge -->
+      <div class="board-timer-badge">
+        <span>⏱</span>
+        <span id="quizTimer">0</span>
+      </div>
+
+      <!-- Top Right Close Button -->
+      <button class="board-close-btn" onclick="closeQuizModal()" title="Đóng câu hỏi">✕</button>
+
+      <!-- Question Title & Content Banner -->
+      <div class="question-banner">
+        <div class="q-title" id="qTitle">Câu hỏi 1</div>
+        <div class="q-text" id="qContent">Nội dung câu hỏi trắc nghiệm sẽ hiển thị tại đây?</div>
+      </div>
+
+      <!-- 4 Big 3D Answer Buttons (A, B, C, D) -->
+      <div class="answers-grid">
+        <button class="answer-btn ans-a" id="ansBtn0" onclick="handleSelectAnswer(0)">A. Đáp án 1</button>
+        <button class="answer-btn ans-b" id="ansBtn1" onclick="handleSelectAnswer(1)">B. Đáp án 2</button>
+        <button class="answer-btn ans-c" id="ansBtn2" onclick="handleSelectAnswer(2)">C. Đáp án 3</button>
+        <button class="answer-btn ans-d" id="ansBtn3" onclick="handleSelectAnswer(3)">D. Đáp án 4</button>
+      </div>
+
+      <!-- Feedback Banner -->
+      <div class="feedback-banner" id="feedbackBanner"></div>
+
+      <!-- Next / Continue Button -->
+      <button class="modal-next-btn" id="modalNextBtn" onclick="handleProceedAfterAnswer()">
+        Tiếp tục ➔
+      </button>
+
     </div>
-
-    <!-- 4 Big 3D Answer Buttons (A, B, C, D) -->
-    <div class="answers-grid">
-      <button class="answer-btn ans-a" id="ansBtn0" onclick="handleSelectAnswer(0)">A. Đáp án 1</button>
-      <button class="answer-btn ans-b" id="ansBtn1" onclick="handleSelectAnswer(1)">B. Đáp án 2</button>
-      <button class="answer-btn ans-c" id="ansBtn2" onclick="handleSelectAnswer(2)">C. Đáp án 3</button>
-      <button class="answer-btn ans-d" id="ansBtn3" onclick="handleSelectAnswer(3)">D. Đáp án 4</button>
-    </div>
-
-    <!-- Feedback Banner -->
-    <div class="feedback-banner" id="feedbackBanner"></div>
-
-    <!-- Next / Continue Button -->
-    <button class="modal-next-btn" id="modalNextBtn" onclick="handleProceedAfterAnswer()">
-      Tiếp tục ➔
-    </button>
-
   </div>
 </div>
 
@@ -2833,6 +3024,11 @@
 <!-- Welcome Toast when returning from UFO -->
 <div class="welcome-toast" id="welcomeToast">
   🛸 Chào mừng bạn đã quay lại Game Túi Mù!
+</div>
+
+<!-- Seamless Embedded UFO Game Viewport (Preserves 100% Fullscreen) -->
+<div class="ufo-embedded-container" id="ufoEmbeddedContainer">
+  <iframe id="ufoEmbeddedFrame" class="ufo-embedded-frame" allow="fullscreen; autoplay" allowfullscreen></iframe>
 </div>
 
 <!-- ==========================================================
@@ -3493,16 +3689,46 @@ function runWarpTunnelAnimation() {
 
 function launchUFOTransition() {
   playSound('warp');
-  sessionStorage.setItem('game_fullscreen', !!document.fullscreenElement ? 'true' : 'false');
+  const isFs = !!document.fullscreenElement;
+  sessionStorage.setItem('game_fullscreen', isFs ? 'true' : 'false');
   const overlay = document.getElementById('ufoHyperWarp');
   if (overlay) {
     overlay.classList.add('active');
     runWarpTunnelAnimation();
   }
-  setTimeout(() => {
-    window.location.href = 'ufo.html?from=tuimu';
-  }, 1350);
+
+  const iframe = document.getElementById('ufoEmbeddedFrame');
+  const frameContainer = document.getElementById('ufoEmbeddedContainer');
+  if (iframe && frameContainer) {
+    if (!iframe.src || iframe.src === 'about:blank' || !iframe.src.includes('ufo.html')) {
+      iframe.src = 'ufo.html?from=tuimu';
+    }
+    setTimeout(() => {
+      frameContainer.classList.add('active');
+      setTimeout(() => {
+        if (overlay) overlay.classList.remove('active');
+      }, 400);
+    }, 1150);
+  } else {
+    setTimeout(() => {
+      window.location.href = 'ufo.html?from=tuimu';
+    }, 1350);
+  }
 }
+
+function closeUFOEmbeddedView() {
+  const frameContainer = document.getElementById('ufoEmbeddedContainer');
+  if (frameContainer) {
+    frameContainer.classList.remove('active');
+    playSound('correct');
+    const toast = document.getElementById('welcomeToast');
+    if (toast) {
+      setTimeout(() => toast.classList.add('show'), 200);
+      setTimeout(() => toast.classList.remove('show'), 3800);
+    }
+  }
+}
+window.closeUFOEmbeddedView = closeUFOEmbeddedView;
 
 function checkFromUFO() {
   const urlParams = new URLSearchParams(window.location.search);
