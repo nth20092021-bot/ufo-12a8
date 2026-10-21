@@ -1155,22 +1155,26 @@
     /* Wooden Scroll Plaque Board */
     .quiz-board {
       position: relative;
-      width: min(94vw, 780px);
+      width: min(95vw, 960px);
+      max-height: 92vh;
+      overflow-y: auto;
       background: #e8cca0;
       background-image: 
-        radial-gradient(ellipse at 50% 50%, #f3dec2 0%, #dfbe8d 70%, #d4ae78 100%);
-      border: 10px solid #73431d;
-      border-radius: 28px;
+        radial-gradient(ellipse at 50% 50%, #f7e6ce 0%, #dfbe8d 68%, #cca062 100%);
+      border: 10px solid #6b3a16;
+      border-radius: 30px;
       box-shadow: 
-        0 25px 60px rgba(0, 0, 0, 0.7),
-        inset 0 0 20px rgba(115, 67, 29, 0.4),
-        0 0 0 3px #cca25d;
-      padding: 44px 28px 26px;
+        0 25px 70px rgba(0, 0, 0, 0.75),
+        inset 0 0 25px rgba(107, 58, 22, 0.45),
+        0 0 0 4px #e0b368;
+      padding: 48px 36px 28px;
       transform: scale(0.85) translateY(20px);
       transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
       display: flex;
       flex-direction: column;
       align-items: center;
+      scrollbar-width: thin;
+      scrollbar-color: #9c5c24 transparent;
     }
 
     .modal-overlay.active .quiz-board {
@@ -1217,10 +1221,10 @@
       background: linear-gradient(180deg, #784820 0%, #4d2a0e 100%);
       border: 2px solid #d4a961;
       border-radius: 50px;
-      padding: 4px 14px;
+      padding: 5px 16px;
       color: #ffd875;
       font-family: 'Baloo 2', cursive;
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 800;
       box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
@@ -1230,14 +1234,14 @@
       position: absolute;
       top: 14px;
       right: 18px;
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       background: linear-gradient(180deg, #8a4e22 0%, #522709 100%);
       border: 3px solid #d4a961;
       border-radius: 50%;
       color: #ffd875;
       font-family: 'Baloo 2', sans-serif;
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 900;
       display: flex;
       align-items: center;
@@ -1257,16 +1261,17 @@
     /* Question Banner (Dark brown carved wooden box with gold trim) */
     .question-banner {
       width: 100%;
-      background: linear-gradient(180deg, #532c12 0%, #361a07 100%);
-      border: 4px solid #caa058;
-      border-radius: 18px;
-      padding: 20px 24px;
+      background: linear-gradient(180deg, #4f280e 0%, #321604 100%);
+      border: 4.5px solid #d4a75b;
+      border-radius: 20px;
+      padding: 24px 34px;
       box-shadow: 
-        0 6px 16px rgba(0,0,0,0.35),
-        inset 0 2px 4px rgba(255,255,255,0.15);
+        0 8px 20px rgba(0,0,0,0.4),
+        inset 0 2px 4px rgba(255,255,255,0.18),
+        0 0 15px rgba(212, 167, 91, 0.25);
       position: relative;
-      margin-top: 14px;
-      margin-bottom: 22px;
+      margin-top: 16px;
+      margin-bottom: 24px;
       text-align: center;
     }
 
@@ -1274,40 +1279,41 @@
     .question-banner::before, .question-banner::after {
       content: '';
       position: absolute;
-      width: 14px;
-      height: 14px;
+      width: 16px;
+      height: 16px;
       border-color: #ffd700;
       border-style: solid;
     }
-    .question-banner::before { top: 6px; left: 6px; border-width: 3px 0 0 3px; }
-    .question-banner::after { bottom: 6px; right: 6px; border-width: 0 3px 3px 0; }
+    .question-banner::before { top: 8px; left: 8px; border-width: 3.5px 0 0 3.5px; }
+    .question-banner::after { bottom: 8px; right: 8px; border-width: 0 3.5px 3.5px 0; }
 
     .q-title {
       font-family: 'Baloo 2', cursive;
-      font-size: 16px;
+      font-size: clamp(17px, 1.8vw, 22px);
       font-weight: 800;
       color: #ffd54f;
       text-transform: uppercase;
-      letter-spacing: 1.2px;
-      margin-bottom: 6px;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.6);
     }
 
     .q-text {
       font-family: 'Nunito', sans-serif;
-      font-size: clamp(17px, 2.1vw, 21px);
+      font-size: clamp(19.5px, 2.3vw, 25.5px);
       font-weight: 800;
-      color: #fff8e7;
-      line-height: 1.45;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      color: #fff9ea;
+      line-height: 1.48;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.6);
     }
 
     /* 4 Big 3D Answer Buttons in 2x2 Grid */
     .answers-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: 18px;
       width: 100%;
-      margin-bottom: 12px;
+      margin-bottom: 18px;
     }
 
     .answer-btn {
@@ -1316,29 +1322,31 @@
       align-items: center;
       justify-content: flex-start;
       text-align: left;
-      padding: 16px 20px;
-      border-radius: 16px;
+      padding: 20px 24px;
+      min-height: 76px;
+      border-radius: 18px;
       font-family: 'Nunito', sans-serif;
-      font-size: clamp(16px, 1.8vw, 19px);
+      font-size: clamp(17.5px, 2vw, 22px);
       font-weight: 800;
       color: #ffffff;
       cursor: pointer;
-      line-height: 1.35;
-      border: 3px solid rgba(255, 255, 255, 0.4);
-      transition: all 0.16s cubic-bezier(0.34, 1.56, 0.64, 1);
-      box-shadow: 0 6px 0 var(--btn-shadow), 0 10px 18px rgba(0,0,0,0.3);
+      line-height: 1.38;
+      border: 3.5px solid rgba(255, 255, 255, 0.45);
+      transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 6px 0 var(--btn-shadow), 0 10px 20px rgba(0,0,0,0.3);
+      user-select: none;
     }
 
     .answer-btn:hover:not(:disabled) {
-      transform: translateY(-3px);
-      box-shadow: 0 9px 0 var(--btn-shadow), 0 14px 22px rgba(0,0,0,0.35);
+      transform: translateY(-3px) scale(1.015);
+      box-shadow: 0 9px 0 var(--btn-shadow), 0 16px 26px rgba(0,0,0,0.38);
       border-color: #ffffff;
-      filter: brightness(1.06);
+      filter: brightness(1.08);
     }
 
     .answer-btn:active:not(:disabled) {
-      transform: translateY(3px);
-      box-shadow: 0 3px 0 var(--btn-shadow), 0 6px 10px rgba(0,0,0,0.25);
+      transform: translateY(3px) scale(0.99);
+      box-shadow: 0 3px 0 var(--btn-shadow), 0 6px 12px rgba(0,0,0,0.25);
     }
 
     .answer-btn:disabled {
@@ -1369,46 +1377,71 @@
       background: linear-gradient(180deg, #ff9f1a 0%, #f57c00 50%, #d45900 100%);
     }
 
-    /* Right/Wrong state highlights */
+    /* Right / Wrong / Dimmed state highlights */
     .answer-btn.correct-glow {
-      background: linear-gradient(180deg, #00e676 0%, #00c853 100%) !important;
-      --btn-shadow: #00701a !important;
+      background: linear-gradient(180deg, #00e676 0%, #00c853 50%, #009624 100%) !important;
+      --btn-shadow: #005a16 !important;
       border-color: #ffffff !important;
-      animation: pulseGreen 0.5s ease-in-out infinite alternate;
+      border-width: 4px !important;
+      color: #ffffff !important;
+      transform: scale(1.03) !important;
+      z-index: 5;
+      box-shadow: 0 8px 0 #005a16, 0 0 35px rgba(0, 230, 118, 0.95), 0 12px 24px rgba(0,0,0,0.35) !important;
+      animation: pulseGreen 0.7s ease-in-out infinite alternate !important;
     }
 
     @keyframes pulseGreen {
-      0% { transform: scale(1); filter: brightness(1); }
-      100% { transform: scale(1.03); filter: brightness(1.15); }
+      0% { transform: scale(1.02); filter: brightness(1); box-shadow: 0 8px 0 #005a16, 0 0 25px rgba(0, 230, 118, 0.8); }
+      100% { transform: scale(1.045); filter: brightness(1.15); box-shadow: 0 8px 0 #005a16, 0 0 45px rgba(0, 230, 118, 1); }
     }
 
     .answer-btn.wrong-shake {
-      background: linear-gradient(180deg, #ff5252 0%, #d50000 100%) !important;
+      background: linear-gradient(180deg, #ff3d00 0%, #e52d27 50%, #b71c1c 100%) !important;
       --btn-shadow: #7f0000 !important;
-      animation: shakeWrong 0.45s ease-in-out;
+      border-color: #ffebee !important;
+      border-width: 4px !important;
+      color: #ffffff !important;
+      z-index: 4;
+      box-shadow: 0 8px 0 #7f0000, 0 0 30px rgba(255, 61, 0, 0.9), 0 12px 24px rgba(0,0,0,0.35) !important;
+      animation: shakeWrong 0.45s ease-in-out !important;
     }
 
     @keyframes shakeWrong {
       0%, 100% { transform: translateX(0); }
-      20% { transform: translateX(-9px); }
-      40% { transform: translateX(9px); }
-      60% { transform: translateX(-6px); }
-      80% { transform: translateX(6px); }
+      15% { transform: translateX(-12px); }
+      30% { transform: translateX(12px); }
+      50% { transform: translateX(-8px); }
+      70% { transform: translateX(8px); }
+      85% { transform: translateX(-4px); }
+    }
+
+    /* Các câu không chọn chuyển sang màu xám mờ */
+    .answer-btn.dimmed-gray {
+      background: linear-gradient(180deg, #6c757d 0%, #525960 100%) !important;
+      --btn-shadow: #343a40 !important;
+      border-color: rgba(255, 255, 255, 0.25) !important;
+      color: #d1d5db !important;
+      opacity: 0.38 !important;
+      filter: grayscale(100%) brightness(0.85) !important;
+      transform: scale(0.97) !important;
+      box-shadow: 0 3px 0 var(--btn-shadow), 0 4px 8px rgba(0,0,0,0.2) !important;
+      transition: all 0.3s ease !important;
     }
 
     /* Explanation & Feedback Banner */
     .feedback-banner {
       width: 100%;
-      padding: 12px 20px;
-      border-radius: 12px;
+      padding: 16px 24px;
+      border-radius: 16px;
       font-family: 'Nunito', sans-serif;
-      font-size: 16px;
+      font-size: clamp(17px, 2vw, 21px);
       font-weight: 800;
-      line-height: 1.4;
+      line-height: 1.5;
       text-align: center;
       display: none;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       animation: fadeIn 0.3s ease;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
     }
 
     @keyframes fadeIn {
@@ -1419,33 +1452,34 @@
     .feedback-banner.correct {
       display: block;
       background: #e8f5e9;
-      border: 2px solid #4caf50;
+      border: 3px solid #2e7d32;
       color: #1b5e20;
     }
 
     .feedback-banner.wrong {
       display: block;
       background: #ffebee;
-      border: 2px solid #ef5350;
+      border: 3px solid #d32f2f;
       color: #b71c1c;
     }
 
     /* Next / Continue Button */
     .modal-next-btn {
       width: 100%;
-      padding: 14px 24px;
+      padding: 16px 32px;
       background: linear-gradient(180deg, #ffca28 0%, #ffa000 50%, #ff6f00 100%);
-      border: 3px solid #fff9c4;
-      border-radius: 16px;
+      border: 3.5px solid #fff9c4;
+      border-radius: 18px;
       font-family: 'Baloo 2', cursive;
-      font-size: 20px;
+      font-size: clamp(21px, 2.4vw, 26px);
       font-weight: 900;
       color: #4a2202;
       text-shadow: 0 1px 0 rgba(255,255,255,0.6);
       cursor: pointer;
       display: none;
-      box-shadow: 0 5px 0 #b34a00, 0 8px 16px rgba(0,0,0,0.3);
+      box-shadow: 0 6px 0 #b34a00, 0 10px 20px rgba(0,0,0,0.3);
       transition: all 0.16s ease;
+      letter-spacing: 0.8px;
     }
 
     .modal-next-btn.show {
@@ -1454,7 +1488,7 @@
 
     .modal-next-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 7px 0 #b34a00, 0 12px 22px rgba(0,0,0,0.35);
+      box-shadow: 0 8px 0 #b34a00, 0 14px 24px rgba(0,0,0,0.35);
       background: linear-gradient(180deg, #ffd54f 0%, #ffb300 50%, #ff8f00 100%);
     }
 
@@ -1605,9 +1639,6 @@
       .bags-stage {
         gap: 14px;
       }
-      .answers-grid {
-        grid-template-columns: 1fr;
-      }
       .bottom-bar {
         bottom: 14px;
         right: 16px;
@@ -1617,6 +1648,39 @@
         left: 16px;
         padding: 8px 14px;
         font-size: 14px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .quiz-board {
+        width: 96vw;
+        padding: 42px 18px 22px;
+        border-radius: 22px;
+        border-width: 7px;
+      }
+      .question-banner {
+        padding: 16px 18px;
+        margin-top: 10px;
+        margin-bottom: 14px;
+      }
+      .answers-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+      .answer-btn {
+        padding: 14px 18px;
+        min-height: 58px;
+        font-size: 16.5px;
+      }
+      .feedback-banner {
+        padding: 12px 16px;
+        font-size: 16px;
+        margin-bottom: 12px;
+      }
+      .modal-next-btn {
+        padding: 14px 22px;
+        font-size: 20px;
       }
     }
 
@@ -3111,7 +3175,7 @@ function handleBagClick(bagId) {
     const btn = document.getElementById(`ansBtn${i}`);
     btn.textContent = currentQuestion.options[i];
     btn.disabled = false;
-    btn.classList.remove('correct-glow', 'wrong-shake');
+    btn.classList.remove('correct-glow', 'wrong-shake', 'dimmed-gray');
   }
 
   // Reset feedback & next button
@@ -3156,18 +3220,42 @@ function handleSelectAnswer(chosenIndex) {
     playSound('correct');
     score += 20;
     updateScoreUI();
+
+    // Câu đúng: xanh lá cây rực rỡ + biểu tượng ✅
     correctBtn.classList.add('correct-glow');
+    correctBtn.innerHTML = `✅ ${currentQuestion.options[currentQuestion.correctIndex]}`;
+
+    // 3 câu còn lại chuyển sang màu xám mờ
+    for (let i = 0; i < 4; i++) {
+      if (i !== currentQuestion.correctIndex) {
+        document.getElementById(`ansBtn${i}`).classList.add('dimmed-gray');
+      }
+    }
+
     triggerConfetti(60);
 
     feedbackBanner.className = 'feedback-banner correct';
-    feedbackBanner.innerHTML = `🎉 <b>CHÍNH XÁC!</b> +20 điểm<br><span style="font-size:14px">${currentQuestion.explain}</span>`;
+    feedbackBanner.innerHTML = `🎉 <b>CHÍNH XÁC!</b> +20 điểm<br><span style="font-size:16px">${currentQuestion.explain}</span>`;
   } else {
     playSound('wrong');
+
+    // Câu chọn sai: màu đỏ + biểu tượng ❌ + rung lắc
     chosenBtn.classList.add('wrong-shake');
+    chosenBtn.innerHTML = `❌ ${currentQuestion.options[chosenIndex]}`;
+
+    // Câu đúng: màu xanh lá cây + biểu tượng ✅ + hào quang tỏa sáng
     correctBtn.classList.add('correct-glow');
+    correctBtn.innerHTML = `✅ ${currentQuestion.options[currentQuestion.correctIndex]}`;
+
+    // Các câu không chọn: chuyển sang màu xám mờ
+    for (let i = 0; i < 4; i++) {
+      if (i !== chosenIndex && i !== currentQuestion.correctIndex) {
+        document.getElementById(`ansBtn${i}`).classList.add('dimmed-gray');
+      }
+    }
 
     feedbackBanner.className = 'feedback-banner wrong';
-    feedbackBanner.innerHTML = `❌ <b>CHƯA CHÍNH XÁC!</b><br><span style="font-size:14px">Đáp án đúng là: <b>${currentQuestion.options[currentQuestion.correctIndex]}</b></span>`;
+    feedbackBanner.innerHTML = `❌ <b>CHƯA CHÍNH XÁC!</b><br><span style="font-size:16px">Đáp án đúng là: <b>${currentQuestion.options[currentQuestion.correctIndex]}</b></span>`;
   }
 
   feedbackBanner.style.display = 'block';
