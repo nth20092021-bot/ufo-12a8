@@ -3,7 +3,7 @@ const TAU = Math.PI * 2;
 const FONT = '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
 
 export const DEFAULT_ENVIRONMENTS = Object.freeze({
-  school: { title: 'TRƯỜNG THPT LƯƠNG VĂN CAN', subtitle: '' },
+  school: { title: 'TRƯỜNG THPT LƯƠNG VĂN CAN', subtitle: '12A8' },
   park: { title: 'HỒ GƯƠM', subtitle: 'THĂNG LONG · HÀ NỘI' },
   seaside: { title: 'VỊNH HẠ LONG', subtitle: 'DI SẢN VIỆT NAM' },
 });
@@ -116,6 +116,10 @@ function school(c, title, subtitle) {
   rr(c, 187, 171, 906, 326, 2, '#e6e9e5', '#78877f');
   rr(c, 177, 166, 926, 13, 1, '#388b57');
   rr(c, 190, 181, 900, 5, 0, '#e6bd64');
+  // Flagpole on central rooftop
+  rr(c, 634, 161, 12, 6, 2, '#28623d');
+  line(c, 640, 86, 640, 166, '#d8e2dc', 3);
+  ellipse(c, 640, 86, 3.5, 3.5, '#ffd54f');
   for (const y of [250, 316, 375]) {
     rr(c, 191, y, 898, 7, 0, '#c7ceca');
     line(c, 191, y + 7, 1089, y + 7, '#f7f8f5', 2);
@@ -179,8 +183,8 @@ function park(c, title, subtitle) {
   poly(c,[[584,371],[598,354],[676,354],[696,371]],'#8b6244');
   poly(c,[[596,352],[607,338],[673,338],[684,352]],'#754d37');
   for(const x of [611,635,659]){rr(c,x,379,10,29,1,'#817357');rr(c,x-3,376,16,4,1,'#ece1bd');}
-  line(c,640,338,640,318,'#775c3d',2);
-  poly(c,[[641,319],[664,323],[641,327]],'#c9473b');
+  line(c, 640, 308, 640, 338, '#d5dfd8', 2.5);
+  ellipse(c, 640, 308, 2.5, 2.5, '#ffd54f');
   // The red Huc Bridge leads to Ngoc Son Temple on the right bank.
   c.beginPath();c.moveTo(682,429);c.bezierCurveTo(731,405,758,394,807,395);
   c.strokeStyle='#a54437';c.lineWidth=17;c.stroke();
@@ -248,6 +252,9 @@ function seaside(c,title,subtitle) {
   // A stone marker evokes the fishing communities and sea routes of the bay.
   rr(c,565,419,151,31,3,'#b9a77d');
   rr(c,579,389,123,32,2,'#d7c497');
+  // Flagpole on stone pier
+  line(c, 525, 355, 525, 420, '#d8e2dc', 2.5);
+  ellipse(c, 525, 355, 2.5, 2.5, '#ffd54f');
   sign(c,title,subtitle,{y:333,width:390,color:'#39766f'});
   // Baskets, fish traps and a small salt-worn jetty.
   for(let i=0;i<6;i++){
@@ -273,40 +280,52 @@ export function drawEnvironment(c, { theme, title, subtitle } = {}) {
   c.restore();
 }
 
-/** Live details share the backdrop's world coordinates and receive the same night tint. */
-export function drawEnvironmentMotion(c, theme, time, reduced = false, view) {
-  if (theme !== 'school') return;
-  const t = reduced || !Number.isFinite(time) ? 0 : time;
-  const phase = t * 2.15, width = 59 + Math.sin(t * 1.3) * 1.5;
-  const direction = view?.right < 940 ? -1 : 1, hoist = 870 + direction * 2;
-  // The hoist edge is fixed; travelling folds grow towards the free edge.
+function drawWavingFlag(c, hoistX, topY, flagWidth, flagHeight, phase, direction = 1) {
+  const segments = 22, top = [], bottom = [];
   const point = (u, v) => [
-    hoist + direction * u * width,
-    199 + v * 38 + u * (4 + Math.sin(phase - u * 6.5) * 4.4)
-      + Math.sin(phase * .73 - u * 4) * u * v * 1.2,
+    hoistX + direction * u * flagWidth,
+    topY + v * flagHeight + u * (flagHeight * 0.08 + Math.sin(phase - u * 6.5) * (flagHeight * 0.1))
+      + Math.sin(phase * 0.73 - u * 4) * u * v * (flagHeight * 0.03),
   ];
-  const segments = 24, top = [], bottom = [];
   for (let i = 0; i <= segments; i++) {
     top.push(point(i / segments, 0)); bottom.push(point(i / segments, 1));
   }
   c.save(); c.lineJoin = 'round';
-  poly(c, [...top, ...bottom.slice().reverse()], '#cd6c55');
+  // Vivid Vietnamese national red cloth
+  poly(c, [...top, ...bottom.slice().reverse()], '#da251d');
   for (let i = 0; i < segments; i++) {
-    const u = (i + .5) / segments, fold = Math.cos(phase - u * 6.5);
-    const shade = fold < 0 ? `rgba(93,39,43,${-fold * .2})` : `rgba(255,199,142,${fold * .18})`;
-    poly(c, [top[i], top[i+1], bottom[i+1], bottom[i]], shade);
+    const u = (i + 0.5) / segments, fold = Math.cos(phase - u * 6.5);
+    const shade = fold < 0 ? `rgba(80,10,10,${-fold * 0.24})` : `rgba(255,215,160,${fold * 0.18})`;
+    poly(c, [top[i], top[i + 1], bottom[i + 1], bottom[i]], shade);
   }
-  // Warp the star through the same cloth surface so it never floats over the folds.
+  // Golden yellow five-pointed star
   const star = [];
+  const starRadius = flagHeight * 0.28, starInner = starRadius * 0.38;
   for (let i = 0; i < 10; i++) {
-    const angle = -Math.PI / 2 + i * Math.PI / 5, radius = i % 2 ? 4 : 10;
-    star.push(point(.5 + Math.cos(angle) * radius / 59, .5 + Math.sin(angle) * radius / 38));
+    const angle = -Math.PI / 2 + i * Math.PI / 5, radius = i % 2 ? starInner : starRadius;
+    star.push(point(0.5 + Math.cos(angle) * radius / flagWidth, 0.5 + Math.sin(angle) * radius / flagHeight));
   }
-  poly(c, star, '#f5d777');
-  c.beginPath(); top.forEach(([x,y], i) => i ? c.lineTo(x,y) : c.moveTo(x,y));
-  c.strokeStyle = '#e49d79'; c.lineWidth = .7; c.stroke();
-  line(c, hoist, 199, hoist, 237, '#e49d79', 1);
-  line(c, 870, 200, hoist, 200, '#e6d7ae', 1);
-  line(c, 870, 236, hoist, 236, '#e6d7ae', 1);
+  poly(c, star, '#ffeb3b');
+  // Top hem highlights
+  c.beginPath(); top.forEach(([x, y], i) => i ? c.lineTo(x, y) : c.moveTo(x, y));
+  c.strokeStyle = '#e57373'; c.lineWidth = 0.8; c.stroke();
+  // Hoist line
+  line(c, hoistX, topY, hoistX, topY + flagHeight, '#fff8e1', 1.2);
   c.restore();
+}
+
+/** Live details share the backdrop's world coordinates and receive the same night tint. */
+export function drawEnvironmentMotion(c, theme, time, reduced = false, view) {
+  const t = reduced || !Number.isFinite(time) ? 0 : time;
+  const phase = t * 2.2;
+  if (theme === 'school') {
+    const width = 64 + (reduced ? 0 : Math.sin(t * 1.3) * 1.5);
+    drawWavingFlag(c, 640, 90, width, 42, phase, 1);
+  } else if (theme === 'park') {
+    const width = 28 + (reduced ? 0 : Math.sin(t * 1.5) * 1.0);
+    drawWavingFlag(c, 640, 310, width, 19, phase, 1);
+  } else if (theme === 'seaside') {
+    const width = 36 + (reduced ? 0 : Math.sin(t * 1.4) * 1.2);
+    drawWavingFlag(c, 525, 358, width, 24, phase, 1);
+  }
 }

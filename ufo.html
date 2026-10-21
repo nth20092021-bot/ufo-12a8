@@ -2,6 +2,138 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    .back-tuimu-btn {
+      position: fixed;
+      top: 46px;
+      left: 18px;
+      z-index: 9999;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: 50px;
+      border: 2px solid #ffd54f;
+      background: linear-gradient(135deg, #8e24aa 0%, #4a148c 100%);
+      color: #ffffff;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(74, 20, 140, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      text-decoration: none;
+    }
+    .back-tuimu-btn:hover {
+      transform: translateY(-2px) scale(1.05);
+      background: linear-gradient(135deg, #ab47bc 0%, #6a1b9a 100%);
+      border-color: #ffffff;
+      box-shadow: 0 6px 22px rgba(123, 31, 162, 0.65);
+    }
+    .back-tuimu-btn:active { transform: translateY(1px) scale(0.98); }
+    .back-tuimu-btn .btn-icon { font-size: 18px; }
+    @media (max-width: 600px) {
+      .back-tuimu-btn {
+        top: 40px;
+        left: 10px;
+        padding: 6px 12px;
+        font-size: 12px;
+        gap: 5px;
+      }
+      .back-tuimu-btn .btn-icon { font-size: 14px; }
+    }
+    /* Warp transition curtain */
+    .warp-exit-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: radial-gradient(circle at center, #8e24aa 0%, #1a0033 70%, #050010 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .warp-exit-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .warp-spinner {
+      width: 70px;
+      height: 70px;
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      border-top-color: #ffd54f;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .warp-text {
+      color: #fff;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    /* Inside result card */
+    .result-back-tuimu {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 50px;
+      border: none;
+      background: linear-gradient(135deg, #9C27B0 0%, #4A148C 100%);
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(74,20,140,0.4);
+      transition: all 0.2s;
+      margin-top: 6px;
+    }
+    .result-back-tuimu:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(74,20,140,0.5); }
+
+    /* Compact controls toolbar that never overlaps the road or students */
+    .controls {
+      min-height: 48px !important;
+      height: 50px !important;
+      padding: 4px 18px !important;
+      gap: 12px !important;
+      background: rgba(255, 254, 248, 0.94) !important;
+      backdrop-filter: blur(8px) !important;
+      -webkit-backdrop-filter: blur(8px) !important;
+      border-top: 1px solid rgba(199, 217, 200, 0.8) !important;
+      box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.06) !important;
+      flex-shrink: 0 !important;
+      z-index: 10 !important;
+    }
+    .toolbar-buttons {
+      gap: 8px !important;
+    }
+    .summon-btn {
+      height: 36px !important;
+      min-height: 36px !important;
+      padding: 6px 18px !important;
+      font-size: 13px !important;
+    }
+    .toolbar-btn {
+      min-height: 32px !important;
+      height: 32px !important;
+      padding: 5px 12px !important;
+      font-size: 12px !important;
+    }
+    .draw-count-control {
+      font-size: 12px !important;
+    }
+    .draw-count-control input {
+      height: 28px !important;
+    }
+  </style>
   <meta name="theme-color" content="#f6f6ec">
   
   
@@ -150,6 +282,7 @@
       <div class="classroom-header-group"><div id="classHeaderHost"><button type="button" id="classMenuBtn" class="toolbar-btn class-menu-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="classMenu"><svg class="icon" aria-hidden="true"><use href="#i-classroom"/></svg><span id="activeClassroomName"></span><svg class="icon action-menu-chevron" aria-hidden="true"><use href="#i-chevron"/></svg></button></div></div>
       <button type="button" id="quickAddBtn" class="quick-add-btn" aria-label="Tham gia hoặc tạo lớp" title="Tham gia hoặc tạo lớp" aria-haspopup="menu" aria-expanded="false" aria-controls="quickAddMenu"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></button>
       <button type="button" id="teacherAccountBtn" class="header-icon-btn" aria-haspopup="dialog" aria-label="Tài khoản" title="Tài khoản"><svg class="icon" aria-hidden="true"><use href="#i-account"/></svg></button>
+      <button type="button" id="fullscreenToggleBtn" class="header-icon-btn" aria-label="Toàn màn hình" title="Bật / Thoát toàn màn hình"><svg class="icon" aria-hidden="true"><use href="#i-expand"/></svg></button>
     </div>
   </div>
     <div id="classMenu" class="action-menu class-menu" role="menu" aria-labelledby="classMenuBtn" hidden>
@@ -167,10 +300,17 @@
     <button id="editBtn" class="toolbar-btn"><svg class="icon" aria-hidden="true"><use href="#i-settings"/></svg><span>Cài đặt</span></button>
     <button id="shareSettingsBtn" class="toolbar-btn" title="Sao chép link chia sẻ cấu hình"><svg class="icon" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.1 0l3-3a5 5 0 0 0-7.1-7.1l-1.7 1.7M14 11a5 5 0 0 0-7.1 0l-3 3A5 5 0 0 0 11 21.1l1.7-1.7"/></svg><span>Chia sẻ</span></button>
   </div></div>
+
+  <!-- Back to Túi Mù floating button -->
+  <button class="back-tuimu-btn" id="backTuimuBtn" onclick="goBackTuiMu()" title="Quay về Game Túi Mù">
+    <span class="btn-icon">🎁</span>
+    Quay về Túi Mù
+  </button>
+
       <div class="result-layer" id="resultLayer" hidden>
         <canvas class="result-fireworks" id="resultFireworks" aria-hidden="true" hidden></canvas>
         <canvas class="result-confetti-front" id="resultConfettiFront" aria-hidden="true" hidden></canvas>
-        <div class="result-card" role="dialog" aria-modal="true" aria-labelledby="resultTitle" tabindex="-1"><span class="result-drop-cord" aria-hidden="true"></span><span class="result-drop-cord result-drop-cord-right" aria-hidden="true"></span><svg class="result-border" aria-hidden="true" focusable="false"><rect class="result-border-base" pathLength="100"/><rect class="result-border-tail" pathLength="100"/><rect class="result-border-spark" pathLength="100"/></svg><div class="result-card-body"><div class="result-cabin-canopy" aria-hidden="true"><div class="result-cabin-window"><span class="result-cabin-planet"></span><span class="result-cabin-window-rib"></span></div><div class="result-cabin-instruments"><i></i><i></i><i></i><span></span><i></i><i></i></div></div><div class="result-orbit">🛸<span>✦</span><span>✧</span></div><div class="result-kicker"><div class="eyebrow">Khoang hành khách</div><span class="caught-stamp">ĐÃ BẮT</span></div><div class="result-heading"><h2 id="resultTitle">Tín hiệu từ vũ trụ: đến lượt bạn rồi!</h2><div class="result-tools"><button type="button" id="resultReadBtn" class="secondary-btn result-read-icon" aria-pressed="false" aria-label="Đọc tên" title="Đọc tên"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path class="result-read-speaker" d="M11 5 6 9H3v6h3l5 4V5ZM15 8a6 6 0 0 1 0 8M18 5a10 10 0 0 1 0 14"/><rect class="result-read-stop" x="6" y="6" width="12" height="12" rx="2" fill="currentColor" stroke="none"/></svg><span class="result-read-label sr-only">Đọc tên</span></button><button type="button" id="resultShareBtn" class="secondary-btn result-share-icon" aria-haspopup="dialog" aria-label="Chia sẻ kết quả" title="Chia sẻ kết quả"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3m-4 4 4-4 4 4M6 10H4v11h16V10h-2"/></svg></button></div></div><div class="result-cabin-passenger-label"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg><span>Hành khách đã lên tàu</span><span class="result-cabin-status" aria-hidden="true"></span></div><div id="resultNames" class="result-names"></div><div class="ufo-result-close-actions"><label class="result-map-choice" for="resultMapSelect"><span>Đổi bản đồ</span><select id="resultMapSelect" aria-label="Đổi bản đồ"><option value="street">Phố nhỏ</option><option value="school">Sân trường</option><option value="park">Công viên</option><option value="seaside">Phố biển</option></select></label><button type="button" id="resultClose" class="secondary-btn result-close">Đóng</button></div></div></div>
+        <div class="result-card" role="dialog" aria-modal="true" aria-labelledby="resultTitle" tabindex="-1"><span class="result-drop-cord" aria-hidden="true"></span><span class="result-drop-cord result-drop-cord-right" aria-hidden="true"></span><svg class="result-border" aria-hidden="true" focusable="false"><rect class="result-border-base" pathLength="100"/><rect class="result-border-tail" pathLength="100"/><rect class="result-border-spark" pathLength="100"/></svg><div class="result-card-body"><div class="result-cabin-canopy" aria-hidden="true"><div class="result-cabin-window"><span class="result-cabin-planet"></span><span class="result-cabin-window-rib"></span></div><div class="result-cabin-instruments"><i></i><i></i><i></i><span></span><i></i><i></i></div></div><div class="result-orbit">🛸<span>✦</span><span>✧</span></div><div class="result-kicker"><div class="eyebrow">Khoang hành khách</div><span class="caught-stamp">ĐÃ BẮT</span></div><div class="result-heading"><h2 id="resultTitle">Tín hiệu từ vũ trụ: đến lượt bạn rồi!</h2><div class="result-tools"><button type="button" id="resultReadBtn" class="secondary-btn result-read-icon" aria-pressed="false" aria-label="Đọc tên" title="Đọc tên"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path class="result-read-speaker" d="M11 5 6 9H3v6h3l5 4V5ZM15 8a6 6 0 0 1 0 8M18 5a10 10 0 0 1 0 14"/><rect class="result-read-stop" x="6" y="6" width="12" height="12" rx="2" fill="currentColor" stroke="none"/></svg><span class="result-read-label sr-only">Đọc tên</span></button><button type="button" id="resultShareBtn" class="secondary-btn result-share-icon" aria-haspopup="dialog" aria-label="Chia sẻ kết quả" title="Chia sẻ kết quả"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3m-4 4 4-4 4 4M6 10H4v11h16V10h-2"/></svg></button></div></div><div class="result-cabin-passenger-label"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg><span>Hành khách đã lên tàu</span><span class="result-cabin-status" aria-hidden="true"></span></div><div id="resultNames" class="result-names"></div><div class="ufo-result-close-actions"><label class="result-map-choice" for="resultMapSelect"><span>Đổi bản đồ</span><select id="resultMapSelect" aria-label="Đổi bản đồ"><option value="street">Phố nhỏ</option><option value="school">Sân trường</option><option value="park">Công viên</option><option value="seaside">Phố biển</option></select></label><button type="button" id="resultClose" class="secondary-btn result-close">Đóng</button><button type="button" class="result-back-tuimu" onclick="goBackTuiMu()">🎁 Quay về Túi Mù</button></div></div></div>
         <dialog id="resultShareDialog" class="result-share-dialog" aria-labelledby="resultShareTitle"><div class="dialog-heading"><h2 id="resultShareTitle">Chia sẻ kết quả</h2><button type="button" id="resultShareClose" class="icon-btn" aria-label="Đóng"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div><img id="resultSharePreview" class="result-share-preview" alt="Xem trước ảnh kết quả" hidden><p id="resultShareStatus" class="result-share-status" role="status"></p><div class="dialog-actions"><button type="button" id="resultShareDownload" class="primary-btn" disabled>Tải ảnh</button><button type="button" id="resultShareCopy" class="secondary-btn">Sao chép nội dung</button></div></dialog>
       </div>
 </section></main></div>
@@ -217,8 +357,8 @@
   <div id="environmentSettingsPanel" role="tabpanel" aria-labelledby="environmentSettingsTab" hidden>
     <p class="dialog-description">Chọn bối cảnh và tên biển hiệu, rồi bấm Áp dụng để lưu cho lớp. Đóng cửa sổ sẽ bỏ các thay đổi chưa áp dụng.</p>
     <fieldset class="environment-choices"><legend>Chọn bối cảnh</legend>
-      <label class="environment-choice"><input type="radio" name="environmentTheme" value="street" checked><span class="environment-card"><span class="environment-art environment-art-street" aria-hidden="true"><span class="environment-cloud"></span><span class="environment-building"></span><span class="environment-tree"></span></span><span class="environment-choice-label"><strong>Phố Hà Nội</strong><small>Lăng Bác · phở, bánh mì, bún chả</small></span></span></label>
-      <label class="environment-choice"><input type="radio" name="environmentTheme" value="school"><span class="environment-card"><span class="environment-art environment-art-school" aria-hidden="true"><span class="environment-cloud"></span><span class="environment-building"></span><span class="environment-tree"></span></span><span class="environment-choice-label"><strong>Trường Lương Văn Can</strong><small>Mái trường xanh lá · Hà Nội</small></span></span></label>
+      <label class="environment-choice"><input type="radio" name="environmentTheme" value="street"><span class="environment-card"><span class="environment-art environment-art-street" aria-hidden="true"><span class="environment-cloud"></span><span class="environment-building"></span><span class="environment-tree"></span></span><span class="environment-choice-label"><strong>Phố Hà Nội</strong><small>Lăng Bác · phở, bánh mì, bún chả</small></span></span></label>
+      <label class="environment-choice"><input type="radio" name="environmentTheme" value="school" checked><span class="environment-card"><span class="environment-art environment-art-school" aria-hidden="true"><span class="environment-cloud"></span><span class="environment-building"></span><span class="environment-tree"></span></span><span class="environment-choice-label"><strong>Trường Lương Văn Can</strong><small>Mái trường xanh lá · Hà Nội</small></span></span></label>
       <label class="environment-choice"><input type="radio" name="environmentTheme" value="park"><span class="environment-card"><span class="environment-art environment-art-park" aria-hidden="true"><span class="environment-cloud"></span><span class="environment-building"></span><span class="environment-tree"></span></span><span class="environment-choice-label"><strong>Hồ Gươm</strong><small>Tháp Rùa · cầu Thê Húc</small></span></span></label>
       <label class="environment-choice"><input type="radio" name="environmentTheme" value="seaside"><span class="environment-card"><span class="environment-art environment-art-seaside" aria-hidden="true"><span class="environment-cloud"></span><span class="environment-building"></span><span class="environment-tree"></span></span><span class="environment-choice-label"><strong>Vịnh Hạ Long</strong><small>Núi đá vôi · thuyền buồm · làng chài</small></span></span></label>
     </fieldset>
@@ -246,4 +386,51 @@
     </aside></dialog>
 <div id="toast" class="toast" role="status" hidden></div>
 <div id="announcer" class="sr-only" aria-live="polite"></div>
+<div class="warp-exit-overlay" id="warpExitOverlay">
+  <div class="warp-spinner"></div>
+  <div class="warp-text">🛸 ĐANG QUAY VỀ GAME TÚI MÙ...</div>
+</div>
+<script>
+  function updateFsState() {
+    const isFs = !!document.fullscreenElement;
+    sessionStorage.setItem('game_fullscreen', isFs ? 'true' : 'false');
+  }
+  document.addEventListener('fullscreenchange', updateFsState);
+
+  function tryRestoreFullscreen() {
+    if (sessionStorage.getItem('game_fullscreen') === 'true' && !document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    }
+  }
+
+  // Auto-restore fullscreen on first user touch / click / key press
+  const handleUserGesture = () => {
+    tryRestoreFullscreen();
+    window.removeEventListener('pointerdown', handleUserGesture);
+    window.removeEventListener('keydown', handleUserGesture);
+  };
+  window.addEventListener('pointerdown', handleUserGesture);
+  window.addEventListener('keydown', handleUserGesture);
+
+  document.getElementById('fullscreenToggleBtn')?.addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().then(() => {
+        sessionStorage.setItem('game_fullscreen', 'true');
+      }).catch(() => {});
+    } else {
+      document.exitFullscreen().then(() => {
+        sessionStorage.setItem('game_fullscreen', 'false');
+      }).catch(() => {});
+    }
+  });
+
+  function goBackTuiMu() {
+    sessionStorage.setItem('game_fullscreen', !!document.fullscreenElement ? 'true' : 'false');
+    const overlay = document.getElementById('warpExitOverlay');
+    if (overlay) overlay.classList.add('active');
+    setTimeout(() => {
+      window.location.href = 'tui-mu.html?from=ufo';
+    }, 450);
+  }
+</script>
 </body></html>

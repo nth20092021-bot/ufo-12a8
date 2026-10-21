@@ -1,0 +1,2981 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Túi Mù – Trắc Nghiệm Lịch Sử</title>
+  <meta name="description" content="Trang trò chơi Túi Mù trắc nghiệm lịch sử với giao diện phong cảnh Việt Nam và chuyển đổi qua Game UFO.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800;900&family=Nunito:wght@600;700;800;900&family=Paytone+One&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================
+       RESET & BASE STYLES
+       ========================================================== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Nunito', sans-serif;
+      background-color: #79c55b;
+    }
+
+    /* Container for the whole game viewport */
+    .game-viewport {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* ==========================================================
+       SCENIC BACKGROUND (Sky, Sunburst, Pagoda, Hills, Flags)
+       ========================================================== */
+    .sky-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(180deg, 
+        #5db7e8 0%, 
+        #82cef0 22%, 
+        #bfe9f7 42%, 
+        #d8f4d0 60%, 
+        #96d860 85%, 
+        #70c440 100%);
+    }
+
+    /* Radiating Sunburst behind Title */
+    .sunburst {
+      position: absolute;
+      top: -15%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140vw;
+      height: 140vw;
+      max-width: 1500px;
+      max-height: 1500px;
+      background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, rgba(255,248,180,0.35) 30%, rgba(255,255,255,0) 65%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .sun-rays {
+      position: absolute;
+      top: -300px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1400px;
+      height: 1400px;
+      background: repeating-conic-gradient(
+        from 0deg,
+        rgba(255, 255, 255, 0.16) 0deg 8deg,
+        rgba(255, 255, 255, 0) 8deg 16deg
+      );
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 2;
+      animation: rotateSlow 140s linear infinite;
+    }
+
+    @keyframes rotateSlow {
+      from { transform: translateX(-50%) rotate(0deg); }
+      to { transform: translateX(-50%) rotate(360deg); }
+    }
+
+    /* Distant mountain backdrop */
+    .mountains-svg {
+      position: absolute;
+      bottom: 22vh;
+      left: 0;
+      width: 100%;
+      height: 40vh;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* Vietnamese Temple Gate / Pagoda on Right */
+    .pagoda-gate {
+      position: absolute;
+      right: 2vw;
+      bottom: 18vh;
+      width: clamp(240px, 28vw, 420px);
+      height: auto;
+      z-index: 5;
+      pointer-events: none;
+      filter: drop-shadow(0 15px 25px rgba(28, 60, 15, 0.35));
+    }
+
+    /* Grassy rolling foreground */
+    .foreground-grass {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 38vh;
+      z-index: 6;
+      pointer-events: none;
+    }
+
+    /* Buntings & Vietnamese 5-Color Festival Flags */
+    .festive-decorations {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 45vh;
+      z-index: 7;
+      pointer-events: none;
+    }
+
+    /* ==========================================================
+       TOP BAR (Badges, Buttons)
+       ========================================================== */
+    .top-bar {
+      position: relative;
+      z-index: 20;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 24px;
+      width: 100%;
+    }
+
+    /* Brown pill badges on left */
+    .stats-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .stat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(180deg, #6b401f 0%, #46250f 100%);
+      border: 2px solid #b8863b;
+      border-radius: 50px;
+      padding: 5px 16px 5px 12px;
+      color: #ffffff;
+      font-family: 'Baloo 2', cursive;
+      font-size: 17px;
+      font-weight: 800;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.35), inset 0 1px 1px rgba(255,255,255,0.25);
+    }
+
+    .stat-icon {
+      font-size: 16px;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
+    }
+
+    .stat-val {
+      color: #fff9e6;
+      letter-spacing: 0.5px;
+    }
+
+    /* Navigation buttons on right (TRANG CHỦ, HƯỚNG DẪN) */
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .wood-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      justify-content: center;
+      padding: 7px 16px;
+      background: linear-gradient(180deg, #7c481d 0%, #522c0d 100%);
+      border: 2px solid #c29548;
+      border-radius: 50px;
+      color: #ffffff;
+      font-family: 'Baloo 2', cursive;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      cursor: pointer;
+      text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.25);
+      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .wood-btn:hover {
+      background: linear-gradient(180deg, #8f5322 0%, #613410 100%);
+      border-color: #ffd700;
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.4), 0 0 12px rgba(255, 215, 0, 0.4);
+    }
+
+    .wood-btn:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    /* ==========================================================
+       MAIN TITLE ("GAME TÚI MÙ") - ULTRA-PREMIUM 3D CARTOON LOGO
+       ========================================================== */
+    .title-container {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 15;
+      text-align: center;
+      pointer-events: none;
+      width: clamp(420px, 60vw, 840px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .title-3d-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 14px 28px rgba(42, 13, 2, 0.48));
+      animation: titleFloat 3.4s ease-in-out infinite;
+    }
+
+    @keyframes titleFloat {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(-8px) scale(1.02);
+      }
+    }
+
+    /* Slogan tag below title */
+    .title-subtag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 3px;
+      padding: 6px 26px;
+      background: linear-gradient(135deg, rgba(82, 39, 9, 0.94) 0%, rgba(45, 20, 4, 0.96) 100%);
+      border: 2px solid #ffd54f;
+      border-radius: 50px;
+      color: #fff9c4;
+      font-family: 'Baloo 2', cursive;
+      font-size: clamp(12.5px, 1.3vw, 16px);
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.4), 0 0 16px rgba(255, 213, 79, 0.35);
+      animation: subtagPulse 3s ease-in-out infinite alternate;
+      pointer-events: all;
+    }
+
+    @keyframes subtagPulse {
+      0% {
+        transform: scale(0.98);
+        box-shadow: 0 4px 14px rgba(0,0,0,0.4), 0 0 12px rgba(255, 213, 79, 0.25);
+      }
+      100% {
+        transform: scale(1.02);
+        box-shadow: 0 6px 18px rgba(0,0,0,0.45), 0 0 22px rgba(255, 213, 79, 0.55);
+        border-color: #ffffff;
+      }
+    }
+
+    /* ==========================================================
+       MODERN HYPERSPACE UFO TRANSITION ANIMATION
+       ========================================================== */
+    .ufo-hyper-warp {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: radial-gradient(circle at center, #18093d 0%, #08021c 65%, #020008 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      overflow: hidden;
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .ufo-hyper-warp.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Hyper-speed warp star tunnel lines */
+    .warp-tunnel-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    /* Central Cinematic UFO */
+    .warp-ufo-craft {
+      position: relative;
+      z-index: 20;
+      width: clamp(250px, 32vw, 440px);
+      filter: drop-shadow(0 20px 40px rgba(0, 229, 255, 0.5));
+      transform: translateY(-260px) scale(0.3) rotate(-20deg);
+      opacity: 0;
+    }
+
+    .ufo-hyper-warp.active .warp-ufo-craft {
+      animation: ufoSwoopIn 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    @keyframes ufoSwoopIn {
+      0% {
+        transform: translateY(-280px) scale(0.3) rotate(-20deg);
+        opacity: 0;
+      }
+      30% {
+        transform: translateY(15px) scale(1.05) rotate(5deg);
+        opacity: 1;
+      }
+      55% {
+        transform: translateY(-10px) scale(1) rotate(-3deg);
+        opacity: 1;
+      }
+      85% {
+        transform: translateY(0) scale(1.1) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(2.8) translateY(60px);
+        opacity: 0.95;
+      }
+    }
+
+    /* Expanding Holographic Sonic Energy Rings */
+    .warp-energy-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 4px solid #00e5ff;
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .ufo-hyper-warp.active .warp-energy-ring:nth-child(2) {
+      animation: energyPulse 1.2s ease-out infinite 0.15s;
+    }
+    .ufo-hyper-warp.active .warp-energy-ring:nth-child(3) {
+      animation: energyPulse 1.2s ease-out infinite 0.45s;
+    }
+    .ufo-hyper-warp.active .warp-energy-ring:nth-child(4) {
+      animation: energyPulse 1.2s ease-out infinite 0.75s;
+    }
+
+    @keyframes energyPulse {
+      0% {
+        width: 60px;
+        height: 60px;
+        opacity: 0.9;
+        border-color: #76ff03;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      100% {
+        width: 720px;
+        height: 720px;
+        opacity: 0;
+        border-color: #00e5ff;
+        transform: translate(-50%, -50%) scale(1.6);
+      }
+    }
+
+    /* Tractor Beam Laser */
+    .warp-laser-beam {
+      position: absolute;
+      top: 48%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 60vh;
+      background: linear-gradient(180deg, rgba(0, 229, 255, 0.8) 0%, rgba(118, 255, 3, 0.5) 50%, rgba(0, 229, 255, 0) 100%);
+      clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%);
+      opacity: 0;
+      z-index: 15;
+    }
+
+    .ufo-hyper-warp.active .warp-laser-beam {
+      animation: laserBlast 1.35s ease-out forwards 0.25s;
+    }
+
+    @keyframes laserBlast {
+      0% { width: 0; opacity: 0; }
+      30% { width: clamp(200px, 35vw, 450px); opacity: 0.9; }
+      75% { width: clamp(280px, 45vw, 600px); opacity: 0.95; }
+      100% { width: 100vw; opacity: 1; }
+    }
+
+    /* Modern Sci-Fi Text Banner */
+    .warp-banner {
+      position: absolute;
+      bottom: 11vh;
+      z-index: 30;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .ufo-hyper-warp.active .warp-banner {
+      animation: bannerFadeUp 0.6s ease forwards 0.35s;
+    }
+
+    @keyframes bannerFadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .warp-title {
+      font-family: 'Baloo 2', cursive;
+      font-size: clamp(22px, 3vw, 36px);
+      font-weight: 900;
+      color: #00e5ff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 0 0 15px rgba(0, 229, 255, 0.8), 0 0 30px rgba(0, 229, 255, 0.5);
+      margin-bottom: 6px;
+    }
+
+    .warp-subtitle {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(14px, 1.8vw, 19px);
+      font-weight: 800;
+      color: #fff9c4;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Hyperdrive Flash Screen at End */
+    .warp-flash {
+      position: absolute;
+      inset: 0;
+      z-index: 50;
+      background: #ffffff;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .ufo-hyper-warp.active .warp-flash {
+      animation: flashBurst 0.35s ease-out forwards 1.15s;
+    }
+
+    @keyframes flashBurst {
+      0% { opacity: 0; }
+      50% { opacity: 1; }
+      100% { opacity: 1; }
+    }
+
+    /* Return toast notification */
+    .welcome-toast {
+      position: fixed;
+      top: 85px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-30px);
+      z-index: 1000;
+      background: linear-gradient(135deg, #4a148c 0%, #8e24aa 100%);
+      border: 3px solid #ffd54f;
+      border-radius: 50px;
+      padding: 10px 26px;
+      color: #ffffff;
+      font-family: 'Baloo 2', cursive;
+      font-size: 18px;
+      font-weight: 800;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .welcome-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ==========================================================
+       THE 5 MYSTERY BAGS (TÚI MÙ)
+       ========================================================== */
+    .bags-stage {
+      position: relative;
+      z-index: 12;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: clamp(14px, 2.2vw, 42px);
+      margin-bottom: clamp(65px, 12vh, 105px);
+      padding: 0 20px;
+    }
+
+    /* Bag wrapper with floating shadow below */
+    .bag-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+      transform-origin: bottom center;
+      animation: bagIdleBob 3.6s ease-in-out infinite;
+    }
+
+    #bag-1 { animation-delay: 0s; }
+    #bag-2 { animation-delay: 0.5s; }
+    #bag-3 { animation-delay: 1.0s; }
+    #bag-4 { animation-delay: 1.5s; }
+    #bag-5 { animation-delay: 2.0s; }
+
+    @keyframes bagIdleBob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-11px); }
+    }
+
+    .bag-item:hover:not(.opened) {
+      animation-play-state: paused;
+      transform: translateY(-20px) scale(1.08) !important;
+    }
+
+    .bag-item:active:not(.opened) {
+      transform: translateY(-8px) scale(1.02) !important;
+    }
+
+    .bag-item.opened {
+      pointer-events: none;
+      animation: bagVanish 0.5s ease forwards;
+    }
+
+    /* Aura glow behind each bag */
+    .bag-aura {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 140%;
+      height: 120%;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(28px);
+      opacity: 0.5;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      z-index: -1;
+    }
+    .bag-item:hover:not(.opened) .bag-aura {
+      opacity: 0.88;
+      transform: translate(-50%, -50%) scale(1.25);
+    }
+    #bag-1 .bag-aura { background: radial-gradient(circle, #ab47bc 0%, #4a148c 60%, transparent 80%); }
+    #bag-2 .bag-aura { background: radial-gradient(circle, #ff7043 0%, #d84315 60%, transparent 80%); }
+    #bag-3 .bag-aura { background: radial-gradient(circle, #29b6f6 0%, #0277bd 60%, transparent 80%); }
+    #bag-4 .bag-aura { background: radial-gradient(circle, #ffee58 0%, #f57f17 60%, transparent 80%); }
+    #bag-5 .bag-aura { background: radial-gradient(circle, #ec407a 0%, #ad1457 60%, transparent 80%); }
+
+    /* Interactive hint badge */
+    .bag-hint-badge {
+      margin-top: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 14px;
+      border-radius: 30px;
+      background: linear-gradient(180deg, #ffca28 0%, #ff8f00 100%);
+      color: #3e1b00;
+      font-family: 'Baloo 2', cursive;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      border: 1.5px solid #fff9c4;
+      opacity: 0.88;
+      transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+      letter-spacing: 0.5px;
+    }
+    .bag-item:hover:not(.opened) .bag-hint-badge {
+      opacity: 1;
+      transform: scale(1.15) translateY(-2px);
+      background: linear-gradient(180deg, #fff176 0%, #ffa000 100%);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.4), 0 0 14px rgba(255,213,79,0.7);
+    }
+
+    /* Ambient Sparks Canvas */
+    .ambient-sparks {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 8;
+      pointer-events: none;
+    }
+
+    @keyframes bagVanish {
+      0% { transform: scale(1); opacity: 1; filter: brightness(1.5); }
+      50% { transform: scale(1.2) translateY(-20px); opacity: 0.8; filter: brightness(2); }
+      100% { transform: scale(0.2) translateY(50px); opacity: 0; }
+    }
+
+    /* Number Label above each bag (#1, #2, ...) */
+    .bag-number {
+      font-family: 'Baloo 2', cursive;
+      font-size: clamp(26px, 3.2vw, 42px);
+      font-weight: 900;
+      color: #ffd428;
+      text-shadow: 
+        2px 2px 0 #522709,
+        -2px -2px 0 #522709,
+        2px -2px 0 #522709,
+        -2px 2px 0 #522709,
+        0 4px 6px rgba(0,0,0,0.5);
+      margin-bottom: 8px;
+      line-height: 1;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+      transition: transform 0.2s ease;
+    }
+
+    .bag-item:hover:not(.opened) .bag-number {
+      transform: scale(1.15);
+      color: #fff066;
+    }
+
+    /* Bag body wrapper */
+    .bag-body-art {
+      position: relative;
+      width: clamp(140px, 14.5vw, 220px);
+      height: clamp(195px, 20vw, 310px);
+      filter: drop-shadow(0 14px 20px rgba(12, 38, 8, 0.45));
+      transition: filter 0.25s ease;
+    }
+
+    .bag-item:hover:not(.opened) .bag-body-art {
+      filter: drop-shadow(0 22px 30px rgba(12, 38, 8, 0.6)) brightness(1.05);
+    }
+
+    .bag-body-art svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Soft ground shadow beneath each bag */
+    .bag-ground-shadow {
+      position: absolute;
+      bottom: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 78%;
+      height: 18px;
+      background: radial-gradient(ellipse at center, rgba(16, 48, 8, 0.62) 0%, rgba(16, 48, 8, 0.25) 50%, rgba(16, 48, 8, 0) 75%);
+      border-radius: 50%;
+      pointer-events: none;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .bag-item:hover:not(.opened) .bag-ground-shadow {
+      transform: translateX(-50%) scale(0.85);
+      opacity: 0.45;
+    }
+
+    /* Pulsing glowing question mark in the bag center */
+    .bag-qmark {
+      position: absolute;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Baloo 2', sans-serif;
+      font-size: clamp(48px, 5.5vw, 76px);
+      font-weight: 900;
+      color: #ffffff;
+      text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.9),
+        0 0 25px currentColor;
+      pointer-events: none;
+      animation: markGlow 2.5s ease-in-out infinite;
+    }
+
+    @keyframes markGlow {
+      0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        filter: drop-shadow(0 0 6px rgba(255,255,255,0.7));
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.12);
+        filter: drop-shadow(0 0 16px rgba(255,255,255,1));
+      }
+    }
+
+    /* Specific Question Mark Colors per Bag */
+    #bag-1 .bag-qmark { color: #fff8d6; text-shadow: 0 0 12px #ffe57f, 0 0 26px #ffab00; }
+    #bag-2 .bag-qmark { color: #ffffff; text-shadow: 0 0 12px #ff80ab, 0 0 26px #f50057; }
+    #bag-3 .bag-qmark { color: #e0f7fa; text-shadow: 0 0 12px #84ffff, 0 0 26px #00b0ff; }
+    #bag-4 .bag-qmark { color: #fff9c4; text-shadow: 0 0 12px #ffee58, 0 0 26px #fbc02d; }
+    #bag-5 .bag-qmark { color: #ffffff; text-shadow: 0 0 12px #f8bbd0, 0 0 26px #ec407a; }
+
+    /* ==========================================================
+       BOTTOM RIGHT BUTTON ("Chuyển qua Game UFO")
+       ========================================================== */
+    .bottom-bar {
+      position: absolute;
+      bottom: 22px;
+      right: 28px;
+      z-index: 25;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* The glowing ornate Game UFO button */
+    .ufo-switch-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 28px 10px 18px;
+      background: linear-gradient(180deg, #ff9f1a 0%, #eb6b02 52%, #b53e00 100%);
+      border: 4px solid #fce074;
+      border-radius: 60px;
+      box-shadow: 
+        0 6px 0 #5c2405,
+        0 12px 24px rgba(45, 18, 4, 0.45),
+        inset 0 2px 4px rgba(255, 255, 255, 0.5),
+        inset 0 -2px 6px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      overflow: visible;
+      animation: ufoBtnPulse 2.8s ease-in-out infinite;
+    }
+
+    @keyframes ufoBtnPulse {
+      0%, 100% {
+        box-shadow: 0 6px 0 #5c2405, 0 12px 24px rgba(45, 18, 4, 0.45), 0 0 0 rgba(255, 159, 26, 0);
+      }
+      50% {
+        box-shadow: 0 6px 0 #5c2405, 0 14px 28px rgba(45, 18, 4, 0.55), 0 0 24px rgba(255, 214, 0, 0.7);
+      }
+    }
+
+    .ufo-badge-hot {
+      position: absolute;
+      top: -12px;
+      right: 18px;
+      background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%);
+      color: #ffffff;
+      font-family: 'Baloo 2', cursive;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.6px;
+      padding: 2px 10px;
+      border-radius: 20px;
+      border: 2px solid #ffffff;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+      animation: badgeBounce 1.8s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes badgeBounce {
+      0% { transform: translateY(0) rotate(-3deg); }
+      100% { transform: translateY(-4px) rotate(3deg); }
+    }
+
+    .ufo-switch-btn:hover {
+      transform: translateY(-4px) scale(1.04);
+      background: linear-gradient(180deg, #ffaf38 0%, #f77a0c 52%, #c94600 100%);
+      border-color: #ffffff;
+      box-shadow: 
+        0 9px 0 #5c2405,
+        0 18px 30px rgba(45, 18, 4, 0.55),
+        inset 0 3px 6px rgba(255, 255, 255, 0.6);
+    }
+
+    .ufo-switch-btn:active {
+      transform: translateY(2px) scale(0.99);
+      box-shadow: 
+        0 3px 0 #5c2405,
+        0 6px 14px rgba(45, 18, 4, 0.4);
+    }
+
+    /* Cute UFO Icon illustration in button */
+    .btn-ufo-icon {
+      width: 48px;
+      height: 44px;
+      flex-shrink: 0;
+      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.35));
+      animation: ufoHover 2.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes ufoHover {
+      0% { transform: translateY(-2px) rotate(-4deg); }
+      100% { transform: translateY(3px) rotate(4deg); }
+    }
+
+    /* Button Text: 2 lines */
+    .btn-text-box {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .btn-line-1 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 17px;
+      font-weight: 800;
+      color: #fff9e6;
+      line-height: 1.1;
+      text-shadow: 1px 1px 2px #572004;
+    }
+
+    .btn-line-2 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 21px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.1;
+      text-shadow: 2px 2px 0 #572004, -1px -1px 0 #572004;
+      letter-spacing: 0.5px;
+    }
+
+    /* Left Replay button for teacher */
+    .replay-btn {
+      position: absolute;
+      bottom: 22px;
+      left: 28px;
+      z-index: 25;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: linear-gradient(180deg, #4caf50 0%, #2e7d32 100%);
+      border: 3px solid #a5d6a7;
+      border-radius: 50px;
+      color: #ffffff;
+      font-family: 'Baloo 2', cursive;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 5px 0 #1b5e20, 0 8px 16px rgba(0,0,0,0.3);
+      transition: all 0.18s ease;
+    }
+
+    .replay-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 #1b5e20, 0 12px 20px rgba(0,0,0,0.35);
+      background: linear-gradient(180deg, #5cba60 0%, #388e3c 100%);
+    }
+
+    .replay-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #1b5e20;
+    }
+
+    /* ==========================================================
+       QUIZ MODAL (MATCHING REFERENCE IMAGE 2)
+       ========================================================== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(14, 28, 12, 0.65);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 16px;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Wooden Scroll Plaque Board */
+    .quiz-board {
+      position: relative;
+      width: min(94vw, 780px);
+      background: #e8cca0;
+      background-image: 
+        radial-gradient(ellipse at 50% 50%, #f3dec2 0%, #dfbe8d 70%, #d4ae78 100%);
+      border: 10px solid #73431d;
+      border-radius: 28px;
+      box-shadow: 
+        0 25px 60px rgba(0, 0, 0, 0.7),
+        inset 0 0 20px rgba(115, 67, 29, 0.4),
+        0 0 0 3px #cca25d;
+      padding: 44px 28px 26px;
+      transform: scale(0.85) translateY(20px);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .modal-overlay.active .quiz-board {
+      transform: scale(1) translateY(0);
+    }
+
+    /* Inner carved line */
+    .quiz-board::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 2px dashed rgba(115, 67, 29, 0.35);
+      border-radius: 18px;
+      pointer-events: none;
+    }
+
+    /* Bursting Open Bag on Top Center of Board */
+    .board-top-bag {
+      position: absolute;
+      top: -65px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 130px;
+      height: 110px;
+      filter: drop-shadow(0 8px 14px rgba(0,0,0,0.4));
+      z-index: 10;
+      pointer-events: none;
+      animation: bagFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes bagFloat {
+      0%, 100% { transform: translateX(-50%) translateY(0) rotate(-2deg); }
+      50% { transform: translateX(-50%) translateY(-6px) rotate(2deg); }
+    }
+
+    /* Top Left Timer / Bag Counter Badge */
+    .board-timer-badge {
+      position: absolute;
+      top: 14px;
+      left: 18px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(180deg, #784820 0%, #4d2a0e 100%);
+      border: 2px solid #d4a961;
+      border-radius: 50px;
+      padding: 4px 14px;
+      color: #ffd875;
+      font-family: 'Baloo 2', cursive;
+      font-size: 18px;
+      font-weight: 800;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    /* Top Right Close Button */
+    .board-close-btn {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(180deg, #8a4e22 0%, #522709 100%);
+      border: 3px solid #d4a961;
+      border-radius: 50%;
+      color: #ffd875;
+      font-family: 'Baloo 2', sans-serif;
+      font-size: 20px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: all 0.15s ease;
+    }
+
+    .board-close-btn:hover {
+      background: linear-gradient(180deg, #b71c1c 0%, #7f0000 100%);
+      border-color: #ff8a80;
+      color: #ffffff;
+      transform: scale(1.1) rotate(90deg);
+    }
+
+    /* Question Banner (Dark brown carved wooden box with gold trim) */
+    .question-banner {
+      width: 100%;
+      background: linear-gradient(180deg, #532c12 0%, #361a07 100%);
+      border: 4px solid #caa058;
+      border-radius: 18px;
+      padding: 20px 24px;
+      box-shadow: 
+        0 6px 16px rgba(0,0,0,0.35),
+        inset 0 2px 4px rgba(255,255,255,0.15);
+      position: relative;
+      margin-top: 14px;
+      margin-bottom: 22px;
+      text-align: center;
+    }
+
+    /* Bracket corner details */
+    .question-banner::before, .question-banner::after {
+      content: '';
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-color: #ffd700;
+      border-style: solid;
+    }
+    .question-banner::before { top: 6px; left: 6px; border-width: 3px 0 0 3px; }
+    .question-banner::after { bottom: 6px; right: 6px; border-width: 0 3px 3px 0; }
+
+    .q-title {
+      font-family: 'Baloo 2', cursive;
+      font-size: 16px;
+      font-weight: 800;
+      color: #ffd54f;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 6px;
+    }
+
+    .q-text {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(17px, 2.1vw, 21px);
+      font-weight: 800;
+      color: #fff8e7;
+      line-height: 1.45;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    /* 4 Big 3D Answer Buttons in 2x2 Grid */
+    .answers-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      width: 100%;
+      margin-bottom: 12px;
+    }
+
+    .answer-btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: left;
+      padding: 16px 20px;
+      border-radius: 16px;
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(16px, 1.8vw, 19px);
+      font-weight: 800;
+      color: #ffffff;
+      cursor: pointer;
+      line-height: 1.35;
+      border: 3px solid rgba(255, 255, 255, 0.4);
+      transition: all 0.16s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 6px 0 var(--btn-shadow), 0 10px 18px rgba(0,0,0,0.3);
+    }
+
+    .answer-btn:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: 0 9px 0 var(--btn-shadow), 0 14px 22px rgba(0,0,0,0.35);
+      border-color: #ffffff;
+      filter: brightness(1.06);
+    }
+
+    .answer-btn:active:not(:disabled) {
+      transform: translateY(3px);
+      box-shadow: 0 3px 0 var(--btn-shadow), 0 6px 10px rgba(0,0,0,0.25);
+    }
+
+    .answer-btn:disabled {
+      cursor: default;
+    }
+
+    /* Answer A: Bright Sky Blue */
+    .ans-a {
+      --btn-shadow: #0b6c99;
+      background: linear-gradient(180deg, #2cb8ee 0%, #159ad1 50%, #0d7ea8 100%);
+    }
+
+    /* Answer B: Vibrant Grass Green */
+    .ans-b {
+      --btn-shadow: #217332;
+      background: linear-gradient(180deg, #5cc964 0%, #43ad4b 50%, #2f8b36 100%);
+    }
+
+    /* Answer C: Vivid Purple */
+    .ans-c {
+      --btn-shadow: #5c1b82;
+      background: linear-gradient(180deg, #b746db 0%, #9c27b0 50%, #76188a 100%);
+    }
+
+    /* Answer D: Warm Bright Orange */
+    .ans-d {
+      --btn-shadow: #ab4400;
+      background: linear-gradient(180deg, #ff9f1a 0%, #f57c00 50%, #d45900 100%);
+    }
+
+    /* Right/Wrong state highlights */
+    .answer-btn.correct-glow {
+      background: linear-gradient(180deg, #00e676 0%, #00c853 100%) !important;
+      --btn-shadow: #00701a !important;
+      border-color: #ffffff !important;
+      animation: pulseGreen 0.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseGreen {
+      0% { transform: scale(1); filter: brightness(1); }
+      100% { transform: scale(1.03); filter: brightness(1.15); }
+    }
+
+    .answer-btn.wrong-shake {
+      background: linear-gradient(180deg, #ff5252 0%, #d50000 100%) !important;
+      --btn-shadow: #7f0000 !important;
+      animation: shakeWrong 0.45s ease-in-out;
+    }
+
+    @keyframes shakeWrong {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-9px); }
+      40% { transform: translateX(9px); }
+      60% { transform: translateX(-6px); }
+      80% { transform: translateX(6px); }
+    }
+
+    /* Explanation & Feedback Banner */
+    .feedback-banner {
+      width: 100%;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.4;
+      text-align: center;
+      display: none;
+      margin-bottom: 12px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .feedback-banner.correct {
+      display: block;
+      background: #e8f5e9;
+      border: 2px solid #4caf50;
+      color: #1b5e20;
+    }
+
+    .feedback-banner.wrong {
+      display: block;
+      background: #ffebee;
+      border: 2px solid #ef5350;
+      color: #b71c1c;
+    }
+
+    /* Next / Continue Button */
+    .modal-next-btn {
+      width: 100%;
+      padding: 14px 24px;
+      background: linear-gradient(180deg, #ffca28 0%, #ffa000 50%, #ff6f00 100%);
+      border: 3px solid #fff9c4;
+      border-radius: 16px;
+      font-family: 'Baloo 2', cursive;
+      font-size: 20px;
+      font-weight: 900;
+      color: #4a2202;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 5px 0 #b34a00, 0 8px 16px rgba(0,0,0,0.3);
+      transition: all 0.16s ease;
+    }
+
+    .modal-next-btn.show {
+      display: block;
+    }
+
+    .modal-next-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 #b34a00, 0 12px 22px rgba(0,0,0,0.35);
+      background: linear-gradient(180deg, #ffd54f 0%, #ffb300 50%, #ff8f00 100%);
+    }
+
+    .modal-next-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #b34a00;
+    }
+
+    /* ==========================================================
+       CONFETTI & VICTORY MODAL
+       ========================================================== */
+    .sparkle-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 250;
+    }
+
+    /* Help Dialog */
+    .help-dialog {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .help-dialog.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .help-card {
+      background: #fdf6e7;
+      border: 8px solid #73431d;
+      border-radius: 20px;
+      width: min(90vw, 560px);
+      padding: 26px 30px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+
+    .help-card h3 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 26px;
+      font-weight: 800;
+      color: #73431d;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+
+    .help-card ol {
+      padding-left: 20px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #4a2c14;
+      font-weight: 700;
+    }
+
+    .help-card ol li {
+      margin-bottom: 8px;
+    }
+
+    .help-close-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(180deg, #7c481d 0%, #522c0d 100%);
+      border: 2px solid #ffd700;
+      border-radius: 12px;
+      color: #ffffff;
+      font-family: 'Baloo 2', cursive;
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    /* All bags opened celebration dialog */
+    .victory-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .victory-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .victory-box {
+      background: linear-gradient(180deg, #fff8e1 0%, #ffe082 100%);
+      border: 8px solid #ff8f00;
+      border-radius: 28px;
+      padding: 36px 32px;
+      text-align: center;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+      width: min(92vw, 540px);
+      animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.7); }
+      to { transform: scale(1); }
+    }
+
+    .victory-box h2 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 36px;
+      font-weight: 900;
+      color: #d84315;
+      margin-bottom: 12px;
+    }
+
+    .victory-box p {
+      font-size: 18px;
+      font-weight: 800;
+      color: #5d4037;
+      margin-bottom: 24px;
+    }
+
+    .victory-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+    }
+
+    /* ==========================================================
+       RESPONSIVE ADJUSTMENTS
+       ========================================================== */
+    @media (max-width: 900px) {
+      .pagoda-gate {
+        width: 220px;
+        opacity: 0.85;
+      }
+      .bags-stage {
+        gap: 14px;
+      }
+      .answers-grid {
+        grid-template-columns: 1fr;
+      }
+      .bottom-bar {
+        bottom: 14px;
+        right: 16px;
+      }
+      .replay-btn {
+        bottom: 14px;
+        left: 16px;
+        padding: 8px 14px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .top-bar {
+        padding: 10px 14px;
+      }
+      .pagoda-gate {
+        display: none;
+      }
+      .bag-body-art {
+        width: clamp(62px, 17vw, 110px);
+        height: clamp(92px, 24vw, 155px);
+      }
+      .bag-number {
+        font-size: 20px;
+        margin-bottom: 2px;
+      }
+      .bag-qmark {
+        font-size: 32px;
+      }
+      .ufo-switch-btn {
+        padding: 6px 14px;
+      }
+      .btn-ufo-icon {
+        width: 34px;
+        height: 32px;
+      }
+      .btn-line-1 { font-size: 13px; }
+      .btn-line-2 { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="game-viewport">
+
+  <!-- ==========================================================
+       BACKGROUND SCENERY
+       ========================================================== -->
+  <!-- Sky background -->
+  <div class="sky-bg"></div>
+
+  <!-- Radiating Sunburst & Golden Rays -->
+  <div class="sunburst"></div>
+  <div class="sun-rays"></div>
+
+  <!-- Mountain Silhouettes -->
+  <svg class="mountains-svg" viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Far mountain layer -->
+    <path d="M0,240 Q180,90 420,190 T900,140 Q1180,70 1440,210 L1440,320 L0,320 Z" fill="#88c78c" opacity="0.6"/>
+    <!-- Near mountain layer -->
+    <path d="M0,210 Q280,120 620,230 T1260,180 Q1380,150 1440,190 L1440,320 L0,320 Z" fill="#6bb575" opacity="0.75"/>
+  </svg>
+
+  <!-- Traditional Pagoda / Temple Gate on the Right -->
+  <svg class="pagoda-gate" viewBox="0 0 320 280" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="roofGrad1" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#c95828"/>
+        <stop offset="50%" stop-color="#a83c16"/>
+        <stop offset="100%" stop-color="#7a2608"/>
+      </linearGradient>
+      <linearGradient id="pillarGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#b03824"/>
+        <stop offset="50%" stop-color="#d65138"/>
+        <stop offset="100%" stop-color="#8a2010"/>
+      </linearGradient>
+      <linearGradient id="wallGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#e2a04a"/>
+        <stop offset="100%" stop-color="#b5752c"/>
+      </linearGradient>
+    </defs>
+    <!-- Base stone pedestal -->
+    <rect x="25" y="245" width="270" height="25" rx="3" fill="#8d7256"/>
+    <rect x="40" y="235" width="240" height="12" rx="2" fill="#a48869"/>
+
+    <!-- 4 Red Lacquer Pillars -->
+    <!-- Pillar 1 -->
+    <rect x="52" y="90" width="16" height="148" rx="2" fill="url(#pillarGrad)"/>
+    <rect x="48" y="230" width="24" height="8" rx="2" fill="#5c190d"/>
+    <!-- Pillar 2 -->
+    <rect x="105" y="90" width="18" height="148" rx="2" fill="url(#pillarGrad)"/>
+    <rect x="101" y="230" width="26" height="8" rx="2" fill="#5c190d"/>
+    <!-- Pillar 3 -->
+    <rect x="197" y="90" width="18" height="148" rx="2" fill="url(#pillarGrad)"/>
+    <rect x="193" y="230" width="26" height="8" rx="2" fill="#5c190d"/>
+    <!-- Pillar 4 -->
+    <rect x="252" y="90" width="16" height="148" rx="2" fill="url(#pillarGrad)"/>
+    <rect x="248" y="230" width="24" height="8" rx="2" fill="#5c190d"/>
+
+    <!-- Central arch doorway shadow & background -->
+    <path d="M123,235 L123,130 Q160,112 197,130 L197,235 Z" fill="#663518" opacity="0.65"/>
+    <rect x="68" y="145" width="37" height="90" fill="#a86835" opacity="0.4"/>
+    <rect x="215" y="145" width="37" height="90" fill="#a86835" opacity="0.4"/>
+
+    <!-- Horizontal crossbeams -->
+    <rect x="44" y="96" width="232" height="16" rx="2" fill="#d97f2c"/>
+    <rect x="40" y="86" width="240" height="12" rx="2" fill="#8f4311"/>
+
+    <!-- Mid Tier Curved Tile Roof -->
+    <path d="M15,92 C70,82 100,75 160,75 C220,75 250,82 305,92 C312,93 318,85 308,79 C270,54 220,50 160,50 C100,50 50,54 12,79 C2,85 8,93 15,92 Z" fill="url(#roofGrad1)"/>
+    <!-- Roof upturned tip ornaments -->
+    <path d="M12,79 Q5,68 0,55 Q10,65 24,72 Z" fill="#f5af3d"/>
+    <path d="M308,79 Q315,68 320,55 Q310,65 296,72 Z" fill="#f5af3d"/>
+
+    <!-- Upper Pavilion / Bell Tower -->
+    <rect x="95" y="44" width="130" height="24" rx="2" fill="url(#wallGrad)"/>
+    <rect x="110" y="46" width="18" height="20" rx="1" fill="#4d240d"/>
+    <rect x="151" y="46" width="18" height="20" rx="1" fill="#4d240d"/>
+    <rect x="192" y="46" width="18" height="20" rx="1" fill="#4d240d"/>
+
+    <!-- Top Grand Curved Pagoda Roof -->
+    <path d="M65,48 C105,38 130,32 160,32 C190,32 215,38 255,48 C262,49 266,42 258,37 C228,18 195,14 160,14 C125,14 92,18 62,37 C54,42 58,49 65,48 Z" fill="url(#roofGrad1)"/>
+    <!-- Top upturned tip ornaments -->
+    <path d="M62,37 Q55,26 50,15 Q60,24 72,32 Z" fill="#f5af3d"/>
+    <path d="M258,37 Q265,26 270,15 Q260,24 248,32 Z" fill="#f5af3d"/>
+
+    <!-- Center roof pearl / spire ornament -->
+    <polygon points="160,2 165,14 155,14" fill="#ffd54f"/>
+    <circle cx="160" cy="5" r="4" fill="#ffca28"/>
+  </svg>
+
+  <!-- Rolling Green Grass Foreground -->
+  <svg class="foreground-grass" viewBox="0 0 1440 280" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Mid hill slope -->
+    <path d="M0,130 Q360,70 720,110 T1440,90 L1440,280 L0,280 Z" fill="#75cb3c"/>
+    <!-- Front undulating meadow -->
+    <path d="M0,150 Q480,180 960,130 T1440,160 L1440,280 L0,280 Z" fill="#58b327"/>
+    <!-- Wild grass clumps & leaves on bottom-left -->
+    <path d="M0,280 L20,210 Q40,230 60,190 Q75,225 110,185 Q125,230 160,200 L180,280 Z" fill="#388e1e"/>
+    <path d="M15,280 Q45,215 90,235 Q130,220 170,280 Z" fill="#2d6f16"/>
+    <!-- Grass clumps on bottom-right -->
+    <path d="M1280,280 L1310,215 Q1335,235 1370,195 Q1395,228 1430,205 L1440,280 Z" fill="#388e1e"/>
+  </svg>
+
+  <!-- Bunting Pennants & Vietnamese Festival Flags (Cờ Ngũ Sắc) -->
+  <svg class="festive-decorations" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+    <!-- Left Bunting Swag -->
+    <path d="M-20,30 Q160,110 380,145" fill="none" stroke="#684b30" stroke-width="2.5" opacity="0.6"/>
+    <!-- Pennants on left string -->
+    <polygon points="15,45 35,53 22,85" fill="#f44336"/>
+    <polygon points="55,60 75,69 62,102" fill="#ffeb3b"/>
+    <polygon points="98,77 118,87 105,120" fill="#2196f3"/>
+    <polygon points="142,94 162,103 150,135" fill="#4caf50"/>
+    <polygon points="188,109 208,118 197,148" fill="#ff9800"/>
+    <polygon points="235,123 255,130 245,158" fill="#e91e63"/>
+    <polygon points="282,133 302,139 293,165" fill="#00bcd4"/>
+    <polygon points="330,141 350,144 342,168" fill="#ffc107"/>
+
+    <!-- Right Bunting Swag -->
+    <path d="M960,135 Q1150,85 1350,30" fill="none" stroke="#684b30" stroke-width="2.5" opacity="0.6"/>
+    <polygon points="980,130 1000,125 993,155" fill="#4caf50"/>
+    <polygon points="1025,118 1045,113 1038,143" fill="#ff9800"/>
+    <polygon points="1070,105 1090,100 1083,130" fill="#2196f3"/>
+    <polygon points="1120,91 1140,85 1133,115" fill="#e91e63"/>
+    <polygon points="1170,76 1190,70 1183,100" fill="#ffeb3b"/>
+    <polygon points="1220,62 1240,55 1234,85" fill="#00bcd4"/>
+    <polygon points="1270,48 1290,41 1284,70" fill="#f44336"/>
+
+    <!-- Bamboo Poles for Cờ Ngũ Sắc on the right -->
+    <!-- Pole 1 -->
+    <path d="M1280,320 L1300,40" stroke="#795548" stroke-width="7" stroke-linecap="round"/>
+    <!-- Pole 2 -->
+    <path d="M1390,320 L1380,20" stroke="#8d6e63" stroke-width="8" stroke-linecap="round"/>
+
+    <!-- TRADITIONAL VIETNAMESE FESTIVAL FLAG 1 (CỜ NGŨ SẮC - Front Right) -->
+    <g transform="translate(1260, 45) rotate(10)">
+      <!-- Flame Serrated Outer Edge (Tua cờ) -->
+      <polygon points="0,0 120,0 120,120 0,120" fill="#ffcc00"/>
+      <polygon points="120,0 135,15 120,30 135,45 120,60 135,75 120,90 135,105 120,120" fill="#d32f2f"/>
+      <polygon points="0,120 15,135 30,120 45,135 60,120 75,135 90,120 105,135 120,120" fill="#d32f2f"/>
+      <!-- Band 1: Blue / Purple -->
+      <rect x="10" y="10" width="100" height="100" fill="#1565c0"/>
+      <!-- Band 2: Green -->
+      <rect x="22" y="22" width="76" height="76" fill="#2e7d32"/>
+      <!-- Band 3: Gold / Yellow -->
+      <rect x="34" y="34" width="52" height="52" fill="#fbc02d"/>
+      <!-- Center: Crimson Red -->
+      <rect x="46" y="46" width="28" height="28" fill="#c62828"/>
+    </g>
+
+    <!-- TRADITIONAL VIETNAMESE FESTIVAL FLAG 2 (Back Right) -->
+    <g transform="translate(1330, 25) rotate(-5)">
+      <!-- Outer Flame -->
+      <polygon points="0,0 110,0 110,110 0,110" fill="#ffab00"/>
+      <polygon points="110,0 125,15 110,30 125,45 110,60 125,75 110,90 125,105 110,110" fill="#c62828"/>
+      <!-- Band 1: Cyan -->
+      <rect x="10" y="10" width="90" height="90" fill="#00838f"/>
+      <!-- Band 2: Orange -->
+      <rect x="20" y="20" width="70" height="70" fill="#ef6c00"/>
+      <!-- Band 3: Yellow -->
+      <rect x="30" y="30" width="50" height="50" fill="#ffd600"/>
+      <!-- Center: Red -->
+      <rect x="40" y="40" width="30" height="30" fill="#b71c1c"/>
+    </g>
+
+    <!-- Small Festival Flag on Far Left -->
+    <g transform="translate(60, 85) rotate(-8) scale(0.65)">
+      <polygon points="0,0 100,0 100,100 0,100" fill="#ffd600"/>
+      <polygon points="100,0 115,15 100,30 115,45 100,60 115,75 100,90 115,100" fill="#d32f2f"/>
+      <rect x="10" y="10" width="80" height="80" fill="#1976d2"/>
+      <rect x="20" y="20" width="60" height="60" fill="#388e3c"/>
+      <rect x="30" y="30" width="40" height="40" fill="#f57f17"/>
+      <rect x="38" y="38" width="24" height="24" fill="#b71c1c"/>
+    </g>
+  </svg>
+
+  <!-- ==========================================================
+       TOP BAR (SCORE / BADGES / NAVIGATION)
+       ========================================================== -->
+  <div class="top-bar">
+    <!-- Left stats badges -->
+    <div class="stats-group">
+      <div class="stat-pill" title="Tiến độ trả bài">
+        <span class="stat-icon">🎒</span>
+        <span class="stat-val" id="participantCount">0/5</span>
+      </div>
+      <div class="stat-pill" title="Điểm số đạt được">
+        <span class="stat-icon">🏆</span>
+        <span class="stat-val" id="scoreDisplay">0 điểm</span>
+      </div>
+    </div>
+
+    <!-- Right navigation buttons -->
+    <div class="nav-actions">
+      <button type="button" class="wood-btn" id="fsToggleBtn" onclick="toggleFullscreen()" title="Chế độ toàn màn hình"><span>⛶</span> Toàn màn hình</button>
+      <button type="button" class="wood-btn" id="soundToggleBtn" onclick="toggleSound()" title="Bật / Tắt âm thanh"><span>🔊</span> Âm thanh</button>
+    </div>
+  </div>
+
+  <!-- Ambient Golden Floating Sparks Canvas -->
+  <canvas class="ambient-sparks" id="ambientSparks"></canvas>
+
+  <!-- ==========================================================
+       MAIN TITLE ("GAME TÚI MÙ") - 3D CARTOON SVG LOGO
+       ========================================================== -->
+  <div class="title-container">
+    <svg class="title-3d-svg" viewBox="0 0 760 140" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Deep 3D Cast Shadow -->
+        <filter id="title3DShadow" x="-20%" y="-20%" width="140%" height="160%">
+          <feDropShadow dx="0" dy="5" stdDeviation="0" flood-color="#541600"/>
+          <feDropShadow dx="0" dy="9" stdDeviation="0" flood-color="#3b0f00"/>
+          <feDropShadow dx="0" dy="13" stdDeviation="0" flood-color="#220700"/>
+          <feDropShadow dx="0" dy="18" stdDeviation="8" flood-color="rgba(0,0,0,0.5)"/>
+        </filter>
+
+        <!-- Luscious 3D Gradient Face -->
+        <linearGradient id="titleFaceGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#fff885"/>
+          <stop offset="22%" stop-color="#ffc700"/>
+          <stop offset="55%" stop-color="#ff7b00"/>
+          <stop offset="85%" stop-color="#e63c00"/>
+          <stop offset="100%" stop-color="#ba1b00"/>
+        </linearGradient>
+
+        <!-- Upper Half Gloss Sheen -->
+        <linearGradient id="titleGloss" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+          <stop offset="38%" stop-color="#ffffff" stop-opacity="0.2"/>
+          <stop offset="42%" stop-color="#ffffff" stop-opacity="0.0"/>
+        </linearGradient>
+
+        <!-- Ambient Golden Glow -->
+        <radialGradient id="titleAmbientGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffd54f" stop-opacity="0.65"/>
+          <stop offset="60%" stop-color="#ff9100" stop-opacity="0.2"/>
+          <stop offset="100%" stop-color="#ff6d00" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Golden Backlight Glow -->
+      <ellipse cx="380" cy="70" rx="340" ry="50" fill="url(#titleAmbientGlow)"/>
+
+      <!-- Layer 1: Dark Chocolate 3D Base & Extrusion with Filter -->
+      <text x="380" y="93" text-anchor="middle"
+            font-family="'Baloo 2', 'Paytone One', 'Fredoka', cursive" font-weight="900" font-size="92" letter-spacing="4"
+            fill="#260800" stroke="#260800" stroke-width="26" stroke-linejoin="round"
+            filter="url(#title3DShadow)">
+        GAME TÚI MÙ
+      </text>
+
+      <!-- Layer 2: Warm Red-Brown Inner Bevel -->
+      <text x="380" y="89" text-anchor="middle"
+            font-family="'Baloo 2', 'Paytone One', 'Fredoka', cursive" font-weight="900" font-size="92" letter-spacing="4"
+            fill="#802100" stroke="#802100" stroke-width="16" stroke-linejoin="round">
+        GAME TÚI MÙ
+      </text>
+
+      <!-- Layer 3: Vibrant Face with Golden Rim -->
+      <text x="380" y="85" text-anchor="middle"
+            font-family="'Baloo 2', 'Paytone One', 'Fredoka', cursive" font-weight="900" font-size="92" letter-spacing="4"
+            fill="url(#titleFaceGrad)" stroke="#fff59d" stroke-width="3.5" stroke-linejoin="round">
+        GAME TÚI MÙ
+      </text>
+
+      <!-- Layer 4: Upper Curved Specular Gloss -->
+      <text x="380" y="85" text-anchor="middle"
+            font-family="'Baloo 2', 'Paytone One', 'Fredoka', cursive" font-weight="900" font-size="92" letter-spacing="4"
+            fill="url(#titleGloss)">
+        GAME TÚI MÙ
+      </text>
+
+      <!-- Sparkling Diamond Glints on Letters -->
+      <g transform="translate(100, 36)">
+        <polygon points="0,-12 3.5,-3.5 12,0 3.5,3.5 0,12 -3.5,3.5 -12,0 -3.5,-3.5" fill="#ffffff"/>
+        <circle cx="0" cy="0" r="2.5" fill="#fff9c4"/>
+      </g>
+      <g transform="translate(640, 26)">
+        <polygon points="0,-15 4,-4 15,0 4,4 0,15 -4,4 -15,0 -4,-4" fill="#ffffff"/>
+        <circle cx="0" cy="0" r="3" fill="#ffd54f"/>
+      </g>
+      <g transform="translate(425, 30) scale(0.85)">
+        <polygon points="0,-10 2.5,-2.5 10,0 2.5,2.5 0,10 -2.5,2.5 -10,0 -2.5,-2.5" fill="#ffffff"/>
+      </g>
+    </svg>
+    <div class="title-subtag">✨ BẤM CHỌN TÚI MÙ ĐỂ TRẢ BÀI & TRẮC NGHIỆM LỊCH SỬ ✨</div>
+  </div>
+
+  <!-- ==========================================================
+       THE 5 MYSTERY BAGS (TÚI MÙ)
+       ========================================================== -->
+  <div class="bags-stage" id="bagsContainer">
+
+    <!-- ==================== BAG #1 (Purple Cosmic Galaxy) ==================== -->
+    <div class="bag-item" id="bag-1" onclick="handleBagClick(1)">
+      <div class="bag-aura"></div>
+      <div class="bag-number">#1</div>
+      <div class="bag-body-art">
+        <svg viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="bagGrad1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#7b2fb3"/>
+              <stop offset="40%" stop-color="#4b1e7f"/>
+              <stop offset="80%" stop-color="#321057"/>
+              <stop offset="100%" stop-color="#1b0633"/>
+            </linearGradient>
+            <radialGradient id="nebula1" cx="45%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ba68c8" stop-opacity="0.8"/>
+              <stop offset="60%" stop-color="#7b1fa2" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#4a148c" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="shine1" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25"/>
+              <stop offset="25%" stop-color="#ffffff" stop-opacity="0"/>
+              <stop offset="75%" stop-color="#ffffff" stop-opacity="0"/>
+              <stop offset="100%" stop-color="#ffffff" stop-opacity="0.25"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Main foil pouch body with crimped serrated edges -->
+          <!-- Serrated top: 12 zig-zag teeth -->
+          <!-- Serrated bottom: 12 zig-zag teeth -->
+          <path d="
+            M 10 18 
+            L 16 10 L 22 18 L 28 10 L 34 18 L 40 10 L 46 18 L 52 10 L 58 18 L 64 10 L 70 18 L 76 10 
+            L 82 18 L 88 10 L 94 18 L 100 10 L 106 18 L 112 10 L 118 18 L 124 10 L 130 18 L 136 10 
+            L 142 18 L 148 10 L 154 18
+            L 150 202
+            L 144 210 L 138 202 L 132 210 L 126 202 L 120 210 L 114 202 L 108 210 L 102 202 L 96 210 
+            L 90 202 L 84 210 L 78 202 L 72 210 L 66 202 L 60 210 L 54 202 L 48 210 L 42 202 L 36 210 
+            L 30 202 L 24 210 L 18 202 L 12 210 L 6 202
+            Z" 
+            fill="url(#bagGrad1)" stroke="#310d52" stroke-width="2.5" stroke-linejoin="round"/>
+
+          <!-- Nebula Cosmic Cloud glow inside -->
+          <ellipse cx="75" cy="115" rx="55" ry="50" fill="url(#nebula1)"/>
+
+          <!-- Top and Bottom heat-seal band lines -->
+          <rect x="8" y="18" width="144" height="12" fill="rgba(0,0,0,0.18)"/>
+          <line x1="8" y1="30" x2="152" y2="30" stroke="#8e3fc7" stroke-width="2"/>
+          <rect x="8" y="190" width="144" height="12" fill="rgba(0,0,0,0.25)"/>
+          <line x1="8" y1="190" x2="152" y2="190" stroke="#8e3fc7" stroke-width="2"/>
+
+          <!-- Saturn-like ringed planet at lower right -->
+          <circle cx="120" cy="155" r="10" fill="#ffd54f"/>
+          <ellipse cx="120" cy="155" rx="19" ry="5" fill="none" stroke="#ffe082" stroke-width="2" transform="rotate(-25 120 155)"/>
+
+          <!-- Galaxy starbursts & sparkles -->
+          <text x="32" y="65" fill="#fff" font-size="14" opacity="0.85">✦</text>
+          <text x="126" y="75" fill="#fff" font-size="12" opacity="0.8">✧</text>
+          <text x="38" y="170" fill="#ffe082" font-size="11" opacity="0.9">★</text>
+          <text x="65" y="178" fill="#fff" font-size="9" opacity="0.75">✦</text>
+          <circle cx="48" cy="100" r="1.5" fill="#fff"/>
+          <circle cx="112" cy="110" r="2" fill="#fff"/>
+          <circle cx="95" cy="62" r="1.2" fill="#ffe082"/>
+
+          <!-- Metallic foil highlight sheen -->
+          <rect x="10" y="20" width="140" height="180" fill="url(#shine1)"/>
+
+          <!-- Circular shooting-star emblem badge at top -->
+          <g transform="translate(80, 48)">
+            <circle cx="0" cy="0" r="18" fill="#5c1d8c" stroke="#b388ff" stroke-width="2.5"/>
+            <!-- Shooting star with tail -->
+            <path d="M-6,2 Q-14,8 -16,14 M-6,0 Q-16,3 -20,6 M-6,-2 Q-14,-4 -18,-5" stroke="#ffe082" stroke-width="2" stroke-linecap="round"/>
+            <polygon points="0,-10 3,-3 10,-3 4,2 6,9 0,5 -6,9 -4,2 -10,-3 -3,-3" fill="#ffffff" stroke="#ffd700" stroke-width="1"/>
+          </g>
+        </svg>
+        <span class="bag-qmark">?</span>
+      </div>
+      <div class="bag-hint-badge"><span>🎁</span> Mở túi</div>
+      <div class="bag-ground-shadow"></div>
+    </div>
+
+    <!-- ==================== BAG #2 (Vivid Magenta Pink Starlight) ==================== -->
+    <div class="bag-item" id="bag-2" onclick="handleBagClick(2)">
+      <div class="bag-aura"></div>
+      <div class="bag-number">#2</div>
+      <div class="bag-body-art">
+        <svg viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="bagGrad2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#f02471"/>
+              <stop offset="45%" stop-color="#c2185b"/>
+              <stop offset="85%" stop-color="#880e4f"/>
+              <stop offset="100%" stop-color="#4a0429"/>
+            </linearGradient>
+            <radialGradient id="nebula2" cx="50%" cy="52%" r="48%">
+              <stop offset="0%" stop-color="#ff6090" stop-opacity="0.8"/>
+              <stop offset="60%" stop-color="#e91e63" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#880e4f" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <!-- Pouch body -->
+          <path d="
+            M 10 18 
+            L 16 10 L 22 18 L 28 10 L 34 18 L 40 10 L 46 18 L 52 10 L 58 18 L 64 10 L 70 18 L 76 10 
+            L 82 18 L 88 10 L 94 18 L 100 10 L 106 18 L 112 10 L 118 18 L 124 10 L 130 18 L 136 10 
+            L 142 18 L 148 10 L 154 18
+            L 150 202
+            L 144 210 L 138 202 L 132 210 L 126 202 L 120 210 L 114 202 L 108 210 L 102 202 L 96 210 
+            L 90 202 L 84 210 L 78 202 L 72 210 L 66 202 L 60 210 L 54 202 L 48 210 L 42 202 L 36 210 
+            L 30 202 L 24 210 L 18 202 L 12 210 L 6 202
+            Z" 
+            fill="url(#bagGrad2)" stroke="#5c0631" stroke-width="2.5" stroke-linejoin="round"/>
+
+          <ellipse cx="80" cy="115" rx="52" ry="50" fill="url(#nebula2)"/>
+
+          <!-- Top / bottom seals -->
+          <rect x="8" y="18" width="144" height="12" fill="rgba(0,0,0,0.15)"/>
+          <line x1="8" y1="30" x2="152" y2="30" stroke="#f48fb1" stroke-width="2"/>
+          <rect x="8" y="190" width="144" height="12" fill="rgba(0,0,0,0.2)"/>
+          <line x1="8" y1="190" x2="152" y2="190" stroke="#f48fb1" stroke-width="2"/>
+
+          <!-- Twinkling diamond star sparkles -->
+          <text x="34" y="68" fill="#fff" font-size="15" opacity="0.9">✦</text>
+          <text x="122" y="70" fill="#fff" font-size="13" opacity="0.85">✦</text>
+          <text x="36" y="165" fill="#fff" font-size="11" opacity="0.8">✧</text>
+          <text x="124" y="160" fill="#fff" font-size="14" opacity="0.9">✦</text>
+          <circle cx="50" cy="85" r="2" fill="#fff"/>
+          <circle cx="110" cy="95" r="2.2" fill="#fff"/>
+          <circle cx="68" cy="172" r="1.5" fill="#fff"/>
+          <circle cx="102" cy="170" r="1.5" fill="#fff"/>
+
+          <rect x="10" y="20" width="140" height="180" fill="url(#shine1)"/>
+
+          <!-- Top Shooting Star badge -->
+          <g transform="translate(80, 48)">
+            <circle cx="0" cy="0" r="18" fill="#880e4f" stroke="#ff80ab" stroke-width="2.5"/>
+            <path d="M-6,2 Q-14,8 -16,14 M-6,0 Q-16,3 -20,6 M-6,-2 Q-14,-4 -18,-5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+            <polygon points="0,-10 3,-3 10,-3 4,2 6,9 0,5 -6,9 -4,2 -10,-3 -3,-3" fill="#ffffff" stroke="#ff4081" stroke-width="1"/>
+          </g>
+        </svg>
+        <span class="bag-qmark">?</span>
+      </div>
+      <div class="bag-hint-badge"><span>🎁</span> Mở túi</div>
+      <div class="bag-ground-shadow"></div>
+    </div>
+
+    <!-- ==================== BAG #3 (Aqua / Teal Constellation) ==================== -->
+    <div class="bag-item" id="bag-3" onclick="handleBagClick(3)">
+      <div class="bag-aura"></div>
+      <div class="bag-number">#3</div>
+      <div class="bag-body-art">
+        <svg viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="bagGrad3" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#14c7c7"/>
+              <stop offset="45%" stop-color="#008a90"/>
+              <stop offset="85%" stop-color="#004d40"/>
+              <stop offset="100%" stop-color="#00251a"/>
+            </linearGradient>
+            <radialGradient id="nebula3" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#80deea" stop-opacity="0.75"/>
+              <stop offset="60%" stop-color="#0097a7" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#004d40" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <!-- Pouch body -->
+          <path d="
+            M 10 18 
+            L 16 10 L 22 18 L 28 10 L 34 18 L 40 10 L 46 18 L 52 10 L 58 18 L 64 10 L 70 18 L 76 10 
+            L 82 18 L 88 10 L 94 18 L 100 10 L 106 18 L 112 10 L 118 18 L 124 10 L 130 18 L 136 10 
+            L 142 18 L 148 10 L 154 18
+            L 150 202
+            L 144 210 L 138 202 L 132 210 L 126 202 L 120 210 L 114 202 L 108 210 L 102 202 L 96 210 
+            L 90 202 L 84 210 L 78 202 L 72 210 L 66 202 L 60 210 L 54 202 L 48 210 L 42 202 L 36 210 
+            L 30 202 L 24 210 L 18 202 L 12 210 L 6 202
+            Z" 
+            fill="url(#bagGrad3)" stroke="#00332c" stroke-width="2.5" stroke-linejoin="round"/>
+
+          <ellipse cx="80" cy="115" rx="55" ry="50" fill="url(#nebula3)"/>
+
+          <!-- Constellation lines & stars -->
+          <g stroke="rgba(255,255,255,0.4)" stroke-width="1.2" fill="none">
+            <polyline points="28,80 42,95 38,125 55,145"/>
+            <polyline points="135,75 120,95 125,125 110,140"/>
+            <circle cx="28" cy="80" r="2.5" fill="#fff"/>
+            <circle cx="42" cy="95" r="2.5" fill="#fff"/>
+            <circle cx="38" cy="125" r="2.5" fill="#fff"/>
+            <circle cx="55" cy="145" r="2.5" fill="#fff"/>
+            <circle cx="135" cy="75" r="2.5" fill="#fff"/>
+            <circle cx="120" cy="95" r="2.5" fill="#fff"/>
+            <circle cx="125" cy="125" r="2.5" fill="#fff"/>
+            <circle cx="110" cy="140" r="2.5" fill="#fff"/>
+            <!-- Celestial astrology arc -->
+            <path d="M25,170 A 50 50 0 0 1 70,185" stroke-dasharray="3,3"/>
+          </g>
+
+          <rect x="8" y="18" width="144" height="12" fill="rgba(0,0,0,0.15)"/>
+          <line x1="8" y1="30" x2="152" y2="30" stroke="#80cbc4" stroke-width="2"/>
+          <rect x="8" y="190" width="144" height="12" fill="rgba(0,0,0,0.2)"/>
+          <line x1="8" y1="190" x2="152" y2="190" stroke="#80cbc4" stroke-width="2"/>
+
+          <rect x="10" y="20" width="140" height="180" fill="url(#shine1)"/>
+
+          <!-- Top Shooting Star badge -->
+          <g transform="translate(80, 48)">
+            <circle cx="0" cy="0" r="18" fill="#004d40" stroke="#80deea" stroke-width="2.5"/>
+            <path d="M-6,2 Q-14,8 -16,14 M-6,0 Q-16,3 -20,6 M-6,-2 Q-14,-4 -18,-5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+            <polygon points="0,-10 3,-3 10,-3 4,2 6,9 0,5 -6,9 -4,2 -10,-3 -3,-3" fill="#ffffff" stroke="#00e5ff" stroke-width="1"/>
+          </g>
+        </svg>
+        <span class="bag-qmark">?</span>
+      </div>
+      <div class="bag-hint-badge"><span>🎁</span> Mở túi</div>
+      <div class="bag-ground-shadow"></div>
+    </div>
+
+    <!-- ==================== BAG #4 (Midnight Navy & Golden Cosmos) ==================== -->
+    <div class="bag-item" id="bag-4" onclick="handleBagClick(4)">
+      <div class="bag-aura"></div>
+      <div class="bag-number">#4</div>
+      <div class="bag-body-art">
+        <svg viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="bagGrad4" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#283593"/>
+              <stop offset="45%" stop-color="#1a237e"/>
+              <stop offset="85%" stop-color="#0d134d"/>
+              <stop offset="100%" stop-color="#050721"/>
+            </linearGradient>
+            <radialGradient id="nebula4" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#5c6bc0" stop-opacity="0.65"/>
+              <stop offset="60%" stop-color="#283593" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#0d134d" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <!-- Pouch body -->
+          <path d="
+            M 10 18 
+            L 16 10 L 22 18 L 28 10 L 34 18 L 40 10 L 46 18 L 52 10 L 58 18 L 64 10 L 70 18 L 76 10 
+            L 82 18 L 88 10 L 94 18 L 100 10 L 106 18 L 112 10 L 118 18 L 124 10 L 130 18 L 136 10 
+            L 142 18 L 148 10 L 154 18
+            L 150 202
+            L 144 210 L 138 202 L 132 210 L 126 202 L 120 210 L 114 202 L 108 210 L 102 202 L 96 210 
+            L 90 202 L 84 210 L 78 202 L 72 210 L 66 202 L 60 210 L 54 202 L 48 210 L 42 202 L 36 210 
+            L 30 202 L 24 210 L 18 202 L 12 210 L 6 202
+            Z" 
+            fill="url(#bagGrad4)" stroke="#06092b" stroke-width="2.5" stroke-linejoin="round"/>
+
+          <ellipse cx="80" cy="115" rx="55" ry="50" fill="url(#nebula4)"/>
+
+          <!-- Golden stars & cosmic swirls -->
+          <text x="32" y="70" fill="#ffd54f" font-size="14" opacity="0.9">★</text>
+          <text x="124" y="72" fill="#ffd54f" font-size="12" opacity="0.85">✦</text>
+          <text x="35" y="165" fill="#ffd54f" font-size="11" opacity="0.8">★</text>
+          <text x="122" y="155" fill="#ffd54f" font-size="15" opacity="0.9">★</text>
+          <circle cx="50" cy="95" r="2" fill="#ffd54f"/>
+          <circle cx="112" cy="105" r="2" fill="#fff"/>
+          <!-- Orbit ring -->
+          <ellipse cx="110" cy="160" rx="24" ry="7" fill="none" stroke="#ffd54f" stroke-width="1.5" stroke-opacity="0.7" transform="rotate(-20 110 160)"/>
+
+          <rect x="8" y="18" width="144" height="12" fill="rgba(0,0,0,0.2)"/>
+          <line x1="8" y1="30" x2="152" y2="30" stroke="#7986cb" stroke-width="2"/>
+          <rect x="8" y="190" width="144" height="12" fill="rgba(0,0,0,0.25)"/>
+          <line x1="8" y1="190" x2="152" y2="190" stroke="#7986cb" stroke-width="2"/>
+
+          <rect x="10" y="20" width="140" height="180" fill="url(#shine1)"/>
+
+          <!-- Top Shooting Star badge -->
+          <g transform="translate(80, 48)">
+            <circle cx="0" cy="0" r="18" fill="#0d134d" stroke="#ffd54f" stroke-width="2.5"/>
+            <path d="M-6,2 Q-14,8 -16,14 M-6,0 Q-16,3 -20,6 M-6,-2 Q-14,-4 -18,-5" stroke="#ffe082" stroke-width="2" stroke-linecap="round"/>
+            <polygon points="0,-10 3,-3 10,-3 4,2 6,9 0,5 -6,9 -4,2 -10,-3 -3,-3" fill="#ffe082" stroke="#ffb300" stroke-width="1"/>
+          </g>
+        </svg>
+        <span class="bag-qmark">?</span>
+      </div>
+      <div class="bag-hint-badge"><span>🎁</span> Mở túi</div>
+      <div class="bag-ground-shadow"></div>
+    </div>
+
+    <!-- ==================== BAG #5 (Rose Gold / Sparkle Hologram) ==================== -->
+    <div class="bag-item" id="bag-5" onclick="handleBagClick(5)">
+      <div class="bag-aura"></div>
+      <div class="bag-number">#5</div>
+      <div class="bag-body-art">
+        <svg viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="bagGrad5" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#dfb4c2"/>
+              <stop offset="45%" stop-color="#be8799"/>
+              <stop offset="85%" stop-color="#8d5668"/>
+              <stop offset="100%" stop-color="#552a38"/>
+            </linearGradient>
+            <radialGradient id="nebula5" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#f8bbd0" stop-opacity="0.85"/>
+              <stop offset="60%" stop-color="#d81b60" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="#880e4f" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <!-- Pouch body -->
+          <path d="
+            M 10 18 
+            L 16 10 L 22 18 L 28 10 L 34 18 L 40 10 L 46 18 L 52 10 L 58 18 L 64 10 L 70 18 L 76 10 
+            L 82 18 L 88 10 L 94 18 L 100 10 L 106 18 L 112 10 L 118 18 L 124 10 L 130 18 L 136 10 
+            L 142 18 L 148 10 L 154 18
+            L 150 202
+            L 144 210 L 138 202 L 132 210 L 126 202 L 120 210 L 114 202 L 108 210 L 102 202 L 96 210 
+            L 90 202 L 84 210 L 78 202 L 72 210 L 66 202 L 60 210 L 54 202 L 48 210 L 42 202 L 36 210 
+            L 30 202 L 24 210 L 18 202 L 12 210 L 6 202
+            Z" 
+            fill="url(#bagGrad5)" stroke="#502432" stroke-width="2.5" stroke-linejoin="round"/>
+
+          <ellipse cx="80" cy="115" rx="55" ry="50" fill="url(#nebula5)"/>
+
+          <!-- Dense Twinkling Stardust Glitter -->
+          <text x="35" y="70" fill="#fff" font-size="12" opacity="0.95">✦</text>
+          <text x="120" y="75" fill="#fff" font-size="14" opacity="0.9">✦</text>
+          <text x="34" y="160" fill="#fff" font-size="13" opacity="0.9">✧</text>
+          <text x="122" y="168" fill="#fff" font-size="11" opacity="0.85">✦</text>
+          <circle cx="48" cy="85" r="1.8" fill="#fff"/>
+          <circle cx="62" cy="100" r="1.2" fill="#fff"/>
+          <circle cx="100" cy="90" r="1.5" fill="#fff"/>
+          <circle cx="115" cy="108" r="1.8" fill="#fff"/>
+          <circle cx="50" cy="145" r="1.4" fill="#fff"/>
+          <circle cx="105" cy="150" r="1.6" fill="#fff"/>
+
+          <rect x="8" y="18" width="144" height="12" fill="rgba(0,0,0,0.12)"/>
+          <line x1="8" y1="30" x2="152" y2="30" stroke="#f48fb1" stroke-width="2"/>
+          <rect x="8" y="190" width="144" height="12" fill="rgba(0,0,0,0.18)"/>
+          <line x1="8" y1="190" x2="152" y2="190" stroke="#f48fb1" stroke-width="2"/>
+
+          <rect x="10" y="20" width="140" height="180" fill="url(#shine1)"/>
+
+          <!-- Top Shooting Star badge -->
+          <g transform="translate(80, 48)">
+            <circle cx="0" cy="0" r="18" fill="#6d394a" stroke="#f8bbd0" stroke-width="2.5"/>
+            <path d="M-6,2 Q-14,8 -16,14 M-6,0 Q-16,3 -20,6 M-6,-2 Q-14,-4 -18,-5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+            <polygon points="0,-10 3,-3 10,-3 4,2 6,9 0,5 -6,9 -4,2 -10,-3 -3,-3" fill="#ffffff" stroke="#f06292" stroke-width="1"/>
+          </g>
+        </svg>
+        <span class="bag-qmark">?</span>
+      </div>
+      <div class="bag-hint-badge"><span>🎁</span> Mở túi</div>
+      <div class="bag-ground-shadow"></div>
+    </div>
+
+  </div>
+
+  <!-- Replay Button on bottom-left -->
+  <button class="replay-btn" onclick="handleReplay()" title="Chơi lại toàn bộ túi mù">
+    <span>🔄</span> Chơi lại
+  </button>
+
+  <!-- ==========================================================
+       BOTTOM RIGHT BUTTON ("Chuyển qua Game UFO")
+       ========================================================== -->
+  <div class="bottom-bar">
+    <button type="button" class="ufo-switch-btn" id="btnUFO" onclick="launchUFOTransition()" title="Chuyển sang trò chơi UFO bắt học sinh">
+      <span class="ufo-badge-hot">🚀 GỌI BẮT HỌC SINH</span>
+      <!-- Cartoon UFO Icon SVG -->
+      <svg class="btn-ufo-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="ufoDome" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#80d8ff"/>
+            <stop offset="100%" stop-color="#0091ea"/>
+          </linearGradient>
+          <linearGradient id="ufoHull" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ce93d8"/>
+            <stop offset="50%" stop-color="#ab47bc"/>
+            <stop offset="100%" stop-color="#6a1b9a"/>
+          </linearGradient>
+          <linearGradient id="ufoBeam" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ffff00" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#ffff00" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <!-- Tractor light beam -->
+        <polygon points="35,52 65,52 82,78 18,78" fill="url(#ufoBeam)"/>
+        <!-- Glass Cockpit Dome -->
+        <ellipse cx="50" cy="32" rx="20" ry="16" fill="url(#ufoDome)"/>
+        <ellipse cx="45" cy="27" rx="8" ry="4" fill="#ffffff" opacity="0.6"/>
+        <!-- Saucer Hull -->
+        <ellipse cx="50" cy="46" rx="44" ry="14" fill="url(#ufoHull)" stroke="#4a148c" stroke-width="2"/>
+        <ellipse cx="50" cy="43" rx="42" ry="11" fill="#ba68c8"/>
+        <!-- Ring lights -->
+        <circle cx="20" cy="46" r="3" fill="#ffff00"/>
+        <circle cx="35" cy="49" r="3.5" fill="#00e676"/>
+        <circle cx="50" cy="50" r="4" fill="#ff1744"/>
+        <circle cx="65" cy="49" r="3.5" fill="#00e676"/>
+        <circle cx="80" cy="46" r="3" fill="#ffff00"/>
+      </svg>
+
+      <div class="btn-text-box">
+        <span class="btn-line-1">Chuyển qua</span>
+        <span class="btn-line-2">Game UFO</span>
+      </div>
+    </button>
+  </div>
+
+</div>
+
+<!-- ==========================================================
+     QUIZ MODAL POPUP (EXACT MATCH TO REFERENCE IMAGE 2)
+     ========================================================== -->
+<div class="modal-overlay" id="quizModal">
+  <div class="quiz-board">
+
+    <!-- Overflowing Open Mystery Bag at Top Center -->
+    <svg class="board-top-bag" viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="openBagGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#ff4081"/>
+          <stop offset="60%" stop-color="#ab47bc"/>
+          <stop offset="100%" stop-color="#4a148c"/>
+        </linearGradient>
+      </defs>
+      <!-- Confetti & Candies Bursting Out -->
+      <circle cx="35" cy="18" r="4" fill="#ffeb3b"/>
+      <circle cx="50" cy="10" r="5" fill="#00e676"/>
+      <circle cx="70" cy="12" r="4" fill="#ff1744"/>
+      <circle cx="85" cy="22" r="5" fill="#00b0ff"/>
+      <polygon points="40,24 45,28 38,32" fill="#ffd600"/>
+      <polygon points="76,20 82,26 74,30" fill="#e040fb"/>
+      <!-- Open Bag Pouch -->
+      <path d="M 25 36 Q 60 22 95 36 L 90 90 Q 60 98 30 90 Z" fill="url(#openBagGrad)" stroke="#4a148c" stroke-width="3"/>
+      <!-- Folded open lip -->
+      <path d="M 22 36 Q 60 48 98 36 L 93 46 Q 60 56 27 46 Z" fill="#ea80fc"/>
+      <!-- Big Gold Star on Bag front -->
+      <polygon points="60,54 64,65 76,65 67,72 70,83 60,76 50,83 53,72 44,65 56,65" fill="#ffd600" stroke="#ff8f00" stroke-width="1.5"/>
+    </svg>
+
+    <!-- Top Left Timer Badge -->
+    <div class="board-timer-badge">
+      <span>⏱</span>
+      <span id="quizTimer">0</span>
+    </div>
+
+    <!-- Top Right Close Button -->
+    <button class="board-close-btn" onclick="closeQuizModal()" title="Đóng câu hỏi">✕</button>
+
+    <!-- Question Title & Content Banner -->
+    <div class="question-banner">
+      <div class="q-title" id="qTitle">Câu hỏi 1</div>
+      <div class="q-text" id="qContent">Nội dung câu hỏi trắc nghiệm sẽ hiển thị tại đây?</div>
+    </div>
+
+    <!-- 4 Big 3D Answer Buttons (A, B, C, D) -->
+    <div class="answers-grid">
+      <button class="answer-btn ans-a" id="ansBtn0" onclick="handleSelectAnswer(0)">A. Đáp án 1</button>
+      <button class="answer-btn ans-b" id="ansBtn1" onclick="handleSelectAnswer(1)">B. Đáp án 2</button>
+      <button class="answer-btn ans-c" id="ansBtn2" onclick="handleSelectAnswer(2)">C. Đáp án 3</button>
+      <button class="answer-btn ans-d" id="ansBtn3" onclick="handleSelectAnswer(3)">D. Đáp án 4</button>
+    </div>
+
+    <!-- Feedback Banner -->
+    <div class="feedback-banner" id="feedbackBanner"></div>
+
+    <!-- Next / Continue Button -->
+    <button class="modal-next-btn" id="modalNextBtn" onclick="handleProceedAfterAnswer()">
+      Tiếp tục ➔
+    </button>
+
+  </div>
+</div>
+
+<!-- ==========================================================
+     VICTORY MODAL (ALL 5 BAGS FINISHED)
+     ========================================================== -->
+<div class="victory-modal" id="victoryModal">
+  <div class="victory-box">
+    <h2>🎉 XUẤT SẮC! 🎉</h2>
+    <p>Bạn đã hoàn thành tất cả 5 túi mù bí ẩn!<br>Tổng điểm của bạn: <span id="finalScore" style="color:#e65100;font-size:26px;font-weight:900">100</span> / 100 điểm</p>
+    <div class="victory-actions">
+      <button class="replay-btn" style="position:static" onclick="handleReplay()">🔄 Chơi lại</button>
+      <button type="button" class="ufo-switch-btn" style="position:static" onclick="launchUFOTransition()">
+        <span class="btn-line-2">🛸 Chuyển qua Game UFO</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Sparkle Confetti Canvas -->
+<canvas class="sparkle-canvas" id="confettiCanvas"></canvas>
+
+<!-- ==========================================================
+     HYPERSPACE UFO TRANSITION OVERLAY
+     ========================================================== -->
+<div class="ufo-hyper-warp" id="ufoHyperWarp">
+  <canvas class="warp-tunnel-canvas" id="warpTunnelCanvas"></canvas>
+  <div class="warp-energy-ring"></div>
+  <div class="warp-energy-ring"></div>
+  <div class="warp-energy-ring"></div>
+  <div class="warp-laser-beam"></div>
+
+  <!-- Big Animated Cinematic UFO -->
+  <svg class="warp-ufo-craft" viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="warpDomeGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#e1f5fe"/>
+        <stop offset="30%" stop-color="#80d8ff"/>
+        <stop offset="100%" stop-color="#0091ea"/>
+      </linearGradient>
+      <linearGradient id="warpHullGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#f3e5f5"/>
+        <stop offset="25%" stop-color="#ce93d8"/>
+        <stop offset="60%" stop-color="#ab47bc"/>
+        <stop offset="100%" stop-color="#4a148c"/>
+      </linearGradient>
+      <linearGradient id="warpFlame" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#00e5ff"/>
+        <stop offset="50%" stop-color="#76ff03"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </linearGradient>
+    </defs>
+    <!-- Exhaust plasma jets -->
+    <ellipse cx="70" cy="125" rx="12" ry="32" fill="url(#warpFlame)" opacity="0.8"/>
+    <ellipse cx="120" cy="130" rx="16" ry="40" fill="url(#warpFlame)" opacity="0.9"/>
+    <ellipse cx="170" cy="125" rx="12" ry="32" fill="url(#warpFlame)" opacity="0.8"/>
+    <!-- Glass Dome -->
+    <ellipse cx="120" cy="70" rx="46" ry="40" fill="url(#warpDomeGrad)" stroke="#b3e5fc" stroke-width="2"/>
+    <ellipse cx="108" cy="58" rx="18" ry="9" fill="#ffffff" opacity="0.7"/>
+    <!-- Alien pilot silhouette -->
+    <ellipse cx="120" cy="74" rx="12" ry="14" fill="#00e676"/>
+    <circle cx="115" cy="72" r="2.5" fill="#1b5e20"/>
+    <circle cx="125" cy="72" r="2.5" fill="#1b5e20"/>
+    <!-- Saucer Hull -->
+    <ellipse cx="120" cy="98" rx="108" ry="32" fill="url(#warpHullGrad)" stroke="#311b92" stroke-width="4"/>
+    <ellipse cx="120" cy="92" rx="102" ry="24" fill="#ba68c8"/>
+    <!-- Perimeter neon gems -->
+    <circle cx="35" cy="98" r="7" fill="#ffff00"/>
+    <circle cx="68" cy="106" r="8" fill="#00e676"/>
+    <circle cx="120" cy="110" r="9" fill="#ff1744"/>
+    <circle cx="172" cy="106" r="8" fill="#00e676"/>
+    <circle cx="205" cy="98" r="7" fill="#ffff00"/>
+  </svg>
+
+  <div class="warp-banner">
+    <div class="warp-title">🛸 KÍCH HOẠT CỔNG KHÔNG GIAN UFO</div>
+    <div class="warp-subtitle">Đang dịch chuyển tốc độ ánh sáng đến Game UFO...</div>
+  </div>
+
+  <div class="warp-flash"></div>
+</div>
+
+<!-- Welcome Toast when returning from UFO -->
+<div class="welcome-toast" id="welcomeToast">
+  🛸 Chào mừng bạn đã quay lại Game Túi Mù!
+</div>
+
+<!-- ==========================================================
+     JAVASCRIPT LOGIC & STATE MANAGEMENT
+     ========================================================== -->
+<script>
+/* ==========================================================
+   QUESTIONS DATA (LỊCH SỬ ĐẠI HỘI II & ĐÔNG XUÂN 1953-1954)
+   ========================================================== */
+const QUESTIONS = [
+  {
+    id: 1,
+    title: 'Câu hỏi 1',
+    question: 'Đại hội đại biểu toàn quốc lần thứ II của Đảng (2/1951) đã quyết định đổi tên Đảng Cộng sản Đông Dương thành Đảng gì để phù hợp với tình hình giai đoạn mới?',
+    options: [
+      'A. Đảng Cộng sản Việt Nam',
+      'B. Đảng Lao động Việt Nam',
+      'C. Đảng Nhân dân Cách mạng Việt Nam',
+      'D. Đảng Xã hội Việt Nam'
+    ],
+    correctIndex: 1,
+    explain: 'Chính xác! Tháng 2/1951, Đại hội đại biểu toàn quốc lần II quyết định đổi tên Đảng thành Đảng Lao động Việt Nam.'
+  },
+  {
+    id: 2,
+    title: 'Câu hỏi 2',
+    question: 'Tháng 3 năm 1951, Đại hội thống nhất Việt Minh và Hội Liên Việt đã quyết định thành lập tổ chức mặt trận mới lấy tên là gì?',
+    options: [
+      'A. Mặt trận Dân tộc Giải phóng miền Nam',
+      'B. Mặt trận Liên Việt',
+      'C. Mặt trận Tổ quốc Việt Nam',
+      'D. Hội Liên hiệp Quốc dân Việt Nam'
+    ],
+    correctIndex: 1,
+    explain: 'Chính xác! Đại hội tháng 3/1951 đã thống nhất Việt Minh và Liên Việt thành Mặt trận Liên Việt.'
+  },
+  {
+    id: 3,
+    title: 'Câu hỏi 3',
+    question: 'Trong cuộc tiến công chiến lược Đông - Xuân 1953 - 1954, Bộ Tổng tư lệnh ra chủ trương tập trung lực lượng mở những cuộc tiến công vào các hướng như thế nào?',
+    options: [
+      'A. Hướng mà địch tương đối yếu mà ta có thể tiêu diệt',
+      'B. Đánh thẳng vào đầu não chỉ huy của địch ở Hà Nội',
+      'C. Đánh trực diện vào tập đoàn cứ điểm Điện Biên Phủ ngay từ đầu',
+      'D. Rút toàn bộ lực lượng về bảo vệ căn cứ địa Việt Bắc'
+    ],
+    correctIndex: 0,
+    explain: 'Chính xác! Phương châm là tiến công vào những hướng địch sơ hở, tương đối yếu nhưng có vị trí chiến lược quan trọng.'
+  },
+  {
+    id: 4,
+    title: 'Câu hỏi 4',
+    question: 'Liên quân Lào - Việt đã phối hợp thực hiện chiến dịch nào trong năm 1954 nhằm giải phóng Thượng Lào, tiêu diệt sinh lực địch và phối hợp với chiến trường chính?',
+    options: [
+      'A. Chiến dịch Trung Lào',
+      'B. Chiến dịch Thượng Lào',
+      'C. Chiến dịch Tây Bắc',
+      'D. Chiến dịch Biên giới'
+    ],
+    correctIndex: 1,
+    explain: 'Chính xác! Chiến dịch Thượng Lào đã giải phóng toàn bộ tỉnh Sầm Nưa và một phần Xiêng Khoảng, Phong Xa Lì.'
+  },
+  {
+    id: 5,
+    title: 'Câu hỏi 5',
+    question: 'Nội dung nào dưới đây phản ánh đúng cam kết của các nước tham dự Hội nghị Giơ-ne-vơ năm 1954 đối với Việt Nam?',
+    options: [
+      'A. Công nhận ngay lập tức độc lập hoàn toàn của cả Đông Dương',
+      'B. Đưa quân Liên hợp quốc vào quản lý Đông Dương',
+      'C. Cam kết tôn trọng các quyền dân tộc cơ bản: độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ',
+      'D. Duy trì sự hiện diện quân sự của Pháp tại miền Bắc'
+    ],
+    correctIndex: 2,
+    explain: 'Chính xác! Hiệp định Giơ-ne-vơ cam kết tôn trọng độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ của ba nước Đông Dương.'
+  }
+];
+
+/* ==========================================================
+   GAME STATE & PERSISTENCE
+   ========================================================== */
+let score = 0;
+let answeredBags = new Set();
+let activeBagId = null;
+let currentQuestion = null;
+let isAnswerLocked = false;
+let timerInterval = null;
+let timerSeconds = 0;
+
+/* Sound Synthesis using Web Audio API */
+let audioCtx = null;
+function getAudioContext() {
+  if (!audioCtx) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (AudioContextClass) audioCtx = new AudioContextClass();
+  }
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+  return audioCtx;
+}
+
+let isSoundMuted = false;
+function toggleSound() {
+  isSoundMuted = !isSoundMuted;
+  const btn = document.getElementById('soundToggleBtn');
+  if (btn) {
+    btn.innerHTML = isSoundMuted ? '<span>🔇</span> Đã tắt âm' : '<span>🔊</span> Âm thanh';
+    btn.style.opacity = isSoundMuted ? '0.75' : '1';
+  }
+}
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().then(() => {
+      sessionStorage.setItem('game_fullscreen', 'true');
+    }).catch(() => {});
+  } else {
+    document.exitFullscreen().then(() => {
+      sessionStorage.setItem('game_fullscreen', 'false');
+    }).catch(() => {});
+  }
+}
+
+document.addEventListener('fullscreenchange', () => {
+  const isFs = !!document.fullscreenElement;
+  sessionStorage.setItem('game_fullscreen', isFs ? 'true' : 'false');
+  const btn = document.getElementById('fsToggleBtn');
+  if (btn) btn.innerHTML = isFs ? '<span>⛶</span> Thu nhỏ' : '<span>⛶</span> Toàn màn hình';
+});
+
+// Auto-restore fullscreen if turned on in UFO page
+function tryRestoreFullscreen() {
+  if (sessionStorage.getItem('game_fullscreen') === 'true' && !document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  }
+}
+const handleFirstInteraction = () => {
+  tryRestoreFullscreen();
+  window.removeEventListener('pointerdown', handleFirstInteraction);
+  window.removeEventListener('keydown', handleFirstInteraction);
+};
+window.addEventListener('pointerdown', handleFirstInteraction);
+window.addEventListener('keydown', handleFirstInteraction);
+
+function playSound(type) {
+  if (isSoundMuted) return;
+  try {
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    const now = ctx.currentTime;
+
+    if (type === 'click') {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(600, now);
+      osc.frequency.exponentialRampToValueAtTime(850, now + 0.08);
+      gain.gain.setValueAtTime(0.2, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.08);
+    } 
+    else if (type === 'open') {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(320, now);
+      osc.frequency.exponentialRampToValueAtTime(750, now + 0.22);
+      gain.gain.setValueAtTime(0.35, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.22);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.22);
+    }
+    else if (type === 'correct') {
+      // Cheerful chime
+      [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now + i * 0.08);
+        gain.gain.setValueAtTime(0.28, now + i * 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.25);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + i * 0.08);
+        osc.stop(now + i * 0.08 + 0.25);
+      });
+    }
+    else if (type === 'wrong') {
+      // Low buzz
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(180, now);
+      osc.frequency.setValueAtTime(130, now + 0.15);
+      gain.gain.setValueAtTime(0.25, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.35);
+    }
+    else if (type === 'victory') {
+      // Fanfare
+      const notes = [440, 554.37, 659.25, 880, 880, 880, 1108.73];
+      const times = [0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9];
+      notes.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, now + times[idx]);
+        gain.gain.setValueAtTime(0.3, now + times[idx]);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + times[idx] + 0.35);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + times[idx]);
+        osc.stop(now + times[idx] + 0.35);
+      });
+    }
+    else if (type === 'warp') {
+      // Sci-fi hyperdrive engine spin-up
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(140, now);
+      osc.frequency.exponentialRampToValueAtTime(1200, now + 1.15);
+      gain.gain.setValueAtTime(0.01, now);
+      gain.gain.linearRampToValueAtTime(0.28, now + 0.3);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 1.25);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 1.25);
+
+      // Low frequency sub-rumble
+      const osc2 = ctx.createOscillator();
+      const gain2 = ctx.createGain();
+      osc2.type = 'sine';
+      osc2.frequency.setValueAtTime(55, now);
+      osc2.frequency.exponentialRampToValueAtTime(260, now + 1.15);
+      gain2.gain.setValueAtTime(0.38, now);
+      gain2.gain.exponentialRampToValueAtTime(0.01, now + 1.25);
+      osc2.connect(gain2);
+      gain2.connect(ctx.destination);
+      osc2.start(now);
+      osc2.stop(now + 1.25);
+    }
+  } catch (err) {
+    console.warn('Audio playback error', err);
+  }
+}
+
+/* ==========================================================
+   INITIALIZATION & LOCALSTORAGE
+   ========================================================== */
+function initGame() {
+  // Load saved state if any
+  try {
+    const raw = localStorage.getItem('tui_mu_game_save');
+    if (raw) {
+      const data = JSON.parse(raw);
+      score = data.score || 0;
+      if (Array.isArray(data.answered)) {
+        answeredBags = new Set(data.answered);
+      }
+    }
+  } catch (e) {
+    console.warn('Error reading saved state', e);
+  }
+
+  updateScoreUI();
+  updateBagsUI();
+}
+
+function saveGameState() {
+  try {
+    const data = {
+      score: score,
+      answered: Array.from(answeredBags)
+    };
+    localStorage.setItem('tui_mu_game_save', JSON.stringify(data));
+  } catch (e) {
+    console.warn('Error saving state', e);
+  }
+}
+
+function updateScoreUI() {
+  document.getElementById('scoreDisplay').textContent = score;
+}
+
+function updateBagsUI() {
+  for (let i = 1; i <= 5; i++) {
+    const bagEl = document.getElementById(`bag-${i}`);
+    if (bagEl) {
+      if (answeredBags.has(i)) {
+        bagEl.classList.add('opened');
+      } else {
+        bagEl.classList.remove('opened');
+      }
+    }
+  }
+
+  // Check if all answered
+  if (answeredBags.size === 5) {
+    setTimeout(() => {
+      showVictoryModal();
+    }, 600);
+  }
+}
+
+/* ==========================================================
+   BAG CLICK & MODAL OPEN
+   ========================================================== */
+function handleBagClick(bagId) {
+  if (answeredBags.has(bagId)) return;
+
+  playSound('open');
+  activeBagId = bagId;
+  currentQuestion = QUESTIONS.find(q => q.id === bagId) || QUESTIONS[0];
+  isAnswerLocked = false;
+
+  // Reset timer
+  clearInterval(timerInterval);
+  timerSeconds = 0;
+  document.getElementById('quizTimer').textContent = '0s';
+  timerInterval = setInterval(() => {
+    timerSeconds++;
+    document.getElementById('quizTimer').textContent = timerSeconds + 's';
+  }, 1000);
+
+  // Populate modal
+  document.getElementById('qTitle').textContent = currentQuestion.title;
+  document.getElementById('qContent').textContent = currentQuestion.question;
+
+  // Populate options
+  for (let i = 0; i < 4; i++) {
+    const btn = document.getElementById(`ansBtn${i}`);
+    btn.textContent = currentQuestion.options[i];
+    btn.disabled = false;
+    btn.classList.remove('correct-glow', 'wrong-shake');
+  }
+
+  // Reset feedback & next button
+  const fb = document.getElementById('feedbackBanner');
+  fb.className = 'feedback-banner';
+  fb.style.display = 'none';
+  fb.innerHTML = '';
+
+  const nextBtn = document.getElementById('modalNextBtn');
+  nextBtn.classList.remove('show');
+
+  // Open modal
+  const modal = document.getElementById('quizModal');
+  modal.classList.add('active');
+}
+
+function closeQuizModal() {
+  playSound('click');
+  clearInterval(timerInterval);
+  document.getElementById('quizModal').classList.remove('active');
+}
+
+/* ==========================================================
+   ANSWER SELECTION
+   ========================================================== */
+function handleSelectAnswer(chosenIndex) {
+  if (isAnswerLocked || !currentQuestion) return;
+  isAnswerLocked = true;
+  clearInterval(timerInterval);
+
+  // Disable all answer buttons
+  for (let i = 0; i < 4; i++) {
+    document.getElementById(`ansBtn${i}`).disabled = true;
+  }
+
+  const isCorrect = (chosenIndex === currentQuestion.correctIndex);
+  const correctBtn = document.getElementById(`ansBtn${currentQuestion.correctIndex}`);
+  const chosenBtn = document.getElementById(`ansBtn${chosenIndex}`);
+  const feedbackBanner = document.getElementById('feedbackBanner');
+
+  if (isCorrect) {
+    playSound('correct');
+    score += 20;
+    updateScoreUI();
+    correctBtn.classList.add('correct-glow');
+    triggerConfetti(60);
+
+    feedbackBanner.className = 'feedback-banner correct';
+    feedbackBanner.innerHTML = `🎉 <b>CHÍNH XÁC!</b> +20 điểm<br><span style="font-size:14px">${currentQuestion.explain}</span>`;
+  } else {
+    playSound('wrong');
+    chosenBtn.classList.add('wrong-shake');
+    correctBtn.classList.add('correct-glow');
+
+    feedbackBanner.className = 'feedback-banner wrong';
+    feedbackBanner.innerHTML = `❌ <b>CHƯA CHÍNH XÁC!</b><br><span style="font-size:14px">Đáp án đúng là: <b>${currentQuestion.options[currentQuestion.correctIndex]}</b></span>`;
+  }
+
+  feedbackBanner.style.display = 'block';
+
+  // Show Next button
+  const nextBtn = document.getElementById('modalNextBtn');
+  nextBtn.classList.add('show');
+}
+
+/* ==========================================================
+   PROCEED AFTER ANSWERING (BAG EXPLODES & DISAPPEARS)
+   ========================================================== */
+function handleProceedAfterAnswer() {
+  playSound('click');
+  closeQuizModal();
+
+  if (activeBagId !== null) {
+    answeredBags.add(activeBagId);
+    saveGameState();
+
+    const targetBag = document.getElementById(`bag-${activeBagId}`);
+    if (targetBag) {
+      targetBag.classList.add('opened');
+      triggerBagBurstParticles(targetBag);
+    }
+  }
+
+  // Check victory condition
+  if (answeredBags.size === 5) {
+    setTimeout(showVictoryModal, 700);
+  }
+}
+
+/* ==========================================================
+   CONFETTI & CELEBRATION PARTICLES
+   ========================================================== */
+const canvas = document.getElementById('confettiCanvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let animFrameId = null;
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+function triggerConfetti(count = 70) {
+  const colors = ['#f44336', '#e91e63', '#9c27b0', '#2196f3', '#00bcd4', '#4caf50', '#ffeb3b', '#ff9800'];
+  const centerX = canvas.width / 2;
+  const centerY = canvas.height * 0.45;
+
+  for (let i = 0; i < count; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 4 + Math.random() * 12;
+    particles.push({
+      x: centerX,
+      y: centerY,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed - 3,
+      size: 5 + Math.random() * 8,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      alpha: 1,
+      decay: 0.012 + Math.random() * 0.015,
+      rotation: Math.random() * 360,
+      spin: (Math.random() - 0.5) * 12
+    });
+  }
+
+  if (!animFrameId) {
+    renderParticles();
+  }
+}
+
+function triggerBagBurstParticles(bagElement) {
+  const rect = bagElement.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+  const colors = ['#ffd700', '#ff80ab', '#80deea', '#e040fb', '#ffffff'];
+
+  for (let i = 0; i < 45; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 3 + Math.random() * 9;
+    particles.push({
+      x: centerX,
+      y: centerY,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed - 2,
+      size: 4 + Math.random() * 7,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      alpha: 1,
+      decay: 0.015 + Math.random() * 0.02,
+      rotation: Math.random() * 360,
+      spin: (Math.random() - 0.5) * 15
+    });
+  }
+
+  if (!animFrameId) {
+    renderParticles();
+  }
+}
+
+function renderParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vy += 0.22; // gravity
+    p.vx *= 0.98;
+    p.alpha -= p.decay;
+    p.rotation += p.spin;
+
+    if (p.alpha <= 0) {
+      particles.splice(i, 1);
+      continue;
+    }
+
+    ctx.save();
+    ctx.globalAlpha = p.alpha;
+    ctx.translate(p.x, p.y);
+    ctx.rotate((p.rotation * Math.PI) / 180);
+    ctx.fillStyle = p.color;
+    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+    ctx.restore();
+  }
+
+  if (particles.length > 0) {
+    animFrameId = requestAnimationFrame(renderParticles);
+  } else {
+    animFrameId = null;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+}
+
+/* ==========================================================
+   VICTORY & REPLAY
+   ========================================================== */
+function showVictoryModal() {
+  playSound('victory');
+  triggerConfetti(120);
+  document.getElementById('finalScore').textContent = score;
+  document.getElementById('victoryModal').classList.add('active');
+}
+
+function handleReplay() {
+  playSound('click');
+  score = 0;
+  answeredBags.clear();
+  try {
+    localStorage.removeItem('tui_mu_game_save');
+    localStorage.removeItem('tm');
+  } catch (e) {}
+
+  document.getElementById('victoryModal').classList.remove('active');
+  closeQuizModal();
+  updateScoreUI();
+  updateBagsUI();
+}
+
+function handleGoHome() {
+  playSound('click');
+  if (confirm('Bạn có muốn quay về màn hình chính không?')) {
+    window.location.href = '../index.html';
+  }
+}
+
+// Close modals on clicking backdrop
+document.getElementById('quizModal').addEventListener('click', function(e) {
+  if (e.target === this) closeQuizModal();
+});
+
+/* ==========================================================
+   MODERN HYPERSPACE UFO TRANSITION LOGIC
+   ========================================================== */
+let warpCanvasAnimId = null;
+
+function runWarpTunnelAnimation() {
+  const c = document.getElementById('warpTunnelCanvas');
+  if (!c) return;
+  const cx = c.getContext('2d');
+  c.width = window.innerWidth;
+  c.height = window.innerHeight;
+
+  const stars = [];
+  const numStars = 100;
+  for (let i = 0; i < numStars; i++) {
+    stars.push({
+      x: (Math.random() - 0.5) * c.width,
+      y: (Math.random() - 0.5) * c.height,
+      z: Math.random() * c.width,
+      color: ['#00e5ff', '#76ff03', '#ffffff', '#ffd54f'][Math.floor(Math.random() * 4)]
+    });
+  }
+
+  const originX = c.width / 2;
+  const originY = c.height / 2;
+
+  function step() {
+    cx.fillStyle = 'rgba(8, 2, 28, 0.28)';
+    cx.fillRect(0, 0, c.width, c.height);
+
+    for (let i = 0; i < numStars; i++) {
+      const s = stars[i];
+      s.z -= 20; // Hyper-speed velocity
+      if (s.z <= 0) {
+        s.z = c.width;
+        s.x = (Math.random() - 0.5) * c.width;
+        s.y = (Math.random() - 0.5) * c.height;
+      }
+
+      const k = 260 / s.z;
+      const px = s.x * k + originX;
+      const py = s.y * k + originY;
+
+      const prevK = 260 / (s.z + 55);
+      const prevX = s.x * prevK + originX;
+      const prevY = s.y * prevK + originY;
+
+      if (px >= 0 && px <= c.width && py >= 0 && py <= c.height) {
+        cx.beginPath();
+        cx.moveTo(prevX, prevY);
+        cx.lineTo(px, py);
+        cx.strokeStyle = s.color;
+        cx.lineWidth = Math.min(4.5, (1 - s.z / c.width) * 4.5 + 0.8);
+        cx.stroke();
+      }
+    }
+    warpCanvasAnimId = requestAnimationFrame(step);
+  }
+  step();
+}
+
+function launchUFOTransition() {
+  playSound('warp');
+  sessionStorage.setItem('game_fullscreen', !!document.fullscreenElement ? 'true' : 'false');
+  const overlay = document.getElementById('ufoHyperWarp');
+  if (overlay) {
+    overlay.classList.add('active');
+    runWarpTunnelAnimation();
+  }
+  setTimeout(() => {
+    window.location.href = 'ufo.html?from=tuimu';
+  }, 1350);
+}
+
+function checkFromUFO() {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('from') === 'ufo') {
+    playSound('correct');
+    const toast = document.getElementById('welcomeToast');
+    if (toast) {
+      setTimeout(() => toast.classList.add('show'), 350);
+      setTimeout(() => toast.classList.remove('show'), 3800);
+    }
+    // Clean URL parameter without reloading
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+}
+
+function initAmbientSparks() {
+  const canvas = document.getElementById('ambientSparks');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w = canvas.width = window.innerWidth;
+  let h = canvas.height = window.innerHeight;
+
+  window.addEventListener('resize', () => {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  });
+
+  const SPARKS_COUNT = 38;
+  const sparks = Array.from({ length: SPARKS_COUNT }, () => ({
+    x: Math.random() * w,
+    y: Math.random() * h,
+    size: Math.random() * 2.6 + 1.2,
+    speedY: Math.random() * 0.45 + 0.22,
+    speedX: (Math.random() - 0.5) * 0.35,
+    opacity: Math.random() * 0.65 + 0.35,
+    pulseSpeed: Math.random() * 0.03 + 0.015,
+    pulse: Math.random() * Math.PI,
+    color: Math.random() > 0.4 ? '#fff9c4' : (Math.random() > 0.5 ? '#ffd54f' : '#b2ff59')
+  }));
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    sparks.forEach(s => {
+      s.y -= s.speedY;
+      s.x += s.speedX;
+      s.pulse += s.pulseSpeed;
+      if (s.y < -20) {
+        s.y = h + 10;
+        s.x = Math.random() * w;
+      }
+      if (s.x < -20) s.x = w + 10;
+      if (s.x > w + 20) s.x = -10;
+
+      const alpha = (Math.sin(s.pulse) * 0.5 + 0.5) * s.opacity;
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = s.color;
+      ctx.shadowColor = s.color;
+      ctx.shadowBlur = 8;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Delicate sparkle star flare on bigger sparks
+      if (s.size > 2.5 && alpha > 0.55) {
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.moveTo(s.x - s.size * 2, s.y);
+        ctx.lineTo(s.x + s.size * 2, s.y);
+        ctx.moveTo(s.x, s.y - s.size * 2);
+        ctx.lineTo(s.x, s.y + s.size * 2);
+        ctx.stroke();
+      }
+      ctx.restore();
+    });
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+}
+
+// Run initialization on page load
+window.addEventListener('DOMContentLoaded', () => {
+  initGame();
+  checkFromUFO();
+  initAmbientSparks();
+});
+</script>
+
+</body>
+</html>

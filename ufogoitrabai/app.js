@@ -32,7 +32,7 @@ import {setupTeacherAccount,quarantineAccountClassrooms,accountSafeCollection,fl
 import {createGameStateSync} from './game-state-sync.js';
 import {createTeacherLive} from './teacher-live.js';
 import { STORAGE_KEY, parseRoster, restoreState, pickStudents, genderLabel, makeStudents } from './core.js';
-import { CLASSROOMS_STORAGE_KEY, MAX_CLASSROOMS, restoreClassrooms, getActiveClassroom, manualClassroomStudents, addClassroom, renameClassroom, selectClassroom, removeClassroom, presentStudents, availableStudents, pendingAbsentStudents, setStudentAbsent, replaceClassRoster, mergeCloudClassroom, cloudRosterRows, rebaseDraftAfterMetadataSave, initializeClassroomEnvironments, rebaseDraftForJoinedProfiles } from './classroom.js';
+import { CLASSROOMS_STORAGE_KEY, MAX_CLASSROOMS, restoreClassrooms, getActiveClassroom, manualClassroomStudents, addClassroom, renameClassroom, selectClassroom, removeClassroom, presentStudents, availableStudents, pendingAbsentStudents, setStudentAbsent, replaceClassRoster, mergeCloudClassroom, cloudRosterRows, rebaseDraftAfterMetadataSave, initializeClassroomEnvironments, rebaseDraftForJoinedProfiles, DEFAULT_STUDENTS_LIST } from './classroom.js';
 
 const $ = id => document.getElementById(id);
 const sceneCaptionActions=$('sceneCaptionActions'),sceneAttendanceBtn=$('sceneAttendanceBtn'),sceneEditBtn=$('sceneEditBtn'),sceneQrBtn=$('sceneQrBtn');
@@ -55,6 +55,9 @@ try{classrooms=restoreClassrooms(localStorage.getItem(CLASSROOMS_STORAGE_KEY),le
 const cachedAccountRooms=quarantineAccountClassrooms(classrooms);
 let account=null,teacherAccount=null,gameSync=null,teacherLive=null,accountReady=false;
 let state=getActiveClassroom(classrooms).state;
+if(!state.students||!state.students.length){
+  state.students=makeStudents(DEFAULT_STUDENTS_LIST);
+}
 // Older saved mute preferences no longer apply: each new flight has sound.
 state.sound=true;
 const classroomDrafts=new Map(),draftBases=new Map();let classroomNameMode='new', sharing=null;
@@ -93,7 +96,7 @@ const scene = new UFOScene($('scene'));
 const ENVIRONMENT_STORAGE_KEY='ufo-tra-bai:environment:v1';
 const ENVIRONMENTS={
   street:{label:t("Phố nhỏ"),title:t("CHỦ TỊCH HỒ CHÍ MINH"),subtitle:''},
-  school:{label:t("Sân trường"),title:t("TRƯỜNG THPT LƯƠNG VĂN CAN"),subtitle:''},
+  school:{label:t("Sân trường"),title:t("TRƯỜNG THPT LƯƠNG VĂN CAN"),subtitle:'12A8'},
   park:{label:t("Công viên"),title:t("HỒ GƯƠM"),subtitle:t("THĂNG LONG · HÀ NỘI")},
   seaside:{label:t("Phố biển"),title:t("VỊNH HẠ LONG"),subtitle:t("DI SẢN VIỆT NAM")}
 };
@@ -135,7 +138,7 @@ if(sharedSettings){
   suspensePreference.setLevel(sharedSettings.suspense);
 }
 function restoreEnvironment(){
-  const restored={theme:'street',names:{}};
+  const restored={theme:'school',names:{school:{title:'TRƯỜNG THPT LƯƠNG VĂN CAN',subtitle:'12A8'}}};
   try{
     const saved=JSON.parse(localStorage.getItem(ENVIRONMENT_STORAGE_KEY));
     if(!saved||typeof saved!=='object')return restored;
@@ -150,7 +153,7 @@ function restoreEnvironment(){
   return restored;
 }
 function currentEnvironment(){
-  const defaults={...ENVIRONMENTS[environment.theme],...(environment.theme==='school'?{subtitle:getActiveClassroom(classrooms).name}:{})},names=environment.names[environment.theme]||{};
+  const defaults={...ENVIRONMENTS[environment.theme],...(environment.theme==='school'?{subtitle:environment.names[environment.theme]?.subtitle||'12A8'}:{})},names=environment.names[environment.theme]||{};
   return {theme:environment.theme,title:names.title?.trim()||defaults.title,subtitle:names.subtitle?.trim()||defaults.subtitle};
 }
 function saveEnvironment(){

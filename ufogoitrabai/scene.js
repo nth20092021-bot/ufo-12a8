@@ -75,7 +75,7 @@ export class UFOScene {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d', { alpha: false });
     this.students = []; this.roster = []; this.run = null; this.reduced = false; this.dead = false; this.speed = 1; this.warningPaused = !!document.hidden;
-    this.environment={theme:'street',title:'CHỦ TỊCH HỒ CHÍ MINH',subtitle:''};
+    this.environment={theme:'school',title:'TRƯỜNG THPT LƯƠNG VĂN CAN',subtitle:'12A8'};
     this.started = performance.now(); this.last = this.started; this.time = 0;
     this.background = document.createElement('canvas'); this.background.width = W; this.background.height = H;
     this._buildStreet(this.background.getContext('2d'));
@@ -87,7 +87,7 @@ export class UFOScene {
       const portrait = this.width / this.height < 1.45;
       const scale = portrait ? Math.max(this.width / 900, this.height / 1050) : Math.max(this.width / W, this.height / H);
       const vw = this.width / scale, vh = this.height / scale;
-      const top = portrait ? -Math.max(0, vh - H) * .22 : Math.max(0, (H - vh) * .2);
+      const top = portrait ? -Math.max(0, vh - H) * .22 : (vh < H ? H - vh : 0);
       this.view = { scale, width: vw, height: vh, left: (W - vw) / 2, right: (W + vw) / 2, top, bottom: top + vh, portrait };
       this.petPassers?.reset();this.petVisitor=null;this.streetVendors?.reset();
       this._layoutStudents();
@@ -447,13 +447,9 @@ export class UFOScene {
       this.run.follow=!!follow;
       this.run.sharedClock=!!sharedClock;
       this.run.choreographyVersion=choreographyVersion===2?2:1;
-      this.run.nearMissesEnabled=nearMisses===true&&this.run.choreographyVersion===2&&!timelineReduced;
-      // Choose performers from the roster, never from the winning draw or the
-      // viewport's prop assignment. Their two scenes happen before any capture.
-      this.run.nearMissActors=new Map(this.run.nearMissesEnabled?this.students.filter(p=>!p.removed)
-        .sort((a,b)=>hash(a.id+'rescue')-hash(b.id+'rescue')||String(a.id).localeCompare(String(b.id)))
-        .slice(0,2).map((p,index)=>[p.id,{start:.405+index*.07,end:.475+index*.07,variant:index?'one-hand':'both-hands'}]):[]);
-      this.run.nearMissReducedAt=this.reduced?0:null;
+      this.run.nearMissesEnabled=false;
+      this.run.nearMissActors=new Map();
+      this.run.nearMissReducedAt=null;
       this.run.totalDuration=this._totalDuration();
       this.run.waitingSeats=new Map(this.students.filter(person=>person.waitingSeat).map(person=>[person.id,person.waitingSeat]));
       for(const person of this.students)person.waitingSeat=null;
@@ -488,12 +484,18 @@ export class UFOScene {
     this.resultNight=waitForResult?darkness:null;
     this.daylightReturn=waitForResult?null:{started:this.last||0,duration:this.reduced?0:450/this.speed,from:darkness};
     this.run = null; this.nameHitFrame=null; run.selected.forEach(s => { s.removed = true; });
-    for(const person of this.students){const grip=run.grips.get(person.id);if(grip&&!person.removed){
-      const fall=run.falls?.get(person.id);
-      if(fall){person.x=fall.seatX;person.direction=person.facing=fall.facing;person.walking=person.chatting=false;
-        person.recovery={...fall,started:this.time,startedReal:performance.now(),delay:this.reduced?.5:2.2+person.seed*.6,duration:this.reduced?.4:1.05+person.seed*.2};}
-      else {person.x=grip.groundX;person.stepPose=resetFootPlants(person);}
-    }}
+    for(const person of this.students){
+      if(!person.removed){
+        const fall=run.falls?.get(person.id);
+        if(fall){
+          person.x=fall.seatX;person.direction=person.facing=fall.facing;person.walking=person.chatting=false;
+          person.recovery={...fall,started:this.time,startedReal:performance.now(),delay:this.reduced?.5:2.2+person.seed*.6,duration:this.reduced?.4:1.05+person.seed*.2};
+        }else{
+          person.walking=false;person.chatting=false;
+          person.stepPose=resetFootPlants(person);
+        }
+      }
+    }
     try { run.onEffects({ufoEffect:null,effectProgress:0,effectDuration:0,lightEffect:null,lightProgress:0,lightDuration:0,suspenseEffect:null,suspenseProgress:0,suspenseDuration:0,targetId:null,speed:this.speed}); } catch (_) { /* Effects must never prevent completion. */ }
     run.resolve();
   }
@@ -572,19 +574,20 @@ export class UFOScene {
       rr(c,cx,bottom-120,5,52,1,'#d4cdb8');
     }
     for(const px of [x+22,x+w-22])rr(c,px-4,bottom-74,8,13,1,'#8d8773');
-    this._vietnamFlag(c,x+w*.48,y+2,.95);
+    this._vietnamFlag(c, x + w / 2, y + 2, 1.0);
   }
 
   _vietnamFlag(c,x,y,s=1) {
     c.save();c.translate(x,y);c.scale(s,s);
-    line(c,0,0,0,27,'#6d765f',1.5);
-    c.fillStyle='#c92732';c.fillRect(1,1,21,14);
+    line(c,0,-2,0,28,'#d8e2dc',2);
+    ellipse(c,0,-2,2.5,2.5,'#ffd54f');
+    c.fillStyle='#da251d';c.fillRect(1,0,22,14);
     const points=[];
     for(let i=0;i<10;i++){
-      const angle=-Math.PI/2+i*Math.PI/5,radius=i%2?2.2:5;
-      points.push([11+Math.cos(angle)*radius,8+Math.sin(angle)*radius]);
+      const angle=-Math.PI/2+i*Math.PI/5,radius=i%2?2.4:5.5;
+      points.push([12+Math.cos(angle)*radius,7+Math.sin(angle)*radius]);
     }
-    poly(c,points,'#f5d451');
+    poly(c,points,'#ffeb3b');
     c.restore();
   }
 
@@ -664,63 +667,14 @@ export class UFOScene {
   }
 
   _makeGrips(selected) {
-    const props=this._props(),v=this.view,grips=new Map(),slots=[];
-    // These coordinates use the exact transforms used to paint each object.
-    const pole=(x,top,bottom,type,side=0)=>slots.push({x,top,bottom,type,side,axis:'vertical'});
-    const bar=(x,y,type,side)=>slots.push({x,y,type,side,axis:'horizontal'});
-    for(const support of this.supports||[]){
-      if(support.type==='scooter'){
-        const direction=support.index%2?-1:1,scale=.93;
-        bar(support.x+19*scale*direction,support.y-43*scale,'scooter',direction);
-        bar(support.x-23*scale*direction,support.y-30*scale,'scooter',-direction);
-      }else for(const side of [-1,1])pole(support.x,support.y-87,support.y-15,'post',side);
-    }
-    const lampPositions=v.width>900?[.12,.88]:[.16,.76],lampBase=Math.min(v.bottom-22,695);
-    lampPositions.forEach((f,i)=>{
-      const lx=v.left+v.width*f,top=328+(i%2)*9+27;
-      for(const side of [-1,1])pole(lx,top,lampBase,'post',side);
-    });
-    const bottom=Math.min(v.bottom-17,703),top=bottom-139;
-    pole(props.busX-3,top+35,top+108,'bus',-1);pole(props.busX+119,top+35,top+108,'bus',1);
-    pole(v.right-70,bottom-98,bottom-20,'phone',-1);
-    for(const x of [props.carX,props.redCarX])for(const hx of [-21,13])bar(x+hx,props.carY-(x===props.redCarX?5:0)-23.5,'car',hx<0?-1:1);
-    if(this.environment.theme==='street')for(const [x,y,scale] of [[91,475,.92],[773,485,.78],[1103,480,1.1]])pole(x,y-88*scale,y+6*scale,'tree');
-    const available=slots.filter(a=>a.x>v.left+6&&a.x<v.right-6),occupied=new Map();
-    const surface=slot=>`${slot.type}:${slot.x}:${slot.top}:${slot.bottom}`;
-    // Choose a nearby free contact even after a long idle walk.
-    for(const person of [...this.students].filter(p=>!p.removed).sort((a,b)=>a.y-b.y)){
-      const s=person.scale,shoulderY=person.y-SHOULDER_H*s,rescue=this.run?.nearMissActors?.has(person.id);
-      const preferred=Math.floor(hash(person.id+'cling')*CLING_STYLES.length),jitter=(hash(person.id+'height')-.5)*5;
-      const rank=slot=>{
-        if(rescue&&slot.axis!=='vertical')return {feasible:false};
-        const side=slot.side||(person.x<slot.x?-1:1);
-        return CLING_STYLES.map((style,index)=>{
-          const gap=slot.axis==='vertical'?style.gap:0;
-          const handY=slot.axis==='vertical'?clamp(person.y-(style.height+jitter)*s,slot.top+(gap+(rescue?12:0))*s,slot.bottom-gap*s):slot.y;
-          const height=(person.y-handY)/s,crouch=clamp(handY-shoulderY-12*s,0,14*s),dy=Math.abs(handY-shoulderY-crouch)/s;
-          const reachX=Math.sqrt(Math.max(0,27*27-(dy+gap)**2))-8;
-          const feasible=reachX>=6&&height>=style.minHeight&&(!rescue||slot.top+(gap+12)*s<=slot.bottom-gap*s),offset=Math.min(19,Math.max(6,reachX)),groundX=slot.x+side*offset*s;
-          // Opposite sides of one shaft share this occupancy record. Prefer a
-          // wrist band about a head apart, even in the dense-roster fallback.
-          const crowd=(occupied.get(surface(slot))||[]).reduce((sum,other)=>sum+
-            38*s*clamp(1-Math.abs(handY-other.handY)/(19*s))+(other.style===style.name?12*s:0),0);
-          const preference=index===preferred?0:7*s;
-          return {slot,side,handY,groundX,crouch,style,feasible,
-            score:Math.abs(person.x-groundX)+Math.abs(height-style.height)*s*.35+crowd+preference};
-        }).filter(a=>a.feasible).sort((a,b)=>a.score-b.score)[0]||{feasible:false};
-      };
-      let candidates=available.map(rank).filter(a=>a.feasible).sort((a,b)=>a.score-b.score);
-      // A dense roster may share a pole; never assign a far-away, unreachable prop.
-      const nearbyPoles=slots.filter(a=>a.type==='post').map(rank).filter(a=>a.feasible).sort((a,b)=>a.score-b.score);
-      if(!candidates.length||(nearbyPoles[0]&&candidates[0].score>nearbyPoles[0].score+24*s))candidates=nearbyPoles;
-      const candidate=candidates[0];if(!candidate)continue;
-      const {slot,side,handY,groundX,crouch,style}=candidate,index=available.indexOf(slot);if(index>=0)available.splice(index,1);
-      const handX=slot.x+(slot.axis==='vertical'?side*1.5:0);
-      const hands=slot.axis==='vertical'?[{x:handX,y:handY-style.gap*s},{x:handX,y:handY+style.gap*s}]:[{x:handX-3*s,y:handY},{x:handX+3*s,y:handY}];
-      if(slot.axis==='vertical'){const key=surface(slot);occupied.set(key,[...(occupied.get(key)||[]),{handY,style:style.name}]);}
-      grips.set(person.id,{handX,handY,hands,side,groundX,groundY:person.y,crouch,type:slot.type,
-        support:{...slot},style:style.name,shoulderReach:style.reach,shoulderLift:style.lift,
-        angle:-side*(style.angle+(hash(person.id+'tilt')-.5)*.16),phase:hash(person.id+'swing')*TAU});
+    const grips=new Map();
+    for(const person of this.students.filter(p=>!p.removed)){
+      const s=person.scale,side=person.x<640?1:-1;
+      const handX=person.x,handY=person.y-48*s;
+      const hands=[{x:handX-3*s,y:handY},{x:handX+3*s,y:handY}];
+      grips.set(person.id,{handX,handY,hands,side,groundX:person.x,groundY:person.y,crouch:0,
+        type:'ground',support:{axis:'vertical',x:person.x,top:person.y-100,bottom:person.y,side},
+        style:'brace',shoulderReach:0,shoulderLift:0,angle:0,phase:hash(person.id+'swing')*TAU});
     }
     return grips;
   }
@@ -932,16 +886,14 @@ export class UFOScene {
     // Reaction choices use only the visible pupil's ID, never the draw result.
     return new Map(this.students.filter(person=>!person.removed).map(person=>{
       const recoveryPose=person.recovery?this._recoveryPose(person):null;
-      const random=key=>hash(`${person.id}:warning:${key}`),distance=(28+random('distance')*17)*person.scale;
-      let direction=random('direction')<.5?-1:1;
-      if(person.x+direction*distance<this.view.left+42||person.x+direction*distance>this.view.right-42)direction=-direction;
+      const random=key=>hash(`${person.id}:warning:${key}`);
       return [person.id,{originX:person.x,lastX:person.x,y:person.y,scale:person.scale,
-        facing:person.facing??person.direction,initialStride:person.stepPose?.stride||0,
-        initialAngle:person.walking?(person.facing??person.direction)*.055:0,
-        initialYaw:(person.facing??person.direction)*(person.walking?.94:person.chatting?.68:.5),
-        delay:.15+random('delay')*.30,direction,distance,backstep:(5+random('backstep')*3)*person.scale,
-        moveDelay:random('move-delay')*.75,moveDuration:.8+random('move-duration')*.8,
-        backDelay:random('back-delay')*.55,backDuration:.8+random('back-duration')*.4,
+        facing:person.facing??person.direction,initialStride:0,
+        initialAngle:0,
+        initialYaw:(person.facing??person.direction)*.5,
+        delay:.1+random('delay')*.2,direction:0,distance:0,backstep:0,
+        moveDelay:0,moveDuration:1,
+        backDelay:0,backDuration:1,
         style:['ears','head','gesture'][Math.floor(random('style')*3)],phase:random('phase')*TAU,
         seat:this.run.waitingSeats.get(person.id),floor:person.recovery,
         floorPose:person.recovery?recoveryPose:null,floorProgress:recoveryPose?.recoveryProgress||0,
@@ -951,65 +903,47 @@ export class UFOScene {
   }
 
   _rebaseWarningActors() {
-    for(const person of this.students){const actor=this.run.warningActors.get(person.id);if(!actor)continue;
-      const ratio=person.scale/actor.scale;actor.distance*=ratio;actor.backstep*=ratio;
-      actor.originX+=person.x-actor.lastX;actor.lastX=person.x;actor.y=person.y;actor.scale=person.scale;actor.wasReduced=true;
+    for(const person of this.students){const actor=this.run.warningActors?.get(person.id);if(!actor)continue;
+      actor.distance=0;actor.backstep=0;
+      actor.originX=person.x;actor.lastX=person.x;actor.y=person.y;actor.scale=person.scale;actor.wasReduced=true;
       actor.seat=null;actor.floor=null;actor.floorPose=null;person.recovery=null;this.run.waitingSeats.delete(person.id);
     }
   }
 
   _updateWarningReactions() {
     const run=this.run,age=this._reactionAge()/1000;
-    if(run.choreographyVersion===2&&run.reactionsDone)return;
-    for(const person of this.students){const actor=run.warningActors.get(person.id);if(!actor||person.removed)continue;
-      const local=Math.max(0,age-actor.delay),dt=Math.max(0,age-actor.lastAge);
+    for(const person of this.students){const actor=run.warningActors?.get(person.id);if(!actor||person.removed)continue;
+      const local=Math.max(0,age-actor.delay);
       if(actor.floor){
         const progress=mix(actor.floorProgress,1,smooth((local-.45)/1.3));
         actor.floorPose=this._recoveryPose(person,progress);
         if(!person.recovery){actor.floor=null;actor.floorPose=null;actor.originX=person.x;actor.lastX=person.x;}
       }
-      const modern=run.choreographyVersion===2;
-      const out=clamp((local-(modern?1.5:2)-actor.moveDelay*(modern?.5:1))/(actor.moveDuration*(modern?.7:1)));
-      const back=clamp((local-(modern?3.4:5)-actor.backDelay*(modern?.4:1))/(actor.backDuration*(modern?.6:1)));
-      // Short bursts, then a backward checking step. A motion preference change
-      // freezes the current location instead of snapping back to the origin.
-      const planned=actor.distance*smooth(out)-actor.backstep*smooth(back);
-      if(actor.wasReduced&&!this.reduced)actor.travelOffset=actor.travel-planned;
-      const travel=this.reduced?actor.travel:clamp(planned+actor.travelOffset,0,actor.distance);
-      const x=clamp(actor.originX+actor.direction*travel,this.view.left+42,this.view.right-42),from=person.x;
-      const moving=Math.abs(x-from)>.0001,walking=moving&&!this.reduced;
-      actor.sprint=this.reduced?0:smooth(out/.12)*(1-smooth((out-.72)/.28))*(1-smooth(back/.15));
-      if(!actor.floor&&local>0&&dt>0){
-        const steps=Math.max(1,Math.ceil(Math.abs(x-from)/(person.scale*.8))),direction=Math.sign(x-from)||actor.direction;
-        for(let i=1;i<=steps;i++){person.x=mix(from,x,i/steps);person.stepPose=updateFootPlants(person,Math.min(.08,dt/steps),{walking,direction,running:actor.sprint});}
-      }
-      person.chatting=false;person.chatUntil=0;person.walking=walking;
-      actor.travel=travel;actor.lastX=person.x;actor.lastAge=age;actor.wasReduced=this.reduced;
-      // Seated pupils stand slowly on the alarm; the later UFO approach must
-      // not replay the old sit-to-stand animation.
+      person.x=actor.originX;
+      person.chatting=false;person.chatUntil=0;person.walking=false;
+      actor.sprint=0;actor.travel=0;actor.lastX=person.x;actor.lastAge=age;actor.wasReduced=this.reduced;
+      person.stepPose=resetFootPlants(person);
       if(actor.seat&&local>=2)this.run.waitingSeats.delete(person.id);
       const pose=this._warningPose(person);
-      person.facing=pose.facing;person.direction=Math.sign(pose.facing)||actor.direction;
+      if(pose){person.facing=pose.facing;person.direction=Math.sign(pose.facing)||person.direction;}
     }
-    if(run.choreographyVersion===2&&age>=6)run.reactionsDone=true;
   }
 
   _warningPose(person) {
     const run=this.run,actor=run?.warningActors?.get(person.id);if(!actor)return null;
-    const age=this._reactionAge()/1000,local=Math.max(0,age-actor.delay),s=person.scale,modern=run.choreographyVersion===2;
-    const handoff=Math.min(1200,run.duration*UFO_TIMING.approachStart*.7);
-    const blend=modern?1-smooth((age-4)/2):run.warningActive?1:1-smooth(run.elapsed/handoff);
-    const react=smooth(local/.22),startle=this.reduced?.16*react:react*(1-smooth((local-.65)/1.1));
-    const settle=smooth((local-(modern?3.4:6.6))/(modern?.6:.8)),alert=smooth((local-1.25)/.55),pulse=this.reduced?0:Math.sin(local*2.4+actor.phase);
-    const turn=this.reduced?actor.facing:mix(actor.facing,Math.sin(local*4.1+actor.phase),smooth(local/.3)*(1-smooth((local-1.15)/.65)));
-    const moveFacing=mix(turn,actor.direction,smooth((local-1.5)/.6));
-    const skyFacing=person.x<640?1:-1,facing=mix(moveFacing,skyFacing,settle*.88);
-    const angle=mix(actor.initialAngle*(1-react),actor.direction*actor.sprint*.20+(this.reduced?0:(.025*pulse-.045*settle)),react)*blend;
+    const age=this._reactionAge()/1000,local=Math.max(0,age-actor.delay),s=person.scale;
+    const react=smooth(local/.18);
+    const startle=this.reduced?.16*react:react*(1-smooth((local-.65)/1.1));
+    const settle=smooth((local-1.8)/.6);
+    const alert=smooth((local-.6)/.4);
+    const pulse=this.reduced?0:Math.sin(local*3.2+actor.phase);
+    const skyFacing=person.x<640?1:-1,facing=skyFacing;
+    const angle=this.reduced?0:(.02*pulse-.035*settle);
     const flightGaze=this._arrivalGaze(run.progress);
-    const step=person.stepPose||resetFootPlants(person),yaw=mix(mix(actor.initialYaw,facing*.7,react),flightGaze>.2?skyFacing*.7:facing*.7,1-blend);
-    const crouch=this.reduced?0:(startle*3+settle*(3.8+pulse*.55))*s*blend;
-    const base={x:person.x,y:person.y+groundedBodyOffset(person,step.feet,{angle,facing,turn:Math.abs(yaw)})+crouch,
-      angle,scale:s,facing,yaw,walk:mix(actor.initialStride,step.stride,react),feet:step.feet,kick:0,grip:null,reach:0,
+    const step=resetFootPlants(person),yaw=skyFacing*.7;
+    const crouch=this.reduced?0:(startle*2.5+settle*(3.2+pulse*.5))*s;
+    const base={x:actor.originX,y:person.y+groundedBodyOffset(person,step.feet,{angle,facing,turn:Math.abs(yaw)})+crouch,
+      angle,scale:s,facing,yaw,walk:0,feet:step.feet,kick:0,grip:null,reach:0,
       shadow:1,labelOpacity:1,captureOpacity:1,groundY:person.y};
     if(actor.seat&&local<2){
       const standing=clamp((local-.7)/1.3),seatPose=this._waitingPose(person,actor.seat,actor.seat.standAt+actor.seat.standDuration*standing);
@@ -1017,15 +951,14 @@ export class UFOScene {
       base.benchBlend*=1-startle;
     }
     if(actor.floorPose){Object.assign(base,actor.floorPose,{y:actor.floorPose.y+crouch,angle:actor.floorPose.angle+angle});base.brace*=1-startle;}
-    // Keep the same hand identity as a pupil turns through a front-facing pose.
-    // A binary mirror here moved the gesture palm across the torso in one frame.
-    const side=modern?clamp(facing,-1,1):facing<0?-1:1;
-    const hands=actor.style==='ears'?[{x:side*7,y:-69},{x:-side*7,y:-69}]:actor.style==='head'?[{x:side*4,y:-78},{x:-side*4,y:-78}]:[{x:-side*2,y:-49},{x:side*(22+pulse*2),y:-54-settle*14}];
-    return {...base,startle:startle*blend,sprint:actor.sprint*blend,
-      fear:(this.reduced?.12:.30+settle*.28)*react*blend,lookUp:(this.reduced?.16:.15*alert+.58*settle)*blend,
-      alarmHands:hands,alarmBlend:alert*(this.reduced?.18:.86)*(1-actor.sprint*.65)*blend,
-      alarmStyle:actor.style,alarmStage:age<2?'startle':age<(modern?4:7)?'move':'settle',alarmDelay:actor.delay,
-      reactionTime:age,alarmTremble:!this.reduced&&settle>0&&blend>0,
+    const side=clamp(facing,-1,1);
+    const hands=actor.style==='ears'?[{x:side*7,y:-69},{x:-side*7,y:-69}]:actor.style==='head'?[{x:side*4,y:-78},{x:-side*4,y:-78}]:[{x:-side*2,y:-49},{x:side*(18+pulse*2),y:-52-settle*10}];
+    return {...base,startle,sprint:0,
+      fear:Math.min(1,(this.reduced?.5:.8+settle*.2)*Math.max(.85,react)),
+      lookUp:Math.min(1,(this.reduced?.45:.5*alert+.5*settle+.3*flightGaze)),
+      alarmHands:hands,alarmBlend:Math.max(.85,alert*react),
+      alarmStyle:actor.style,alarmStage:age<2?'startle':'settle',alarmDelay:actor.delay,
+      reactionTime:age,alarmTremble:!this.reduced&&react>.05,
     };
   }
 
@@ -1064,82 +997,106 @@ export class UFOScene {
   _bodyPose(person, grip, p, isTarget, lift, localPhase, portal) {
     const run=this.run,s=person.scale,t=this.time;
     if(!run&&this.welcomes?.has(person.id))return this._welcomePose(person,this.welcomes.get(person.id));
-    if(run?.warningActors?.has(person.id)&&(run.choreographyVersion===2?run.progress<INTRO_END:run.warningActive||run.elapsed<Math.min(1200,run.duration*UFO_TIMING.approachStart*.7)))return this._warningPose(person);
     if(!run&&person.recovery)return this._recoveryPose(person);
     if(!run&&person.waitingSeat&&!person.walking)return this._waitingPose(person,person.waitingSeat);
     const waitingSeat=run?.waitingSeats?.get(person.id);
     if(waitingSeat&&p<.045)return this._waitingPose(person,waitingSeat,p);
-    if(!run||!grip){const step=person.stepPose||resetFootPlants(person),facing=person.facing??person.direction;
+
+    if(!run){
+      const step=person.stepPose||resetFootPlants(person),facing=person.facing??person.direction;
       const angle=person.walking?facing*.055:0,turn=Math.abs(facing)*(person.walking?.94:person.chatting?.68:.50);
       return {x:person.x,y:person.y+groundedBodyOffset(person,step.feet,{angle,facing,turn}),angle,scale:s,facing,
-        walk:step.stride,feet:step.feet,kick:0,shadow:1,labelOpacity:1,captureOpacity:1};}
-    const nearMiss=this._nearMissPlan(person,grip);
-    // A completed rescue is a new persistent physical contact. Capture and the
-    // later fall both inherit it, even when a follower missed the whole episode.
-    if(nearMiss&&p>=nearMiss.end)grip=nearMiss.to;
-    // The light lands first. A short hands-up flinch precedes a real sprint;
-    // nearby pupils arrive quickly rather than strolling for a fixed two seconds.
-    const alarmAge=p-UFO_TIMING.approachStart,distance=Math.abs(grip.groundX-person.x)/s;
-    const launchDelay=.023+person.seed*.003;
-    const sprintDuration=clamp((.25+distance/230)/24,.020,UFO_TIMING.approachDuration-launchDelay-.003);
-    const sprintProgress=clamp((alarmAge-launchDelay)/sprintDuration),approach=smooth(sprintProgress);
-    const startle=this.reduced?0:smooth(alarmAge/.006)*(1-smooth((alarmAge-launchDelay+.002)/.010));
-    const sprint=this.reduced?0:smooth(sprintProgress/.13)*(1-smooth((sprintProgress-.72)/.28))*smooth(distance/12);
-    const braking=this.reduced?0:smooth((sprintProgress-.64)/.18)*(1-smooth((sprintProgress-.87)/.13));
-    const fear=smooth(alarmAge/.006),reach=smooth((approach-.62)/.38);
-    const rise=smooth((p-UFO_TIMING.riseStart-person.seed*.016)/UFO_TIMING.riseDuration),land=0;
-    const groundX=mix(person.x,grip.groundX,approach);
-    run.walkers??=new Map();run.releases??=new Map();
-    let walker=run.walkers.get(person.id);
-    if(!walker){walker={x:person.x,y:person.y,scale:s,direction:Math.sign(grip.groundX-person.x)||person.direction};
-      if(person.gait)walker.gait=structuredClone(person.gait);else resetFootPlants(walker);run.walkers.set(person.id,walker);}
-    const moving=Math.abs(groundX-walker.x)>.001,fromX=walker.x;
-    walker.direction=Math.sign(grip.groundX-person.x)||person.direction;walker.y=person.y;
-    // Substeps preserve each landing even when the user runs the scene at ×3.
-    const steps=Math.max(1,Math.ceil(Math.abs(groundX-fromX)/(s*.9)));let step;
-    for(let i=1;i<=steps;i++){walker.x=mix(fromX,groundX,i/steps);step=updateFootPlants(walker,(this.delta||1/60)*this.speed/steps,{walking:moving,direction:walker.direction,running:sprint});}
-    const walkingFacing=mix(person.facing??person.direction,walker.direction,smooth((alarmAge-launchDelay+.008)/.012));
-    const facing=mix(walkingFacing,-grip.side,smooth((approach-.80)/.20));
-    const gaze=this._arrivalGaze(p);
-    const groundTilt=walker.direction*(sprint*.29-startle*.085-braking*.09)*(1-reach);
-    const groundY=person.y+groundedBodyOffset(walker,step.feet,{angle:groundTilt,facing,turn:gaze>.2?.7:Math.abs(facing)*.7})*(1-reach)+(grip.crouch||0)*reach+(startle*6+sprint*2+braking*4)*s*(1-reach);
-    // Reference 13–20s: the beam pulls the hips and shoes upward while the hands
-    // remain on the prop. Each tug extends the arms above the fixed palms; the
-    // softer return lets the elbows fold before the next upward pull. Moving
-    // only sideways reads as swinging, so the shoulder's vertical travel leads.
-    const struggleAge=Math.max(0,(p-UFO_TIMING.riseStart-person.seed*.016)*(run.duration||24000)+(run.suspenseElapsed||0)+(run.scanHoldElapsed||0))/1000;
+        walk:step.stride,feet:step.feet,kick:0,shadow:1,labelOpacity:1,captureOpacity:1,groundY:person.y};
+    }
+
+    // Phase 1 (Warning/Siren & initial arrival before suction):
+    // Students remain immobilized at their spots, trembling and looking up in terror (no running to sides).
+    if(p<UFO_TIMING.riseStart){
+      const warnPose=this._warningPose(person);
+      if(warnPose)return warnPose;
+      const step=person.stepPose||resetFootPlants(person),facing=person.facing??(person.x<640?1:-1);
+      return {x:person.x,y:person.y+groundedBodyOffset(person,step.feet,{angle:0,facing,turn:0.5}),angle:0,scale:s,facing,
+        walk:0,feet:step.feet,kick:0,shadow:1,labelOpacity:1,captureOpacity:1,groundY:person.y,fear:1,lookUp:1,startle:1};
+    }
+
+    // Phase 2 (Tractor beam & anti-gravity suction - "bay kiểu môi trường không trọng lực chậm thôi quay vòng"):
+    const rise=smooth((p-UFO_TIMING.riseStart-person.seed*.016)/UFO_TIMING.riseDuration);
+    const step=resetFootPlants(person);
+    const facing=person.facing??(person.x<640?1:-1);
+    const originX=person.x,groundY=person.y;
+
+    const struggleAge=Math.max(0,(p-UFO_TIMING.riseStart-person.seed*.016)*((run?.duration)||24000)+(run?.suspenseElapsed||0)+(run?.scanHoldElapsed||0))/1000;
     const effortCycle=(struggleAge/(1.12+person.seed*.28)+person.seed*.65)%1;
     const effortPulse=smooth(effortCycle/.24)*(1-smooth((effortCycle-.34)/.56));
     const strain=this.reduced?0:effortPulse*smooth((rise-.08)/.30);
-    const pullEnvelope=this.reduced?0:smooth((rise-.18)/.44),suction=effortPulse*pullEnvelope,recoil=pullEnvelope-suction;
-    const oscillation=this.reduced?0:Math.sin(t*1.9+grip.phase)*.035;
-    const upwardTilt=-grip.side*suction*.22;
-    const angle=mix(groundTilt,grip.angle+oscillation+upwardTilt,rise*(1-land));
-    // This arc stays within both arms' actual 16 + 15 unit reach. Pulling the
-    // shoulder inward as it rises preserves the anchors without stretching bones.
-    const shoulderReach=(grip.shoulderReach??16.7)-recoil*5-suction*7,shoulderLift=(grip.shoulderLift??12.1)-recoil*4+suction*9;
-    const shoulderX=mix(groundX+SHOULDER_H*s*Math.sin(groundTilt),grip.handX+grip.side*shoulderReach*s,rise*(1-land));
-    const shoulderY=mix(groundY-SHOULDER_H*s*Math.cos(groundTilt),grip.handY-shoulderLift*s,rise*(1-land));
-    let x=shoulderX-SHOULDER_H*s*Math.sin(angle),y=shoulderY+SHOULDER_H*s*Math.cos(angle),bodyAngle=angle,scale=s;
-    let hands=reach>0&&p<CAPTURE_END?grip:null;
-    let kick=smooth((rise-.025)/.52)*(1-land),labelOpacity=1,release=null;
-    const legLift=[smooth((rise-.025)/.44),smooth((rise-.10)/.44)];
-    if(p>=CAPTURE_END&&!isTarget)return this._fallPose(person,grip,p,{x,y,angle,scale:s,facing,walk:step.stride,feet:step.feet,kick:1,strain,holdStyle:grip.style,holdBlend:1,grip,reach:1,shadow:0,labelOpacity:1,groundY:person.y});
+    const pullEnvelope=this.reduced?0:smooth((rise-.18)/.44),suction=effortPulse*pullEnvelope;
+
+    // Slow zero-gravity tumbling and graceful weightless drifting
+    const smoothRise=smooth(rise);
+    const spinRate=(0.32+(person.seed%0.35)*0.35)*(person.seed>0.5?1:-1);
+    const zeroGTumble=(t*spinRate+person.seed*TAU);
+    let bodyAngle=this.reduced?0:mix(0,zeroGTumble,smoothRise)+Math.sin(t*0.9+person.seed*3)*0.12*smoothRise;
+
+    const floatHeight=(80+person.seed*55)*smoothRise*s;
+    const floatOscillation=Math.sin(t*1.15+person.seed*TAU)*(14+person.seed*8)*smoothRise*s;
+    const floatSway=Math.cos(t*0.85+person.seed*TAU)*(18+person.seed*12)*smoothRise*s;
+
+    let x=originX+floatSway;
+    let y=groundY-floatHeight+floatOscillation;
+    let kick=this.reduced?0:Math.sin(t*1.2+person.seed*TAU)*0.12*smoothRise;
+    let scale=s,labelOpacity=1,captureOpacity=1,release=null;
+    const airborne=rise>0.03;
+    const legLift=[0.24+Math.sin(t*0.9+person.seed)*0.1,0.28+Math.cos(t*0.9+person.seed)*0.1];
+
+    // Target student gets pulled up into the UFO hatch
     if(isTarget&&localPhase>=.2){
-      if(!run.releases.has(person.id))run.releases.set(person.id,{x,y,angle,scale:s,hands:grip.hands.map(h=>({...h}))});
-      release=run.releases.get(person.id);hands=null;
-      // Keep the passenger readable through the ascent. The hatch's occlusion,
-      // rather than shrinking the body to a speck, completes the boarding.
+      if(!run.releases.has(person.id)){
+        const defHands = [
+          { x: x - 12 * s, y: y - 48 * s },
+          { x: x + 12 * s, y: y - 48 * s }
+        ];
+        run.releases.set(person.id, { x, y, angle: bodyAngle, scale: s, hands: defHands });
+      }
+      release=run.releases.get(person.id);
       scale=s*mix(1,.82,smooth((lift-.55)/.45));
       x=mix(release.x,portal.x,smooth(lift/.60));
-      // Send even the soles above the far edge before the capture is removed.
-      y=mix(release.y,portal.y-(HATCH.ry+1)*portal.size-8*scale,lift);
-      bodyAngle=mix(release.angle,0,smooth(lift/.42));
-      kick=mix(1,.05,smooth(lift/.68));labelOpacity=1-smooth((lift-.48)/.18);
+      y=mix(release.y,portal.y-(HATCH.ry+1)*portal.size-8*scale,smooth(lift));
+      bodyAngle=mix(release.angle,0,smooth(lift/.68));
+      kick=mix(.08,.01,smooth(lift/.68));
+      labelOpacity=1-smooth((lift-.48)/.18);
+      captureOpacity=1-smooth((lift-.90)/.10);
     }
-    const pose={x,y,angle:bodyAngle,scale,facing,walk:step.stride,feet:release?null:step.feet,airborne:!!release,kick,legLift:release?null:legLift,strain:strain*(1-smooth(lift/.35)),suction:suction*(1-smooth(lift/.35)),holdStyle:grip.style,holdBlend:1-smooth(lift/.24),rise,grip:hands,reach,startle,sprint,braking,fear,
-      shadow:(1-rise)*(1-land)+land,labelOpacity,captureOpacity:release?1-smooth((lift-.90)/.10):1,release,releaseBlend:smooth(lift/.24),groundY:person.y};
-    return nearMiss&&!release?this._nearMissPose(person,pose,nearMiss,p):pose;
+
+    const pose={
+      x, y, angle: bodyAngle, scale, facing,
+      walk: 0, feet: airborne?null:step.feet, airborne,
+      kick, legLift: airborne?legLift:null,
+      strain: strain*(1-smooth(lift/.35)),
+      suction: suction*(1-smooth(lift/.35)),
+      holdStyle: 'brace', holdBlend: 0,
+      rise, grip: null, reach: 0,
+      startle: 1, sprint: 0, braking: 0,
+      fear: Math.min(1,.75+rise*.25), lookUp: 1, alarmTremble: !this.reduced,
+      shadow: Math.max(0,1-rise*.92),
+      labelOpacity, captureOpacity,
+      release, releaseBlend: smooth(lift/.24),
+      groundY
+    };
+
+    // When abduction is complete, non-target students drop out of the sky back to the ground!
+    if(p>=CAPTURE_END&&!isTarget){
+      const safeGrip = (grip && grip.hands && grip.hands.length >= 2) ? grip : {
+        side: facing < 0 ? -1 : 1,
+        groundX: originX,
+        hands: [
+          { x: originX - 12 * s, y: groundY - 48 * s },
+          { x: originX + 12 * s, y: groundY - 48 * s }
+        ]
+      };
+      return this._fallPose(person, safeGrip, p, pose);
+    }
+
+    return pose;
   }
 
   _seatedPose(person,fall,compression=0) {
@@ -1154,10 +1111,21 @@ export class UFOScene {
     let fall=run.falls.get(person.id);
     if(!fall){
       const facing=-grip.side,seatX=grip.groundX+grip.side*8*s,groundY=person.y;
+      const releaseHands = (grip && grip.hands && grip.hands.length >= 2)
+        ? grip.hands.map(hand => ({ ...hand }))
+        : [
+            { x: seatX - facing * 15 * s, y: groundY - 48 * s },
+            { x: seatX + facing * 11 * s, y: groundY - 48 * s }
+          ];
+      let startAngle = hanging.angle || 0;
+      const targetAngle = -facing * 0.22;
+      while (startAngle - targetAngle > Math.PI) startAngle -= TAU;
+      while (startAngle - targetAngle < -Math.PI) startAngle += TAU;
       fall={facing,seatX,groundY,dropAt:CAPTURE_END+person.seed*.0025,dropDuration:.017+person.seed*.002,
-        start:hanging,startHip:{x:hanging.x+HIP_H*s*Math.sin(hanging.angle),y:hanging.y-HIP_H*s*Math.cos(hanging.angle)},
+        start:{...hanging, angle: startAngle},startHip:{x:hanging.x+HIP_H*s*Math.sin(startAngle),y:hanging.y-HIP_H*s*Math.cos(startAngle)},
         feet:[{x:seatX+facing*(23+person.seed*3)*s,y:groundY-2.2*s,planted:true,phase:0},{x:seatX+facing*(34-person.seed*2)*s,y:groundY-2.2*s,planted:true,phase:0}],
-        hands:[{x:seatX-facing*15*s,y:groundY-2.2*s},{x:seatX+facing*11*s,y:groundY-2.2*s}],releaseHands:grip.hands.map(hand=>({...hand}))};
+        hands:[{x:seatX-facing*15*s,y:groundY-2.2*s},{x:seatX+facing*11*s,y:groundY-2.2*s}],
+        releaseHands};
       run.falls.set(person.id,fall);
     }
     const q=clamp((p-fall.dropAt)/fall.dropDuration);
@@ -1169,7 +1137,10 @@ export class UFOScene {
     const hip={x:mix(fall.startHip.x,fall.seatX,smooth(q)),y:mix(fall.startHip.y,fall.groundY-5.5*s,q*q)};
     return {...seated,x:hip.x-HIP_H*s*Math.sin(angle),y:hip.y+HIP_H*s*Math.cos(angle),angle,hip,
       kick:1-smooth((q-.38)/.6),holdStyle:fall.start.holdStyle,holdBlend:1-smooth(q/.38),strain:(fall.start.strain||0)*(1-smooth(q/.45)),shadow:smooth(q),groundedFall:q>.8,fallStage:'dropping',fallProgress:q,
-      fallHands:fall.hands.map((hand,index)=>({x:mix(fall.releaseHands[index].x,hand.x,smooth(q/.84)),y:mix(fall.releaseHands[index].y,hand.y,smooth(q/.84))}))};
+      fallHands:fall.hands.map((hand,index)=>{
+        const rel = (fall.releaseHands && fall.releaseHands[index]) ? fall.releaseHands[index] : hand;
+        return {x:mix(rel.x,hand.x,smooth(q/.84)),y:mix(rel.y,hand.y,smooth(q/.84))};
+      })};
   }
 
   _recoveryPose(person,progress=null) {
@@ -1419,24 +1390,57 @@ export class UFOScene {
   _draw() {
     const c=this.ctx,v=this.view;
     this.flightDialogueVisible=new Set();this.vendorDialogueVisible=new Set();this.idleDialogueVisible=new Set();
-    c.setTransform(this.dpr,0,0,this.dpr,0,0);c.fillStyle='#ace2f0';c.fillRect(0,0,this.width,this.height);c.scale(v.scale,v.scale);c.translate(-v.left,-v.top);
-    drawSky(c,this.time,this.view,this.reduced);c.drawImage(this.background,0,0);
-    drawEnvironmentMotion(c,this.environment.theme,this.time,this.reduced,v);
+
     const run=this.run,p=run?.progress||0,t=this.time,warning=this.warningEffects();
-    this._roadAndPavement(c);
-    const props=this._props(),depthJobs=this._depthObjects(props,run?.trafficTime??t);
     const shipProgress=this._shipProgress(p),ship=this._shipPose(shipProgress,t,v),lighting=this._lightingState(p,ship,v),darkness=lighting.darkness;
     this.lighting=lighting;
-    if(darkness){c.fillStyle=`rgba(10,30,54,${darkness})`;c.fillRect(v.left,v.top,v.width,v.height);this._nightLights(c,darkness);}
-    // Sparse birds make the idle scene gently alive.
-    c.strokeStyle=darkness>.3?'#deecc5':'#5c8d86';c.lineWidth=2;
-    for(let i=0;i<3;i++){const bx=(940+t*(this.reduced?0:6)+i*31)%1390-50,by=188+i%2*13;c.beginPath();c.moveTo(bx-7,by);c.quadraticCurveTo(bx-3,by-5-Math.sin(t*2+i)*2,bx,by);c.quadraticCurveTo(bx+3,by-5-Math.sin(t*2+i)*2,bx+7,by);c.stroke();}
 
     const {x:ux,y:uy,size:shipScale,angle:shipAngle}=ship;
     const portal=this._portal(ux,uy,shipScale,t,shipAngle);
     const beamShape=this._beamShape(p,portal),charge=run?beamShape.alpha:0;
     const {target,revealedTarget,lift,active,localPhase}=this._captureState();
     const beam=charge;
+
+    // Cinematic smooth camera zoom along the UFO tractor beam during capture
+    let zoom=1,camX=W/2,camY=H/2;
+    if(run&&!this.reduced&&p>=CAPTURE_START-.055&&p<CAPTURE_END+.075){
+      let zProg=0;
+      if(p<CAPTURE_START){
+        zProg=smooth((p-(CAPTURE_START-.055))/.055);
+      }else if(p<=CAPTURE_END){
+        zProg=1;
+      }else{
+        zProg=1-smooth((p-CAPTURE_END)/.075);
+      }
+      zoom=1+.18*zProg;
+      const targetPupil=target||(run.selected&&run.selected[0]);
+      const personX=targetPupil?.x??portal.x;
+      const groundY=targetPupil?.y??580;
+      const personY=lift>0?mix(groundY,portal.y+20,smooth(lift*.8)):groundY;
+      const focusX=mix(personX,portal.x,smooth(lift*.7));
+      const focusY=mix(personY,portal.y+38,.46);
+      camX=mix(W/2,focusX,zProg);
+      camY=mix(H/2,focusY,zProg);
+    }
+
+    c.setTransform(this.dpr,0,0,this.dpr,0,0);c.fillStyle='#ace2f0';c.fillRect(0,0,this.width,this.height);c.scale(v.scale,v.scale);c.translate(-v.left,-v.top);
+
+    const hasZoom=zoom>1.001;
+    if(hasZoom){
+      c.save();
+      c.translate(camX,camY);
+      c.scale(zoom,zoom);
+      c.translate(-camX,-camY);
+    }
+
+    drawSky(c,this.time,this.view,this.reduced);c.drawImage(this.background,0,0);
+    drawEnvironmentMotion(c,this.environment.theme,this.time,this.reduced,v);
+    this._roadAndPavement(c);
+    const props=this._props(),depthJobs=this._depthObjects(props,run?.trafficTime??t);
+    if(darkness){c.fillStyle=`rgba(10,30,54,${darkness})`;c.fillRect(v.left,v.top,v.width,v.height);this._nightLights(c,darkness);}
+    // Sparse birds make the idle scene gently alive.
+    c.strokeStyle=darkness>.3?'#deecc5':'#5c8d86';c.lineWidth=2;
+    for(let i=0;i<3;i++){const bx=(940+t*(this.reduced?0:6)+i*31)%1390-50,by=188+i%2*13;c.beginPath();c.moveTo(bx-7,by);c.quadraticCurveTo(bx-3,by-5-Math.sin(t*2+i)*2,bx,by);c.quadraticCurveTo(bx+3,by-5-Math.sin(t*2+i)*2,bx+7,by);c.stroke();}
     if(run){
       let phase;
       if(p<(run.choreographyVersion===2?ARRIVAL_END:.14)){phase=translate('Tàu UFO đang đến…');}
@@ -1562,6 +1566,7 @@ export class UFOScene {
       else if(p>=.953&&p<1){ufoEffect='departure';effectProgress=(p-.953)/.047;effectDuration=.047*run.duration/1000;}
       try { run.onEffects({...warning,ufoEffect,effectProgress,effectDuration,...this._lightEffects(p),suspenseEffect:suspenseCue?.effect||null,suspenseProgress:suspenseCue?.effect?suspenseCue.progress:0,suspenseDuration:suspenseCue?.effect?suspenseCue.duration:0,targetId:target&&target===revealedTarget?String(target.id):null,speed:run.choreographyVersion===2&&p<INTRO_END?1:this.speed}); } catch (_) { /* Audio/UI callbacks cannot interrupt the scene. */ }
     }
+    if(hasZoom)c.restore();
   }
 
   _nightLights(c,darkness) {
@@ -1741,7 +1746,7 @@ export class UFOScene {
     const local=point=>{const dx=(point.x-x)/s,dy=(point.y-y)/s;return {x:dx*Math.cos(tilt)+dy*Math.sin(tilt),y:-dx*Math.sin(tilt)+dy*Math.cos(tilt)};};
     if((motion.shadow??(!selected&&!grip?1:0))>.01){c.save();c.globalAlpha*=motion.shadow??1;ellipse(c,x,motion.groundY??p.y,12*s,3.2*s,'#273e3227');c.restore();}
     c.save();c.translate(x,y);c.scale(s,s);c.rotate(tilt);
-    const hanging=selected||!!grip||!!motion.nearMissHanging,stride=walk;
+    const hanging=selected||!!grip||!!motion.nearMissHanging||!!motion.airborne,stride=walk;
     const legs=[{hip:farHip,shade:true,index:0},{hip:nearHip,shade:false,index:1}];
     const drawLeg=leg=>{
       const hip={x:leg.hip,y:hipY};
@@ -1790,11 +1795,11 @@ export class UFOScene {
       if(grip){const anchor=local(grip.hands[isNear?1:0]);end={x:mix(end.x,anchor.x,motion.reach??1),y:mix(end.y,anchor.y,motion.reach??1)};}
       else if(motion.benchHands){const anchor=local(motion.benchHands[isNear?1:0]),blend=motion.benchBlend??1;end={x:mix(end.x,anchor.x,blend),y:mix(end.y,anchor.y,blend)};}
       else if(motion.fallHands){const anchor=local(motion.fallHands[isNear?1:0]),brace=motion.brace??1;end={x:mix(end.x,anchor.x,brace),y:mix(end.y,anchor.y,brace)};}
-      else if(motion.release){const r=motion.release,h=r.hands[isNear?1:0],dx=(h.x-r.x)/r.scale,dy=(h.y-r.y)/r.scale;
+      else if(motion.release && motion.release.hands && motion.release.hands[isNear?1:0]){
+        const r=motion.release,h=r.hands[isNear?1:0],dx=(h.x-r.x)/r.scale,dy=(h.y-r.y)/r.scale;
         const released={x:dx*Math.cos(r.angle)+dy*Math.sin(r.angle),y:-dx*Math.sin(r.angle)+dy*Math.cos(r.angle)};
         end={x:mix(released.x,end.x,motion.releaseBlend),y:mix(released.y,end.y,motion.releaseBlend)};}
-      if(motion.nearMissHands)end=local(motion.nearMissHands[isNear?1:0]);
-      if(motion.alarmHands){const hand=motion.alarmHands[isNear?1:0];end={x:mix(end.x,hand.x,motion.alarmBlend||0),y:mix(end.y,hand.y,motion.alarmBlend||0)};}
+      if(motion.alarmHands&&!hanging){const hand=motion.alarmHands[isNear?1:0];end={x:mix(end.x,hand.x,motion.alarmBlend||0),y:mix(end.y,hand.y,motion.alarmBlend||0)};}
       let limb=solveTwoBone(shoulder,end,16,15,grip||motion.release||motion.fallHands||hanging?(isNear?-side:side):side);
       if(motion.groundedFall&&motion.brace>.8){const other=solveTwoBone(shoulder,end,16,15,isNear?side:-side),height=point=>point.x*Math.sin(tilt)+point.y*Math.cos(tilt);if(height(other.joint)<height(limb.joint))limb=other;}
       elbowX=limb.joint.x;elbowY=limb.joint.y;handX=limb.end.x;handY=limb.end.y;

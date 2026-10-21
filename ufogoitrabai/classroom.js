@@ -8,32 +8,73 @@ export const MAX_CLASSROOMS=30;
 export const normalizeExpectedSize=value=>Number.isInteger(value)&&value>=1&&value<=120?value:null;
 const className=value=>cleanName(value).slice(0,40);
 const emptyState=()=>({students:[],history:[],called:[],absent:[],count:1,noRepeat:true,sound:true,isDemo:false});
-const isDefaultRoster=students=>students.length===28&&students.every((student,index)=>student.name===`Học sinh ${String(index+1).padStart(2,'0')}`);
-function updateDefaultRosterGenders(state){
-  if(isDefaultRoster(state.students))for(const [index,student] of state.students.entries())student.gender=[18,24].includes(index)?'male':'female';
+export const DEFAULT_STUDENTS_LIST = Object.freeze([
+  { name: 'Vương Trần Thiên Ái', gender: 'female' },
+  { name: 'Nguyễn Hải Anh', gender: 'female' },
+  { name: 'Nguyễn Phạm Minh Anh', gender: 'female' },
+  { name: 'Nguyễn Ngọc Minh Châu', gender: 'female' },
+  { name: 'Nguyễn Trần Diễm Chi', gender: 'female' },
+  { name: 'Nguyễn Khải Hoàn', gender: 'male' },
+  { name: 'A Se Kinl', gender: 'female' },
+  { name: 'Trình Nhã Kỳ', gender: 'female' },
+  { name: 'Nguyễn Ngọc Bảo Linh', gender: 'female' },
+  { name: 'Phạm Hoàng Trúc Linh', gender: 'female' },
+  { name: 'Bành Gia Mẫn', gender: 'female' },
+  { name: 'Trần Thục Bảo Nghi', gender: 'female' },
+  { name: 'Thiên Ngọc', gender: 'female' },
+  { name: 'Bùi Hoàng Nhân', gender: 'male' },
+  { name: 'Vũ Nguyễn Yến Nhi', gender: 'female' },
+  { name: 'Ngô Tâm Như', gender: 'female' },
+  { name: 'Nguyễn Ngọc Thảo Như', gender: 'female' },
+  { name: 'Bùi Nguyễn Phúc Ni', gender: 'female' },
+  { name: 'Hoàng Phúc', gender: 'male' },
+  { name: 'Lê Ngọc Thuận', gender: 'female' },
+  { name: 'Nguyễn Minh Thư', gender: 'female' },
+  { name: 'Trần Ngọc Anh Thư', gender: 'female' },
+  { name: 'Hồ Ngọc Bảo Thy', gender: 'female' },
+  { name: 'Nguyễn Ngọc Phương Trang', gender: 'female' },
+  { name: 'Nguyễn Minh Triết', gender: 'male' },
+  { name: 'Huỳnh Ngọc Thanh Vy', gender: 'female' },
+  { name: 'Lê Ngọc Tường Vy', gender: 'female' },
+  { name: 'Đặng Thanh Xuân', gender: 'female' }
+]);
+const isLegacyDefaultRoster = students => !students.length || (
+  students.length <= 28 && (
+    students.every((student, index) => student.name === `Học sinh ${String(index + 1).padStart(2, '0')}`) ||
+    students.some(student => typeof student.name === 'string' && (student.name.startsWith('Học sinh ') || student.name.startsWith('Bạn học')))
+  )
+);
+function updateDefaultRosterGenders(state) {
+  if (isLegacyDefaultRoster(state.students) || (state.isDemo && state.students.length <= 28) || !state.students.length) {
+    state.students = makeStudents(DEFAULT_STUDENTS_LIST);
+  } else if (state.students.length === 28 && state.students[0]?.name === 'Vương Trần Thiên Ái') {
+    for (const [index, student] of state.students.entries()) {
+      if (DEFAULT_STUDENTS_LIST[index]) {
+        student.name = DEFAULT_STUDENTS_LIST[index].name;
+        student.gender = DEFAULT_STUDENTS_LIST[index].gender;
+      }
+    }
+  }
 }
-const defaultState=()=>({
+const defaultState = () => ({
   ...emptyState(),
-  students:makeStudents(Array.from({length:28},(_,index)=>({
-    name:`Học sinh ${String(index+1).padStart(2,'0')}`,
-    gender:index===18||index===24?'male':'female'
-  })))
+  students: makeStudents(DEFAULT_STUDENTS_LIST)
 });
 // Only an untouched workspace created by account removal is disposable. Any
 // user edit makes it a normal guest class that must survive the next sign-in.
 export const isAccountPlaceholder=room=>typeof room.accountPlaceholder==='string'&&room.accountPlaceholder===JSON.stringify({...room,accountPlaceholder:undefined});
 export {normalizeEnvironmentTheme,sanitizeEnvironmentNames} from './classroom-environment.js';
 /** Materialize the previous global setting once, then each room keeps its own. */
-export function initializeClassroomEnvironments(collection,fallback='street',legacyNames={}){
+export function initializeClassroomEnvironments(collection,fallback='school',legacyNames={}){
   for(const room of collection.classes){
-    room.environmentTheme=normalizeEnvironmentTheme(room.environmentTheme)||normalizeEnvironmentTheme(fallback)||'street';
+    room.environmentTheme=normalizeEnvironmentTheme(room.environmentTheme)||normalizeEnvironmentTheme(fallback)||'school';
     room.environmentNames=sanitizeEnvironmentNames(room.environmentNames===undefined?legacyNames:room.environmentNames);
     const streetNames=room.environmentNames.street;
     if(streetNames?.title==='PHỐ ẨM THỰC')streetNames.title='CHỦ TỊCH HỒ CHÍ MINH';
     if(streetNames?.subtitle==='BA ĐÌNH · HÀ NỘI · 2026')streetNames.subtitle='';
-    const schoolNames=room.environmentNames.school;
-    if(schoolNames?.title==='TRƯỜNG LƯƠNG VĂN CAN')schoolNames.title='TRƯỜNG THPT LƯƠNG VĂN CAN';
-    if(schoolNames?.subtitle==='TRƯỜNG HỌC XANH · HÀ NỘI')schoolNames.subtitle='';
+    const schoolNames=room.environmentNames.school||={};
+    if(!schoolNames.title||schoolNames.title==='TRƯỜNG LƯƠNG VĂN CAN')schoolNames.title='TRƯỜNG THPT LƯƠNG VĂN CAN';
+    if(!schoolNames.subtitle||schoolNames.subtitle==='TRƯỜNG HỌC XANH · HÀ NỘI')schoolNames.subtitle='12A8';
   }
 }
 
@@ -74,9 +115,12 @@ export function restoreClassrooms(raw,legacyState){
       classes.push(classroom);ids.add(item.id);
     }
     if(classes.length){
-      if(classes.length===1){
-        const room=classes[0],state=room.state;
-        if(!room.cloud&&room.name===t('Lớp của mình')&&!state.students.length&&!state.history.length&&!state.called.length&&!state.absent.length&&state.count===1&&state.noRepeat&&!state.isDemo)Object.assign(state,defaultState());
+      for(const room of classes){
+        if(!room.cloud&&(!room.state.students||!room.state.students.length)){
+          room.state.students=makeStudents(DEFAULT_STUDENTS_LIST);
+        }else{
+          updateDefaultRosterGenders(room.state);
+        }
       }
       return {version:1,activeId:ids.has(data.activeId)?data.activeId:classes[0].id,classes};
     }
@@ -118,7 +162,7 @@ export function removeClassroom(collection,id){
   const [removed]=collection.classes.splice(index,1),activeChanged=collection.activeId===id;
   if(!collection.classes.length){
     const blank=addClassroom(collection,t('Lớp của mình'));
-    blank.environmentTheme=removed.environmentTheme||'street';
+    blank.environmentTheme=removed.environmentTheme||'school';
   }else if(activeChanged)collection.activeId=collection.classes[Math.min(index,collection.classes.length-1)].id;
   return {removed,activeChanged};
 }
@@ -163,7 +207,7 @@ export function mergeCloudClassroom(classroom,snapshot){
   const changed=JSON.stringify(classroom.state.students)!==JSON.stringify(students);
   classroom.name=className(snapshot.name)||classroom.name;classroom.cloud.revision=snapshot.revision;classroom.expectedSize=normalizeExpectedSize(snapshot.expectedSize);
   if(snapshot.environmentConfigured===true){
-    classroom.environmentTheme=normalizeEnvironmentTheme(snapshot.environmentTheme)||'street';
+    classroom.environmentTheme=normalizeEnvironmentTheme(snapshot.environmentTheme)||'school';
     classroom.environmentNames=sanitizeEnvironmentNames(snapshot.environmentNames);
   }
   classroom.state.students=students;classroom.state.isDemo=false;
